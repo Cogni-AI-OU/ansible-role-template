@@ -48,7 +48,7 @@
         command: sleep infinity
         # NixOS images require privileged mode due to their non-standard filesystem layout
         # and init expectations when run under Docker, especially in CI environments.
-        privileged: "{{ container_image is search('nixos') }}"
+        privileged: {{ container_image is search('nixos') }}
         # Relaxed seccomp/apparmor for NixOS compatibility.
         security_opts: >-
           {{ ['seccomp=unconfined', 'apparmor=unconfined']
