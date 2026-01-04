@@ -6,8 +6,8 @@ This document describes known issues and their workarounds.
 
 ### Problem
 
-NixOS Docker containers fail to start with containerd 2.2.0+ (built with Go 1.24) due to stricter
-path validation in Go's `os.DirFS`. The error manifests as:
+NixOS Docker containers fail to start with containerd 2.2.0+ (built with Go 1.24) due to
+stricter path validation in Go's `os.DirFS`. The error manifests as:
 
 ```text
 openat etc/group: path escapes from parent
@@ -29,13 +29,13 @@ NixOS images use absolute symlinks for `/etc/passwd` and `/etc/group` that point
 ```
 
 Go 1.24 introduced stricter path validation in `os.DirFS` that rejects paths escaping the root
-directory. When containerd tries to read these symlinks relative to the container's root filesystem,
-the absolute symlink targets are interpreted as escaping the parent directory.
+directory. When containerd tries to read these symlinks relative to the container's root
+filesystem, the absolute symlink targets are interpreted as escaping the parent directory.
 
 ### Workaround
 
-Convert the absolute symlinks to relative symlinks in the Dockerfile before running any commands
-that require user/group resolution:
+Convert the absolute symlinks to relative symlinks in the Dockerfile before running any
+commands that require user/group resolution:
 
 ```dockerfile
 FROM nixos/nix:latest
@@ -43,8 +43,10 @@ FROM nixos/nix:latest
 # Workaround for containerd 2.2.0+ / Go 1.24 "path escapes from parent" error.
 # Convert absolute symlinks (/nix/store/...) to relative ones.
 # See: https://github.com/containerd/containerd/issues/12683
-RUN ln --symbolic --force "$(realpath --relative-to=/etc /etc/passwd)" /etc/passwd && \
-    ln --symbolic --force "$(realpath --relative-to=/etc /etc/group)" /etc/group
+RUN ln --symbolic --force \
+      "$(realpath --relative-to=/etc /etc/passwd)" /etc/passwd && \
+    ln --symbolic --force \
+      "$(realpath --relative-to=/etc /etc/group)" /etc/group
 
 # Continue with other commands...
 RUN nix-channel --update && \
