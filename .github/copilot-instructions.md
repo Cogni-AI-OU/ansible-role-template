@@ -1,42 +1,50 @@
-# Copilot Instructions for ansible role
+# Copilot Instructions for Ansible Role
+
+You are expected to be an expert in:
+
+- Ansible
+- Python
+- Jinja2
+- Molecule
+- Linux (Alpine, Debian/Ubuntu, Nix)
+- YAML
 
 ## Project Overview
 
-TBC
+This project is a template for creating Ansible roles.
 
 ## Coding Standards
 
 ### Python
 
-- Use **Python 3.11+**.
-- Use `uv` script headers for dependency management:
-
-  ```python
-  #!/usr/bin/env -S uv run --script
-  # /// script
-  # requires-python = ">=3.11"
-  # dependencies = [
-  #     "xero-python",
-  #     "PyYAML",
-  # ]
-  # ///
-  ```
-
 - Follow **PEP 8** style guidelines.
-- Use `argparse` for CLI argument parsing.
-- Handle `BrokenPipeError` for CLI tools that might be piped to `head` or `grep`:
+- Use **Python 3.11+**.
+- Use `uv` script for dependency management when creating standalone Python scripts.
 
-  ```python
-  import signal
-  signal.signal(signal.SIGPIPE, signal.SIG_DFL)
-  ```
+### Ansible Guidelines
 
-### TBC API
-
-- Use the TBC SDK.
-- Handle API rate limits and errors gracefully.
+- Ensure idempotency in all tasks
+- Ensure indentation is correct, especially for YAML files
+- Follow standard role structure: tasks/, handlers/, templates/, defaults/, meta/
+- Use ansible-lint and write Molecule tests for verification
+- Use descriptive task names and include helpful comments
 
 ## Formatting Guidelines
+
+### General Approach
+
+- Be accurate, thorough and terse
+- Cite sources at the end, not inline
+- Provide immediate answers with clear explanations
+- Skip repetitive code in responses; use brief snippets showing only changes
+- Suggest alternative solutions beyond conventional approaches
+- Treat the user as an expert
+
+### Ansible Linting
+
+Ensure enforcing the following rules:
+
+- fqcn[keyword]: Avoid `collections` keyword by using FQCN for all plugins, modules, roles and playbooks
 
 ### Markdown
 
@@ -62,15 +70,21 @@ TBC
 
 Formatting rules are defined in `.yamllint` (YAML) and `.markdownlint.yaml` (Markdown).
 
+## Project Specifics
+
 Notes:
 
 - Project utilizes Codespaces with config at `.devcontainer/devcontainer.json` and requirements at `.devcontainer/requirements.txt`.
-- GitHub Actions run pre-commit checks (`.pre-commit-config.yaml`).
+- GitHub Actions are used to validate the code by running pre-commit checks (`.pre-commit-config.yaml`) and Molecule (`molecule/`).
 
-## Project Structure
+### Key Variables
 
-TBC
+Variables are defined in `defaults/main.yml` and `vars/main.yml` files.
 
-## Common Tasks
+Notes:
 
-TBC
+- On variable changes, update `main.yml` and `README.md` files accordingly.
+
+### Testing Approach
+
+- Use Molecule with Docker driver

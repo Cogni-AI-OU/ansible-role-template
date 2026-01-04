@@ -1,38 +1,75 @@
-Role Name
-=========
+# Ansible Role: Template
 
-A brief description of the role goes here.
+[![CodeRabbit PR Reviews](https://img.shields.io/coderabbit/prs/github/Cogni-AI-OU/ansible-role-template?utm_source=oss&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+PR+Reviews)](https://github.com/Cogni-AI-OU/ansible-role-template/pulls)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
-Requirements
-------------
+This is a template role.
+Use it as starting point to create your own role.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Requirements
 
-Role Variables
---------------
+This role requires:
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- Ansible
+- Python
+- Administrative/root access on target hosts
+- One of the following operating systems:
+  - Alpine Linux
+  - Debian/Ubuntu
+  - NixOS or systems with Nix package manager
 
-Dependencies
-------------
+## Install
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+To install this role, you can use the following terminal command:
 
-Example Playbook
-----------------
+```shell
+ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-role-template.git
+```
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Role Variables
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+For available variables,
+check [`defaults/main.yml`](defaults/main.yml).
 
-License
--------
+## Testing
 
-MIT
+### Docker
 
-Author Information
-------------------
+Steps to test role on Docker containers.
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+1. Install the current role by running the following commands in shell:
+
+    ```shell
+    ansible-galaxy install -r requirements.yml
+    jinja2 requirements-local.yml.j2 -D "pwd=$PWD" -o requirements-local.yml
+    ansible-galaxy install -r requirements-local.yml
+    ```
+
+    Alternatively, for development purposes, you can consider using symbolic link, e.g.
+
+    ```shell
+    ln -vs "$PWD" ~/.ansible/roles/cogni-ai.template
+    ```
+
+2. Ensure Docker service (e.g. Docker Desktop) is running.
+3. Run playbook from `tests/`:
+
+    ```shell
+    ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
+    ```
+
+### Molecule
+
+To test using Molecule, run:
+
+```shell
+molecule test
+```
+
+## License
+
+GNU GPL v3
+
+See: [LICENSE](./LICENSE)
+
+<!-- Named links -->
