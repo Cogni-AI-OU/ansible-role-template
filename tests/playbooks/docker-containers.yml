@@ -103,7 +103,7 @@
 
   tags: always
   vars:
-    controller_python: "{{ ansible_playbook_python }}"
+    controller_python: /usr/bin/python3
     nixos_built_image: cogni-ai-template-nixos:latest
     nixos_dockerfile_output: >-
       {{ playbook_dir }}/../../molecule/resources/playbooks/Dockerfile.template-on-nixos
@@ -125,7 +125,7 @@
   gather_facts: true
   tags: always
   vars:
-    controller_python: "{{ ansible_playbook_python }}"
+    controller_python: /usr/bin/python3
   tasks:
     - name: Installs cogni-ai.template role
       ansible.builtin.import_role:

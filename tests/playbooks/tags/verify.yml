@@ -4,7 +4,7 @@
   gather_facts: false
   tags: always
   vars:
-    controller_python: "{{ ansible_playbook_python }}"
+    controller_python: /usr/bin/python3
     nixos_built_image: cogni-ai-template-nixos:latest
     nixos_dockerfile_output: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.template-on-nixos"
     nixos_dockerfile_template: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.j2"
@@ -83,7 +83,7 @@
 
   tags: always
   vars:
-    controller_python: "{{ ansible_playbook_python }}"
+    controller_python: /usr/bin/python3
     nixos_built_image: cogni-ai-template-nixos:latest
     nixos_dockerfile_output: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.template-on-nixos"
     nixos_dockerfile_template: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.j2"
