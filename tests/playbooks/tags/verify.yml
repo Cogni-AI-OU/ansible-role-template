@@ -90,6 +90,7 @@
 
   tags: always
   vars:
+    controller_pip: pip3
     controller_python: "{{ ansible_playbook_python }}"
     nixos_built_image: cogni-ai-template-nixos:latest
     nixos_dockerfile_output: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.template-on-nixos"
