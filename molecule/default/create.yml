@@ -34,7 +34,7 @@
         privileged: "{{ 'nixos' in item.name }}"
         security_opts: "{{ ['seccomp=unconfined', 'apparmor=unconfined'] if 'nixos' in item.name else omit }}"
         recreate: true
-        pull: "{{ False if 'nixos' in item.name else True }}"
+        pull: "{{ false if 'nixos' in item.name else true }}"
       loop: "{{ molecule_yml.platforms }}"
 
     - name: Build instance config entries
