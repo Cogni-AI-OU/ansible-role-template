@@ -44,6 +44,8 @@
         name: requests
         state: present
         executable: "{{ controller_pip }}"
+      delegate_to: localhost
+      run_once: true  # noqa: run-once[task]
 
     - name: Ensure container is started
       community.docker.docker_container:
