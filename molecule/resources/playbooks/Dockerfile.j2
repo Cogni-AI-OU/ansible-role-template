@@ -10,6 +10,6 @@ RUN ln --symbolic --force "$(realpath --relative-to=/etc /etc/passwd)" /etc/pass
 
 # Install required packages for Ansible to work on NixOS. Include pip to avoid nix-env inside the running container.
 RUN nix-channel --update && \
-    nix-env -iA nixpkgs.procps nixpkgs.python310 nixpkgs.python310Packages.pip
+    nix-env -iA nixpkgs.procps nixpkgs.python3 nixpkgs.python3Packages.pip
 
 {% endif %}
