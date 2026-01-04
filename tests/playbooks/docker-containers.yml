@@ -130,6 +130,7 @@
     - name: Installs cogni-ai.template role
       ansible.builtin.import_role:
         name: cogni-ai.template
+
   post_tasks:
     - name: Stop Docker containers
       community.docker.docker_container:
