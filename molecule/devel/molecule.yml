@@ -27,6 +27,7 @@ provisioner:
   inventory:
     group_vars:
       all:
+        ansible_python_interpreter: auto_silent
   playbooks:
     converge: ../default/converge.yml
     prepare: ../default/prepare.yml
