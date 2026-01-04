@@ -49,7 +49,8 @@ platforms:
     image: debian:latest
   - name: nixos-latest
     dockerfile: ../resources/playbooks/Dockerfile.j2
-    image: nixos/nix:latest
+    image: cogni-ai-template-nixos:latest
+    base_image: nixos/nix:latest
     pre_build_image: false
   - name: ubuntu-jammy
     image: ubuntu:jammy
@@ -66,6 +67,10 @@ provisioner:
       stdout_callback: ansible.builtin.default
       verbosity: 1
       remote_tmp: /tmp/.ansible-tmp-$${USER}
+  inventory:
+    host_vars:
+      nixos-latest:
+        ansible_python_interpreter: /root/.nix-profile/bin/python3
     ssh_connection:
       pipelining: true
   env:

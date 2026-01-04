@@ -26,4 +26,4 @@ all:
         template-on-nixos-latest:
           ansible_connection: docker
           ansible_host: template-on-nixos-latest
-          ansible_python_interpreter: /nix/var/nix/profiles/default/bin/python3
+          ansible_python_interpreter: /root/.nix-profile/bin/python3

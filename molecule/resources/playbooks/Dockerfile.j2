@@ -1,8 +1,9 @@
-{% if item.name == 'nixos-latest' %}
-FROM {{ item.image }}
+{% set base_image = item.base_image | default(item.image) %}
+{% if 'nixos' in base_image %}
+FROM {{ base_image }}
 
-# Install required packages for Ansible to work on NixOS.
+# Install required packages for Ansible to work on NixOS. Include pip to avoid nix-env inside the running container.
 RUN nix-channel --update && \
-    nix-env -iA nixpkgs.procps nixpkgs.python310
+    nix-env -iA nixpkgs.procps nixpkgs.python310 nixpkgs.python310Packages.pip
 
 {% endif %}
