@@ -4,7 +4,8 @@
   gather_facts: false
   tags: always
   vars:
-    controller_python: /usr/bin/python3
+    controller_python: "{{ ansible_playbook_python }}"
+    controller_pip: pip3
     nixos_built_image: cogni-ai-template-nixos:latest
     nixos_dockerfile_output: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.template-on-nixos"
     nixos_dockerfile_template: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.j2"
@@ -38,12 +39,18 @@
   hosts: docker_containers
 
   pre_tasks:
+    - name: Ensure requests is installed on controller
+      ansible.builtin.pip:
+        name: requests
+        state: present
+        executable: "{{ controller_pip }}"
+
     - name: Ensure container is started
       community.docker.docker_container:
         command: sleep infinity
         image: "{{ container_image }}"
         name: "{{ inventory_hostname }}"
-        pull: true
+        pull: "{{ (container_image is not search('cogni-ai-template-nixos')) | bool }}"
         state: started
       delegate_to: localhost
       vars:
@@ -83,7 +90,7 @@
 
   tags: always
   vars:
-    controller_python: /usr/bin/python3
+    controller_python: "{{ ansible_playbook_python }}"
     nixos_built_image: cogni-ai-template-nixos:latest
     nixos_dockerfile_output: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.template-on-nixos"
     nixos_dockerfile_template: "{{ playbook_dir }}/../../../molecule/resources/playbooks/Dockerfile.j2"
