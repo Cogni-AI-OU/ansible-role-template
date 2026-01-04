@@ -50,7 +50,7 @@
         security_opts: >-
           {{ ['seccomp=unconfined', 'apparmor=unconfined'] if container_image is search('nixos') else omit }}
         recreate: true
-        pull: "{{ not (container_image is search('cogni-ai-template-nixos')) }}"
+        pull: "{{ (container_image is not search('cogni-ai-template-nixos')) | bool }}"
       delegate_to: localhost
       vars:
         # Use system Python with requests installed for controller-side Docker modules.

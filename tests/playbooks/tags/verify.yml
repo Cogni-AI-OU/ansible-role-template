@@ -43,7 +43,7 @@
         command: sleep infinity
         image: "{{ container_image }}"
         name: "{{ inventory_hostname }}"
-        pull: true
+        pull: "{{ (container_image is not search('cogni-ai-template-nixos')) | bool }}"
         state: started
       delegate_to: localhost
       vars:
