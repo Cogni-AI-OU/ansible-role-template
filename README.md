@@ -1,2 +1,3 @@
-# ansible-role-template
-Ansible role template
+# Example repo Ops template
+
+Describe the project here.
