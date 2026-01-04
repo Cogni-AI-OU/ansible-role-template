@@ -1,5 +1,5 @@
 ---
-# Vars file for wine role.
+# Vars file for ansible role.
 # Note: Keep YAML keys sorted alphabetically.
 
 # 'template_become_method' is expected to be a dictionary keyed by OS family (e.g., 'Debian', 'RedHat'),

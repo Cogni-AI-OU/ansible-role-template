@@ -58,6 +58,12 @@ Steps to test role on Docker containers.
     ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
     ```
 
+4. Run the verify-tag playbook (stops containers after verification):
+
+  ```shell
+  ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/tags/verify.yml --tags verify
+  ```
+
 ### Molecule
 
 To test using Molecule, run:
