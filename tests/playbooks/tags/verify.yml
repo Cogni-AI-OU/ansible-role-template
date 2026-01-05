@@ -52,6 +52,7 @@
         # and init expectations when run under Docker, especially in CI environments.
         privileged: "{{ container_image is search('nixos') }}"
         pull: "{{ (container_image is not search('cogni-ai-template-nixos')) | bool }}"
+        recreate: true
         # Relaxed seccomp/apparmor for NixOS compatibility.
         security_opts: >-
           {{ ['seccomp=unconfined', 'apparmor=unconfined']
