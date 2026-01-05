@@ -49,6 +49,7 @@
         image: "{{ container_image }}"
         name: "{{ inventory_hostname }}"
         pull: "{{ (container_image is not search('cogni-ai-template-nixos')) | bool }}"
+        recreate: true
         state: started
       delegate_to: localhost
       vars:
