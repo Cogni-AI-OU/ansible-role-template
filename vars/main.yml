@@ -10,5 +10,6 @@ template_become_method:
   Darwin: ansible.builtin.sudo
   Debian: ansible.builtin.su
   NixOS: ansible.builtin.su
+  OtherLinux: ansible.builtin.su
   Ubuntu: ansible.builtin.su
   Windows: ansible.builtin.runas
