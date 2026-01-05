@@ -136,6 +136,3 @@
         state: stopped
       delegate_to: localhost
       failed_when: false
-      vars:
-        # Use system Python with requests installed for controller-side Docker modules.
-        ansible_python_interpreter: "{{ controller_python }}"
