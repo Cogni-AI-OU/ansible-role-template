@@ -1,6 +1,9 @@
 # Notes:
 # - Keep the order of the hooks in lexicographical order.
 ---
+default_language_version:
+  python: python3.12
+
 repos:
 
   - repo: https://github.com/adrienverge/yamllint.git
@@ -13,6 +16,7 @@ repos:
     rev: v25.12.2
     hooks:
       - id: ansible-lint
+        language_version: python3.12
 
   - repo: https://github.com/aristanetworks/j2lint.git
     rev: v1.2.0
@@ -49,7 +53,7 @@ repos:
     rev: v6.0.0
     hooks:
       - id: check-added-large-files
-      - id: check-byte-order-marker
+      - id: fix-byte-order-marker
       - id: check-case-conflict
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
