@@ -48,7 +48,14 @@
         command: sleep infinity
         image: "{{ container_image }}"
         name: "{{ inventory_hostname }}"
+        # NixOS images require privileged mode due to their non-standard filesystem layout
+        # and init expectations when run under Docker, especially in CI environments.
+        privileged: "{{ container_image is search('nixos') }}"
         pull: "{{ (container_image is not search('cogni-ai-template-nixos')) | bool }}"
+        # Relaxed seccomp/apparmor for NixOS compatibility.
+        security_opts: >-
+          {{ ['seccomp=unconfined', 'apparmor=unconfined']
+          if container_image is search('nixos') else omit }}
         state: started
       delegate_to: localhost
       vars:
