@@ -1,7 +1,7 @@
 # Ansible Role: Template
 
-[![CodeRabbit PR Reviews](https://img.shields.io/coderabbit/prs/github/Cogni-AI-OU/ansible-role-template?utm_source=oss&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+PR+Reviews)](https://github.com/Cogni-AI-OU/ansible-role-template/pulls)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
+[![CodeRabbit PR Reviews][coderabbit-image]][coderabbit-link]
+[![License][license-image]][license-link]
 
 This is a template role.
 Use it as starting point to create your own role.
@@ -79,3 +79,8 @@ GNU GPL v3
 See: [LICENSE](./LICENSE)
 
 <!-- Named links -->
+
+[coderabbit-image]: https://img.shields.io/coderabbit/prs/github/Cogni-AI-OU/ansible-role-template?utm_source=oss&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+PR+Reviews
+[coderabbit-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
+[license-image]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[license-link]: LICENSE
