@@ -17,7 +17,8 @@
               "vscodevim.vim",
               "xaver.clang-format",
               "GitHub.copilot",
-              "GitHub.copilot-chat"
+              "GitHub.copilot-chat",
+              "vsls-contrib.codetour"
             ]
     }
     },
