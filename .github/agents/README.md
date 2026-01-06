@@ -28,7 +28,7 @@ See:
 See:
 [Customizing or disabling the firewall for GitHub Copilot coding agent](https://gh.io/copilot/firewall-config).
 
-#### Firewall allowlist
+### Firewall allowlist
 
 See [FIREWALL.md](FIREWALL.md) for recommended hosts to allow and the official guidance link.
 

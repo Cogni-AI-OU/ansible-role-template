@@ -222,3 +222,6 @@ requirements-local.yml
 
 # Documentation
 *.html
+
+# Ignore .lock files
+*.lock
