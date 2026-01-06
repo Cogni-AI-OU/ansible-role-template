@@ -6,6 +6,18 @@
 This is a template role.
 Use it as starting point to create your own role.
 
+## Getting Started
+
+🗺️ **New to this repository?** Take the [**CodeTour**](.tours/getting-started.tour) to explore the project structure!
+
+To view the tour:
+
+1. Install the [CodeTour extension](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) in VS Code
+2. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+3. Run "CodeTour: Start Tour"
+
+Or simply open this repository in a devcontainer - the extension is pre-configured!
+
 ## Requirements
 
 This role requires:
