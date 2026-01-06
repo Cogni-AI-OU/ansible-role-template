@@ -1,90 +1,73 @@
-# Copilot Instructions for Ansible Role
-
-You are expected to be an expert in:
-
-- Ansible
-- Python
-- Jinja2
-- Molecule
-- Linux (Alpine, Debian/Ubuntu, Nix)
-- YAML
+# Copilot Instructions for ... Ops
 
 ## Project Overview
 
-This project is a template for creating Ansible roles.
+TBC
 
 ## Coding Standards
 
 ### Python
 
-- Follow **PEP 8** style guidelines.
 - Use **Python 3.11+**.
-- Use `uv` script for dependency management when creating standalone Python scripts.
+- Use `uv` script headers for dependency management:
 
-### Ansible Guidelines
+  ```python
+  #!/usr/bin/env -S uv run --script
+  # /// script
+  # requires-python = ">=3.11"
+  # dependencies = [
+  #     "xero-python",
+  #     "PyYAML",
+  # ]
+  # ///
+  ```
 
-- Ensure idempotency in all tasks
-- Ensure indentation is correct, especially for YAML files
-- Follow standard role structure: tasks/, handlers/, templates/, defaults/, meta/
-- Use ansible-lint and write Molecule tests for verification
-- Use descriptive task names and include helpful comments
+- Follow **PEP 8** style guidelines.
+- Use `argparse` for CLI argument parsing.
+- Handle `BrokenPipeError` for CLI tools that might be piped to `head` or `grep`.
+
+### TBC API
+
+- Use the TBC SDK.
+- Handle API rate limits and errors gracefully.
 
 ## Formatting Guidelines
 
-### General Approach
-
-- Be accurate, thorough and terse
-- Cite sources at the end, not inline
-- Provide immediate answers with clear explanations
-- Skip repetitive code in responses; use brief snippets showing only changes
-- Suggest alternative solutions beyond conventional approaches
-- Treat the user as an expert
-
-### Ansible Linting
-
-Ensure enforcing the following rules:
-
-- fqcn[keyword]: Avoid `collections` keyword by using FQCN for all plugins, modules, roles and playbooks
-
 ### Markdown
 
-- Keep line length <=120 characters (see `.markdownlint.yaml`).
-- Surround headings and lists with blank lines; fence code blocks with blank lines.
-- Avoid trailing spaces; ensure a single trailing newline.
-- Avoid hard tabs (MD010/no-hard-tabs).
-- Headings must have blank lines around them (MD022/blanks-around-headings).
-- Lists must be surrounded by blank lines (MD032/blanks-around-lists).
-- Fenced code blocks need surrounding blank lines (MD031/blanks-around-fences).
-- Files end with a single newline (MD047/single-trailing-newline).
-- If pre-commit surfaces formatting errors, update these guidelines to keep them current and prevent repeats.
+Follow the Markdown rules in `.github/instructions/markdown.instructions.md`, which mirror the repository markdownlint configuration.
 
-### YAML Guidelines
+To test locally, run via `pre-commit run markdownlint -a` or use the VS Code Markdownlint extension.
 
-- empty-lines (yamllint): Limit consecutive blank lines to one.
-- indentation (yamllint): Avoid wrong indentation.
-- line-length (yamllint): No long lines (max. 120 characters).
-- new-line-at-end-of-file (yamllint): Enforce new line character at the end of file.
-- truthy (yamllint): Truthy value should be one of [false, true].
-- Ensure items are in lexicographical order when possible.
-- When embedding code blocks or inline YAML snippets within lists, end with a trailing newline to preserve indentation.
+### YAML
 
-Formatting rules are defined in `.yamllint` (YAML) and `.markdownlint.yaml` (Markdown).
-
-## Project Specifics
+Follow the YAML rules in `./.github/instructions/yaml.instructions.md`, which mirror the repository `.yamllint` configuration.
 
 Notes:
 
 - Project utilizes Codespaces with config at `.devcontainer/devcontainer.json` and requirements at `.devcontainer/requirements.txt`.
-- GitHub Actions are used to validate the code by running pre-commit checks (`.pre-commit-config.yaml`) and Molecule (`molecule/`).
+- GitHub Actions run pre-commit checks (`.pre-commit-config.yaml`).
+- To verify locally, run `pre-commit run yamllint -a` from the repo root.
 
-### Key Variables
+## Project Structure
 
-Variables are defined in `defaults/main.yml` and `vars/main.yml` files.
+TBC
 
-Notes:
+## Troubleshooting
 
-- On variable changes, update `main.yml` and `README.md` files accordingly.
+If Copilot or automated checks behave unexpectedly:
 
-### Testing Approach
+- Re-run `pre-commit run -a` locally to surface formatting or linting issues.
+- Verify `.markdownlint.yaml` and `.yamllint` have not been modified incorrectly.
+- If problems persist, open an issue with details of the command run and any error output.
 
-- Use Molecule with Docker driver
+## Copilot Agent
+
+- If you encounter firewall issues when using the GitHub Copilot Agent,
+  refer to <https://gh.io/copilot/firewall-config> for configuration details.
+  If you need to allowlist additional hosts, update your firewall configuration accordingly
+  and keep the list of allowed hosts in `.github/agents/FIREWALL.md` up to date.
+
+## Common Tasks
+
+TBC
