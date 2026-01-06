@@ -106,23 +106,23 @@ terraform {
 
 Every module **must** include these files (even if empty):
 
-| File | Purpose | Required |
-|------|---------|----------|
-| `main.tf` | Primary resource and data source definitions | ✅ Yes |
-| `variables.tf` | Input variable definitions (alphabetical order) | ✅ Yes |
-| `outputs.tf` | Output value definitions (alphabetical order) | ✅ Yes |
-| `README.md` | Module documentation (root module only) | ✅ Yes |
+| File           | Purpose                                         | Required/Notes |
+|----------------|-------------------------------------------------|----------------|
+| `main.tf`      | Primary resource and data source definitions    | ✅ Yes          |
+| `variables.tf` | Input variable definitions (alphabetical order) | ✅ Yes          |
+| `outputs.tf`   | Output value definitions (alphabetical order)   | ✅ Yes          |
+| `README.md`    | Module documentation (root module only)         | ✅ Yes          |
 
 #### B. Recommended File Structure
 
-| File | Purpose | Notes |
-|------|---------|-------|
-| `providers.tf` | Provider configurations and requirements | Recommended |
-| `terraform.tf` | Terraform version and provider requirements | Recommended |
-| `backend.tf` | Backend configuration for state storage | Root modules only |
-| `locals.tf` | Local value definitions | As needed |
-| `versions.tf` | Alternative name for version constraints | Alternative to terraform.tf |
-| `LICENSE` | License information | Especially for public modules |
+| File           | Purpose                                     | Notes                         |
+|----------------|---------------------------------------------|-------------------------------|
+| `providers.tf` | Provider configurations and requirements    | Recommended                   |
+| `terraform.tf` | Terraform version and provider requirements | Recommended                   |
+| `backend.tf`   | Backend configuration for state storage     | Root modules only             |
+| `locals.tf`    | Local value definitions                     | As needed                     |
+| `versions.tf`  | Alternative name for version constraints    | Alternative to terraform.tf   |
+| `LICENSE`      | License information                         | Especially for public modules |
 
 #### C. Directory Structure
 

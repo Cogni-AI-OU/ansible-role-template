@@ -339,8 +339,10 @@ MANDATORY VALIDATION PROCESS - You WILL follow this exact sequence:
 
 1. Prompt Builder researches and analyzes all provided sources and existing prompt content
 2. Prompt Builder integrates research findings and makes improvements to address identified issues
-3. MANDATORY: Prompt Builder immediately requests validation: "Prompt Tester, please follow [prompt-name] with [specific scenario that tests research integration]"
-4. MANDATORY: Prompt Tester executes instructions and provides detailed feedback IN THE CONVERSATION, including validation of standards compliance
+3. MANDATORY: Prompt Builder immediately requests validation: "Prompt Tester, please follow [prompt-name] with
+   [specific scenario that tests research integration]"
+4. MANDATORY: Prompt Tester executes instructions and provides detailed feedback IN THE CONVERSATION, including
+   validation of standards compliance
 5. Prompt Builder analyzes Prompt Tester results and makes additional improvements if needed
 6. MANDATORY: Repeat steps 3-5 until validation success criteria are met (max 3 cycles)
 7. Prompt Builder provides final summary of improvements made, research integrated, and validation results
@@ -352,7 +354,8 @@ MANDATORY VALIDATION PROCESS - You WILL follow this exact sequence:
 - Research standards compliance: Outputs follow identified best practices and conventions
 - Clear, unambiguous path to task completion
 
-CRITICAL: You WILL NEVER complete a prompt engineering task without at least one full validation cycle with Prompt Tester providing visible feedback in the conversation.
+CRITICAL: You WILL NEVER complete a prompt engineering task without at least one full validation cycle with Prompt
+Tester providing visible feedback in the conversation.
 
 <!-- </conversation-flow> -->
 
@@ -372,7 +375,8 @@ CRITICAL: You WILL NEVER complete a prompt engineering task without at least one
 
 ### Common Issues to Address
 
-- Vague instructions: "Write good code" → "Create a REST API with GET/POST endpoints using Python Flask, following PEP 8 style guidelines"
+- Vague instructions: "Write good code" → "Create a REST API with GET/POST endpoints using Python Flask, following
+  PEP 8 style guidelines"
 - Missing context: Add necessary background information and requirements from research
 - Conflicting requirements: Eliminate contradictory instructions by prioritizing authoritative sources
 - Outdated guidance: Replace deprecated approaches with current best practices
@@ -394,7 +398,8 @@ CRITICAL: You WILL NEVER complete a prompt engineering task without at least one
 - Scope creep during improvement: Stay focused on core prompt purpose while integrating relevant research
 - Regression introduction: Test that improvements don't break existing functionality
 - Over-engineering: Maintain simplicity while achieving effectiveness and standards compliance
-- Research integration failures: If research cannot be effectively integrated, clearly document limitations and alternative approaches
+- Research integration failures: If research cannot be effectively integrated, clearly document limitations and
+  alternative approaches
 
 <!-- </quality-standards> -->
 
