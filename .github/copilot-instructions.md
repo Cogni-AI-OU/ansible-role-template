@@ -1,16 +1,8 @@
-# Copilot Instructions
+# Copilot Instructions for ... Ops
 
 ## Project Overview
 
-This is an Ansible role template repository. It provides standardized structure,
-GitHub Actions workflows, issue/PR templates, and coding standards for creating
-reusable Ansible roles.
-
-Key contents:
-
-- **Ansible role structure**: Standard role directories (tasks, handlers, templates, defaults, vars, meta)
-- **CI/CD workflows**: Pre-commit checks, linting, Molecule testing
-- **Agent configurations**: `AGENTS.md`, `CLAUDE.md` for AI coding assistants
+TBC
 
 ### Getting started
 
@@ -39,6 +31,11 @@ Key contents:
 - Use `argparse` for CLI argument parsing.
 - Handle `BrokenPipeError` for CLI tools that might be piped to `head` or `grep`.
 
+### TBC API
+
+- Use the TBC SDK.
+- Handle API rate limits and errors gracefully.
+
 ## Formatting Guidelines
 
 ### JSON
@@ -65,28 +62,7 @@ Notes:
 
 ## Project Structure
 
-```text
-.
-├── .github/
-│   ├── ISSUE_TEMPLATE/      # Issue templates (bug reports, feature requests)
-│   ├── agents/              # AI agent configurations
-│   ├── instructions/        # Language-specific coding standards
-│   ├── skills/              # Agent skills definitions
-│   ├── workflows/           # GitHub Actions workflows
-│   ├── copilot-instructions.md
-│   └── pull_request_template.md
-├── .tours/                  # VS Code guided tours
-├── defaults/                # Default role variables
-├── handlers/                # Handler tasks
-├── meta/                    # Role metadata and dependencies
-├── molecule/                # Molecule test scenarios
-├── tasks/                   # Main role tasks
-├── templates/               # Jinja2 templates
-├── vars/                    # Role variables
-├── AGENTS.md                # AI agent guidance
-├── CLAUDE.md                # Claude-specific configuration
-└── README.md                # Repository documentation
-```
+TBC
 
 ### Tours
 
@@ -101,12 +77,44 @@ Notes:
 
 To identify and diagnose the latest build errors:
 
-1. **Reproduce errors locally:**
+1. **Check GitHub Actions workflow status:**
+   - If you have access to GitHub MCP server tools, use `list_workflow_runs` to see recent workflow runs and their status
+   - Look for runs with `conclusion: "failure"` or `status: "completed"` with failures
+   - Note the `run_id` of failed runs (typically the "Check" workflow)
+
+2. **View detailed error logs:**
+   - If you have access to GitHub MCP server tools:
+     - Use `get_job_logs` with the `run_id` and `failed_only: true` to get logs for all failed jobs
+     - Alternatively, use `list_workflow_jobs` to identify specific failed jobs, then use `get_job_logs`
+       with the `job_id` to get detailed logs for a specific job
+     - Parse the logs to find error messages and failure patterns
+   - If GitHub MCP server is not available, explain that you cannot access the logs
+
+3. **Reproduce errors locally:**
    - For pre-commit errors: Run `pre-commit run -a` to check all files
    - For specific hooks: Run `pre-commit run <hook-name> -a` (e.g., `markdownlint`, `yamllint`)
    - For actionlint errors: Install actionlint and run it on workflow files
 
-2. **Common error patterns:**
+4. **Common error patterns:**
    - **Markdown linting errors:** Check `.markdownlint.yaml` for rules; errors show line numbers
    - **YAML linting errors:** Check `.yamllint` for rules; verify indentation and structure
    - **JSON formatting errors:** Use `jq . <file>` to validate JSON syntax
+
+### General Troubleshooting
+
+If Copilot or automated checks behave unexpectedly:
+
+- Re-run `pre-commit run -a` locally to surface formatting or linting issues.
+- Verify `.markdownlint.yaml` and `.yamllint` have not been modified incorrectly.
+- If problems persist, open an issue with details of the command run and any error output.
+
+## Copilot Agent
+
+- If you encounter firewall issues when using the GitHub Copilot Agent,
+  refer to <https://gh.io/copilot/firewall-config> for configuration details.
+  If you need to allowlist additional hosts, update your firewall configuration accordingly
+  and keep the list of allowed hosts in `.github/agents/FIREWALL.md` up to date.
+
+## Common Tasks
+
+TBC
