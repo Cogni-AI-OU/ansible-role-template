@@ -2,14 +2,14 @@
 
 ## Project Overview
 
-TBC
+This is an Ansible role template repository. It provides standardized structure,
+GitHub Actions workflows, issue/PR templates, and coding standards for creating
+reusable Ansible roles.
 
 Key contents:
 
-- TBC
-- **Community health files**: CODE_OF_CONDUCT.md, issue templates, PR templates
-- **Reusable workflows**: CI/CD, linting, automated reviews
-- **Organization profile**: Public-facing info in `profile/README.md`
+- **Ansible role structure**: Standard role directories (tasks, handlers, templates, defaults, vars, meta)
+- **CI/CD workflows**: Pre-commit checks, linting, Molecule testing
 - **Agent configurations**: `AGENTS.md`, `CLAUDE.md` for AI coding assistants
 
 ### Getting started
@@ -65,22 +65,27 @@ Notes:
 
 ## Project Structure
 
-TBC
 ```text
 .
 ├── .github/
 │   ├── ISSUE_TEMPLATE/      # Issue templates (bug reports, feature requests)
-│   ├── instructions/         # Language-specific coding standards
-│   ├── workflows/            # GitHub Actions workflows
+│   ├── agents/              # AI agent configurations
+│   ├── instructions/        # Language-specific coding standards
+│   ├── skills/              # Agent skills definitions
+│   ├── workflows/           # GitHub Actions workflows
 │   ├── copilot-instructions.md
 │   └── pull_request_template.md
-├── .tours/                   # VS Code guided tours
-├── profile/
-│   └── README.md             # Organization profile (shown on GitHub org page)
-├── AGENTS.md                 # AI agent guidance
-├── CLAUDE.md                 # Claude-specific configuration
-├── CODE_OF_CONDUCT.md        # Community standards
-└── README.md                 # Repository documentation
+├── .tours/                  # VS Code guided tours
+├── defaults/                # Default role variables
+├── handlers/                # Handler tasks
+├── meta/                    # Role metadata and dependencies
+├── molecule/                # Molecule test scenarios
+├── tasks/                   # Main role tasks
+├── templates/               # Jinja2 templates
+├── vars/                    # Role variables
+├── AGENTS.md                # AI agent guidance
+├── CLAUDE.md                # Claude-specific configuration
+└── README.md                # Repository documentation
 ```
 
 ### Tours

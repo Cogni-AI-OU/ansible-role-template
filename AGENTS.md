@@ -50,11 +50,10 @@ molecule test
 molecule syntax
 ```
 
-### Updating Organization Defaults
+### Updating Templates
 
 - Edit files in `.github/ISSUE_TEMPLATE/` to modify issue templates
 - Edit `.github/pull_request_template.md` for PR template changes
-- Update `profile/README.md` to change the organization's public profile
 
 ### Adding or Modifying Workflows
 
@@ -70,9 +69,8 @@ molecule syntax
 
 ## References
 
-- Org profile and collaboration info: [profile/README.md](profile/README.md)
 - Claude-specific guidance: [CLAUDE.md](CLAUDE.md)
-- Community standards: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- Main documentation: [README.md](README.md)
 
 ## Troubleshooting
 
