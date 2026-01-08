@@ -1,3 +1,8 @@
+# .gitignore configuration file.
+# Examples: <https://github.com/github/gitignore>
+# Syntax: <https://git-scm.com/docs/gitignore>
+# Keep items organized and in alphabetical order.
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -5,6 +10,16 @@ __pycache__/
 
 # C extensions
 *.so
+
+# Cache-related files
+.cache/
+
+# Data exports
+*.csv
+
+# Documentation
+*.html
+*.pdf
 
 # Distribution / packaging
 .Python
@@ -198,9 +213,6 @@ cython_debug/
 #.cursorignore
 .cursorindexingignore
 
-# Data exports
-*.csv
-
 # Ignore .lock files
 *.lock
 
@@ -208,20 +220,11 @@ cython_debug/
 .ansible/
 requirements-local.yml
 
+# Temporary binary files
+actionlint
+
 # Temporary or backup files
 *.bak
 *.org
 *.orig
 *.swp
-
-# Binary files
-*.png
-
-# Cache-related files
-.cache/
-
-# Documentation
-*.html
-
-# Ignore .lock files
-*.lock
