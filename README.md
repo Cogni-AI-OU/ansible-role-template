@@ -86,7 +86,7 @@ molecule test
 
 <!-- Named links -->
 
-[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/.github?label=PR+Reviews&logo=github
-[pr-reviews-link]: https://github.com/Cogni-AI-OU/.github/pulls
+[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/ansible-role-template?label=PR+Reviews&logo=github
+[pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-link]: LICENSE
