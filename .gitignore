@@ -214,7 +214,7 @@ cython_debug/
 .cursorindexingignore
 
 # Ignore .lock files
-*.lock
+.lock
 
 # Ansible
 .ansible/
