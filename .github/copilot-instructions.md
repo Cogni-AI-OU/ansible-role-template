@@ -2,12 +2,11 @@
 
 ## Project Overview
 
-This is the organization-wide `.github` repository. It provides
-default community health files, GitHub Actions workflows, issue/PR templates,
-and coding standards that apply across all repositories in the organization.
+TBC
 
 Key contents:
 
+- TBC
 - **Community health files**: CODE_OF_CONDUCT.md, issue templates, PR templates
 - **Reusable workflows**: CI/CD, linting, automated reviews
 - **Organization profile**: Public-facing info in `profile/README.md`
@@ -66,6 +65,7 @@ Notes:
 
 ## Project Structure
 
+TBC
 ```text
 .
 ├── .github/
