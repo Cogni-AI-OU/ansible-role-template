@@ -1,0 +1,187 @@
+---
+# Note: Keep keys and envs in alphabetical order.
+name: Claude Code
+on:
+  issue_comment:
+    types:
+      - created
+      - edited
+  pull_request_review_comment:
+    types:
+      - created
+      - edited
+  issues:
+    types:
+      - opened
+  pull_request_review:
+    types:
+      - submitted
+  workflow_call:
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  claude:
+    # Security: NONE and FIRST_TIME_CONTRIBUTOR are NOT allowed (untrusted external users).
+    # Allowed: OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR, or PR/issue authors on their own content.
+    # CONTRIBUTOR is needed for draft PRs where GitHub restricts author_association.
+    if: |
+      (
+        github.event.comment.author_association == 'OWNER' ||
+        github.event.comment.author_association == 'MEMBER' ||
+        github.event.comment.author_association == 'COLLABORATOR' ||
+        github.event.comment.author_association == 'CONTRIBUTOR' ||
+        github.event.review.author_association == 'OWNER' ||
+        github.event.review.author_association == 'MEMBER' ||
+        github.event.review.author_association == 'COLLABORATOR' ||
+        github.event.review.author_association == 'CONTRIBUTOR' ||
+        (github.event.pull_request && github.event.pull_request.user.login == github.event.comment.user.login) ||
+        (github.event.pull_request && github.event.pull_request.user.login == github.event.review.user.login) ||
+        (github.event.issue && github.event.issue.user.login == github.event.comment.user.login)
+      ) && (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude'))
+        || github.event_name == 'pull_request_review_comment'
+        || (github.event_name == 'pull_request_review'
+          && github.event.review.body != null
+          && github.event.review.body != ''
+          && contains(github.event.review.body, '@claude'))
+        || (github.event_name == 'issues'
+          && github.event.action == 'opened'
+          && (
+            github.event.issue.author_association == 'OWNER'
+            || github.event.issue.author_association == 'MEMBER'
+            || github.event.issue.author_association == 'COLLABORATOR'
+          )
+          && (contains(github.event.issue.body, '@claude')
+            || contains(github.event.issue.title, '@claude')))
+      )
+    name: Claude Code
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for Claude to push code changes
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read  # Required for Claude to read CI results on PRs
+    env:
+      # Allowed tools for Claude (comma-separated list)
+      # Add new tools here as needed
+      ALLOWED_TOOLS: >-
+        Bash(git:*),
+        Bash(gh issue:*),
+        Bash(gh pr:*),
+        Bash(gh search:*),
+        Bash(pre-commit run:*),
+        Bash(jq:*),
+        Bash(yq:*),
+        Bash(npm run lint:*),
+        Bash(npm install)
+      # GitHub CLI token for gh commands
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Print workflow trigger
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+          COMMENT_AUTHOR_ASSOC: ${{ github.event.comment.author_association }}
+          COMMENT_IN_REPLY_TO: ${{ github.event.comment.in_reply_to_id }}
+          REVIEW_BODY: ${{ github.event.review.body }}
+          REVIEW_AUTHOR: ${{ github.event.review.user.login }}
+          REVIEW_AUTHOR_ASSOC: ${{ github.event.review.author_association }}
+        run: |
+          echo "Event name: $EVENT_NAME"
+          echo "Action: $EVENT_ACTION"
+          echo "Comment body: $COMMENT_BODY"
+          echo "Comment author: $COMMENT_AUTHOR"
+          echo "Comment author_association: $COMMENT_AUTHOR_ASSOC"
+          echo "Comment in_reply_to_id: $COMMENT_IN_REPLY_TO"
+          echo "Review body: $REVIEW_BODY"
+          echo "Review author: $REVIEW_AUTHOR"
+          echo "Review author_association: $REVIEW_AUTHOR_ASSOC"
+
+      - name: Check if comment should trigger Claude
+        id: check_trigger
+        if: github.event_name == 'pull_request_review_comment'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          IN_REPLY_TO_ID: ${{ github.event.comment.in_reply_to_id }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          SHOULD_TRIGGER="false"
+
+          # Check if current comment contains @claude
+          if echo "$COMMENT_BODY" | grep -q '@claude'; then
+            echo "Current comment contains @claude"
+            SHOULD_TRIGGER="true"
+          # Check if this is a reply to a comment containing @claude
+          elif [ -n "$IN_REPLY_TO_ID" ] && [ "$IN_REPLY_TO_ID" != "null" ]; then
+            echo "This is a reply to comment ID: $IN_REPLY_TO_ID"
+            # Fetch the parent comment
+            PARENT_COMMENT=$(gh api "/repos/$REPO/pulls/comments/$IN_REPLY_TO_ID" --jq '.body' 2>/dev/null || echo "")
+            echo "Parent comment body: $PARENT_COMMENT"
+            if echo "$PARENT_COMMENT" | grep -q '@claude'; then
+              echo "Parent comment contains @claude"
+              SHOULD_TRIGGER="true"
+            fi
+          fi
+
+          echo "should_trigger=$SHOULD_TRIGGER" >> "$GITHUB_OUTPUT"
+          echo "Should trigger Claude: $SHOULD_TRIGGER"
+
+      - name: Checkout repository
+        if: |
+          github.event_name != 'pull_request_review_comment' ||
+          steps.check_trigger.outputs.should_trigger == 'true'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Cache Claude Code
+        if: |
+          github.event_name != 'pull_request_review_comment' ||
+          steps.check_trigger.outputs.should_trigger == 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.claude
+            ~/.local/bin/claude
+          key: claude-code-${{ runner.os }}-v1
+          restore-keys: |
+            claude-code-${{ runner.os }}-
+      - name: Run Claude Code
+        if: |
+          github.event_name != 'pull_request_review_comment' ||
+          steps.check_trigger.outputs.should_trigger == 'true'
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          additional_permissions: |
+            actions: read
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            --model claude-opus-4-5
+            --max-turns 100
+            --allowedTools "${{ env.ALLOWED_TOOLS }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Models: <https://platform.claude.com/docs/en/about-claude/models/overview>
+
+          # Optional: Customize the trigger phrase (default: @claude)
+          # trigger_phrase: "/claude"
+
+          # Optional: Configure Claude's behavior with CLI arguments
+          # claude_args: |
+          #   --model claude-opus-4-1-20250805
+          #   --allowedTools "Bash(npm install),Bash(npm run build),Bash(npm run test:*),Bash(npm run lint:*)"
+          #   --system-prompt "Follow our coding standards. Ensure all new code has tests."
+
+          # Optional: Advanced settings configuration
+          # settings: |
+          #   {
+          #     "env": {
+          #       "NODE_ENV": "test"
+          #     }
+          #   }
