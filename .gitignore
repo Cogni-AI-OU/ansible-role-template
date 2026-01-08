@@ -213,9 +213,6 @@ cython_debug/
 #.cursorignore
 .cursorindexingignore
 
-# Data exports
-*.csv
-
 # Ignore .lock files
 *.lock
 
