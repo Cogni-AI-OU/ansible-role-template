@@ -1,6 +1,6 @@
 # Ansible Role: Template
 
-[![CodeRabbit PR Reviews][coderabbit-image]][coderabbit-link]
+[![PR Reviews][pr-reviews-image]][pr-reviews-link]
 [![License][license-image]][license-link]
 
 This is a template role.
@@ -84,15 +84,9 @@ To test using Molecule, run:
 molecule test
 ```
 
-## License
-
-GNU GPL v3
-
-See: [LICENSE](./LICENSE)
-
 <!-- Named links -->
 
-[coderabbit-image]: https://img.shields.io/coderabbit/prs/github/Cogni-AI-OU/ansible-role-template?utm_source=oss&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+PR+Reviews
-[coderabbit-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
-[license-image]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/ansible-role-template?label=PR+Reviews&logo=github
+[pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
+[license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-link]: LICENSE

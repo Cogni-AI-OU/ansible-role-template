@@ -1,7 +1,3 @@
-# A file containing a list of collections to be installed.
-# Usage:
-# ansible-galaxy install -r requirements.yml
-# Note: Keep dependencies sorted alphabetically.
 ---
 collections:
   - name: community.docker

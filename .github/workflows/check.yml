@@ -1,32 +1,46 @@
 ---
+# Note: Keep keys and envs in alphabetical order.
 name: Check
-
 # yamllint disable-line rule:truthy
 on:
   pull_request:
   push:
-
+  schedule:
+    - cron: 0 0 * * 1  # Run every Monday at 00:00 UTC
+  workflow_call:
 jobs:
   actionlint:
     name: actionlint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: reviewdog/action-actionlint@v1
+      - uses: actions/checkout@v5
       - name: Add Problem Matcher for actionlint
         run: |
           echo "::add-matcher::.github/actionlint-matcher.json"
         shell: bash
+      - uses: reviewdog/action-actionlint@v1
   pre-commit:
     name: Pre-commit
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            pre-commit|
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
+      - name: Add Problem Matcher for pre-commit
+        run: |
+          echo "::add-matcher::.github/pre-commit-matcher.json"
+        shell: bash
       - uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --color=never

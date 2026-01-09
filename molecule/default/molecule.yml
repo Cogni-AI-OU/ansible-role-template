@@ -42,8 +42,8 @@ provisioner:
       stdout_callback: ansible.builtin.default
       verbosity: 1
   env:
-    ANSIBLE_FORCE_COLOR: "1"
-    ANSIBLE_LOAD_CALLBACK_PLUGINS: "1"
+    ANSIBLE_FORCE_COLOR: '1'
+    ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
   inventory:
     group_vars:
       all:
@@ -65,7 +65,6 @@ provisioner:
     prepare: prepare.yml
     side_effect: side_effect.yml
     verify: verify.yml
-
 scenario:
   name: default
   test_sequence:
