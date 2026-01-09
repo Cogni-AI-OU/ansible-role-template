@@ -75,6 +75,7 @@ When a merge introduces too many unrelated changes, maintain PR focus with selec
 - **Verify changes**: `git diff <commit-sha> HEAD --name-status` (compare commits to see what changed)
 
 Strategy for focused PRs:
+
 - Avoid merging large changesets when PR has single purpose
 - Use `git reset --hard` to target commit with desired changes only
 - Document resolution approach for future reference
