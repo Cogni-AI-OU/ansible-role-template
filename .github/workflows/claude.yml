@@ -50,7 +50,8 @@ jobs:
         || (github.event_name == 'pull_request_review_comment'
           && (
             contains(github.event.comment.body, '@claude')
-            || (github.event.comment.in_reply_to_id != null && github.event.comment.in_reply_to_id != 'null')
+            # Truthy check: in_reply_to_id is empty string when not a reply, numeric ID when it is
+            || github.event.comment.in_reply_to_id
           )
         )
         || (github.event_name == 'pull_request_review'
@@ -119,6 +120,7 @@ jobs:
           echo "Review body length: ${#REVIEW_BODY} characters (redacted for security)"
           echo "Review author: $REVIEW_AUTHOR"
           echo "Review author_association: $REVIEW_AUTHOR_ASSOC"
+
       - name: Check if comment should trigger Claude
         id: check_trigger
         if: github.event_name == 'pull_request_review_comment'
@@ -153,19 +155,22 @@ jobs:
                 PARENT_AUTHOR=$(echo "$PARENT_DATA" | jq -r '.user // ""')
                 echo "Parent comment body length: ${#PARENT_COMMENT} characters (redacted for security)"
                 echo "Parent comment author: $PARENT_AUTHOR"
-                # Trigger if parent contains @claude or is from github-actions[bot] (Claude's comments)
+                # Trigger if parent contains @claude or is from github-actions[bot] AND is a Claude comment
                 if echo "$PARENT_COMMENT" | grep -q '@claude'; then
                   echo "Parent comment contains @claude"
                   SHOULD_TRIGGER="true"
-                elif [ "$PARENT_AUTHOR" = "github-actions[bot]" ]; then
-                  echo "Parent comment is from github-actions[bot] (Claude)"
+                elif [ "$PARENT_AUTHOR" = "github-actions[bot]" ] && \
+                     echo "$PARENT_COMMENT" | grep -q 'claude-code-action'; then
+                  echo "Parent is Claude (github-actions[bot] with claude-code-action marker)"
                   SHOULD_TRIGGER="true"
                 fi
               fi
             fi
           fi
+
           echo "should_trigger=$SHOULD_TRIGGER" >> "$GITHUB_OUTPUT"
           echo "Should trigger Claude: $SHOULD_TRIGGER"
+
       - name: Checkout repository
         if: |
           github.event_name != 'pull_request_review_comment' ||
