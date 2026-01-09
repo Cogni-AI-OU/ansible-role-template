@@ -81,7 +81,8 @@ repos:
           - yaml
         # Excluded due to https://github.com/lyz-code/yamlfix/issues/310 which breaks multiline formatting.
         # Also excluding workflows that require blank lines for readability.
-        exclude: (\.github/workflows/claude-review\.yml|\.github/workflows/claude\.yml)
+        # Excluding molecule files due to literal block scalar formatting issues.
+        exclude: (\.github/workflows/claude-review\.yml|\.github/workflows/claude\.yml|molecule/.*\.(yml|yaml))
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
