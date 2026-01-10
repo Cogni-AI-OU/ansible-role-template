@@ -77,8 +77,7 @@ When a merge introduces too many unrelated changes, maintain PR focus with selec
 
 - **Reset to clean state**: `git reset --hard <commit-sha>` (reset to commit before problematic merge)
 - **Revert merge commit**: `git revert -m 1 <merge-commit-sha> --no-edit` (revert merge keeping first parent)
-- **Remove lock files**: `rm -f .git/index.lock` (if git operations fail due to lock)
-- **Clean untracked files**: `git clean -fd` (remove untracked files from working directory)
+- **Remove lock files**: `rm .git/index.lock` (if git operations fail due to lock)
 - **Check file state in commit**: `git ls-tree -r <commit-sha>:.github/workflows/ --name-only` (list files at specific commit)
 - **Verify changes**: `git diff <commit-sha> HEAD --name-status` (compare commits to see what changed)
 
@@ -239,7 +238,7 @@ If automation tool fails with rebase errors:
 2. **Verify your local state**: `git log --oneline -5` and `git diff origin/<target-branch>..HEAD --stat`
 3. **Choose recovery path**:
    - Create new branch: `git checkout -b <branch>-v2 && git push origin <branch>-v2`
-   - Or explain to user: "Branch ready at commit `<commit-sha>`, needs manual push: `git push --force-with-lease origin <branch>`"
+   - Or explain to user: "Branch ready at commit `<sha>`, needs manual push: `git push --force-with-lease origin <branch>`"
 
 **Best Practice**: Complete all git operations manually (fetch, reset, cherry-pick, verify) BEFORE calling
 automation tools. The tool will then simply push your clean, prepared commits.
