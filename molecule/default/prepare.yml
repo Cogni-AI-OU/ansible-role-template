@@ -1,9 +1,8 @@
 ---
 - name: Prepare hosts
-  hosts: "all:!nixos*"
+  hosts: all:!nixos*
   gather_facts: false
   tasks:
-
     - name: Install Python for Ansible
       ansible.builtin.raw: |
         if command -v python3 || command -v python; then
@@ -21,12 +20,10 @@
           exit 1
         fi
       changed_when: false
-
 - name: Prepare NixOS hosts
-  hosts: "nixos*"
+  hosts: nixos*
   gather_facts: false
   tasks:
-
     - name: Install Python for Ansible on NixOS
       ansible.builtin.raw: |
         if command -v python3 || command -v python; then

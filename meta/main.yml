@@ -1,6 +1,6 @@
+---
 # Documentation: https://docs.ansible.com/ansible/latest/dev_guide/collections_galaxy_meta.html
 # Note: Ensure the list is sorted alphabetically.
----
 dependencies: []
 galaxy_info:
   author: Cogni AI
@@ -13,7 +13,7 @@ galaxy_info:
     - ubuntu
   issue_tracker_url: https://github.com/Cogni-AI-OU/ansible-role-template/issues
   license: MIT
-  min_ansible_version: "2.7"
+  min_ansible_version: '2.7'
   namespace: cogni-ai
   platforms:
     - name: Alpine

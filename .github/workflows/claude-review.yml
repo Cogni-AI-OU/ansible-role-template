@@ -1,0 +1,13 @@
+---
+# Note: Keep keys and envs in alphabetical order.
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_call:
+
+jobs:
+  claude-review:
+    uses: Cogni-AI-OU/.github/.github/workflows/claude-review.yml@main
+    secrets: inherit
