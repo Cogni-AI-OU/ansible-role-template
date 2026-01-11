@@ -141,10 +141,19 @@ exist. Do not skip items just because a file already exists.
     on:
       pull_request:
         types: [opened, synchronize]
+      workflow_call:
     jobs:
       claude-review:
         uses: Cogni-AI-OU/.github/.github/workflows/claude-review.yml@main
+        permissions:
+          actions: read
+          contents: write
+          id-token: write
+          issues: write
+          pull-requests: write
         secrets: inherit
+        with:
+          pr_number: ${{ github.event.pull_request.number || '' }}
     ```
 
   - Note: Requires `ANTHROPIC_API_KEY` secret to be set in repository settings
