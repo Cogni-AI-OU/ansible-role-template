@@ -20,4 +20,10 @@ on:
 jobs:
   claude:
     uses: Cogni-AI-OU/.github/.github/workflows/claude.yml@main
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
     secrets: inherit
