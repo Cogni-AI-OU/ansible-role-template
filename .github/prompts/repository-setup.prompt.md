@@ -171,8 +171,6 @@ exist. Do not skip items just because a file already exists.
           issues: write
           pull-requests: write
         secrets: inherit
-        with:
-          pr_number: ${{ github.event.pull_request.number || '' }}
     ```
 
   - Note: Requires `ANTHROPIC_API_KEY` secret to be set in repository settings
@@ -201,9 +199,25 @@ exist. Do not skip items just because a file already exists.
     jobs:
       devcontainer-build:
         uses: Cogni-AI-OU/.github/.github/workflows/devcontainer-ci.yml@main
+        permissions:
+          contents: read
+          packages: write  # Required for pushing to GitHub Container Registry
     ```
 
-  - Customize: Add repository-specific required commands/packages via workflow inputs
+  - Note: The `packages: write` permission is **required** for the workflow to push container images to GHCR
+  - Customize: Add repository-specific required commands/packages via workflow inputs:
+
+    ```yaml
+    jobs:
+      devcontainer-build:
+        uses: Cogni-AI-OU/.github/.github/workflows/devcontainer-ci.yml@main
+        permissions:
+          contents: read
+          packages: write
+        with:
+          required_commands: 'docker npm python3'
+          required_python_packages: 'ansible pre-commit'
+    ```
 
 - [ ] **`.github/actionlint-matcher.json`**
   - Check if file exists
