@@ -19,7 +19,9 @@ on:
   workflow_call:
 jobs:
   claude:
+    # See: https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
     uses: Cogni-AI-OU/.github/.github/workflows/claude.yml@main
+    # Job-level permissions are passed to the reusable workflow
     permissions:
       actions: read
       contents: write

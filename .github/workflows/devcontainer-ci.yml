@@ -18,5 +18,6 @@ on:
   workflow_dispatch:
 jobs:
   devcontainer-build:
+    # See: https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
     uses: Cogni-AI-OU/.github/.github/workflows/devcontainer-ci.yml@main
     secrets: inherit  # pragma: allowlist secret

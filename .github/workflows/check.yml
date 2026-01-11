@@ -10,4 +10,5 @@ on:
   workflow_call:
 jobs:
   check:
+    # See: https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
     uses: Cogni-AI-OU/.github/.github/workflows/check.yml@main
