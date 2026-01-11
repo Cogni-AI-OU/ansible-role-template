@@ -1,4 +1,7 @@
 ---
+# See: <https://github.com/anthropics/claude-code-action>
+# Docs: <https://github.com/anthropics/claude-code-action/tree/main/docs>
+# Examples: <https://github.com/anthropics/claude-code-action/tree/main/examples>
 # Note: Keep keys and envs in alphabetical order.
 name: Claude Code
 on:
@@ -28,4 +31,4 @@ jobs:
       id-token: write
       issues: write
       pull-requests: write
-    secrets: inherit
+    secrets: inherit  # pragma: allowlist secret
