@@ -129,18 +129,7 @@ pip install -r .devcontainer/requirements.txt
 
 # Install pre-commit hooks
 pre-commit install
-
-# Set up environment variables (copy from .env.example)
-cp .env.example .env
-# Edit .env with your FreeAgent OAuth credentials
 ```
-
-## Configuration
-
-- **Environment Variables**: All configuration is via `FREEAGENT_*` environment variables
-- **OAuth2 Flow**: Uses authorization code flow with token refresh
-- **Output Formats**: Supports plain, csv, json, and yaml output formats
-- **Pagination**: Built-in pagination support with configurable page size
 
 ## Project Structure
 
