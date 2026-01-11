@@ -27,13 +27,13 @@ For specific tasks, use the following specialized agent instructions:
 
 ## Common Tasks
 
-### Before the changes
+### Before Committing Changes
 
-Before each commit change:
+Before committing changes:
 
 - Verify your expected changes by `git diff --no-color`.
-- Use linting and validation tools used by project to confirm your changes meet the coding standard.
-- If repo uses git hooks, run them to validate your changes.
+- Use linting and validation tools used by the project to confirm your changes meet the coding standard.
+- If the repo uses git hooks, run them to validate your changes.
 
 ### Linting and Validation
 
@@ -46,11 +46,11 @@ pre-commit run markdownlint -a
 pre-commit run yamllint -a
 ```
 
-### Understanding the task
+### Understanding the Task
 
-- When task is not clear, check further relevant information for better clarity.
-- If triggered by a short comment, check if parent's comment exist and consist further information.
-- If none of above helps, and task is ambiguous, comminicate to the user with potential options.
+- When the task is not clear, check for additional relevant information for better clarity.
+- If triggered by a short comment, check if a parent comment exists and contains further information.
+- If none of the above helps and the task is ambiguous, communicate with the user about potential options.
 
 ### Testing
 
