@@ -48,7 +48,7 @@ pre-commit run yamllint -a
 
 - When the task is not clear, look for additional context.
 - If triggered by a brief comment, check whether the parent comment exists and includes more detail.
-- If it’s still ambiguous, communicate with the user and propose options.
+- If it's still ambiguous, communicate with the user and propose options.
 
 ### Testing
 
@@ -95,7 +95,7 @@ on top of the updated target branch:
 
 ### Critical: Using `report_progress` Tool
 
-**⚠️ CRITICAL WARNING**: The `report_progress` tool automatically rebases your branch against the remote
+**WARNING**: The `report_progress` tool automatically rebases your branch against the remote
 tracking branch. This **WILL CRASH** the session if your local history has diverged from remote.
 
 **When Crash Occurs:**
@@ -167,8 +167,3 @@ If Copilot or automated checks behave unexpectedly:
 - Re-run `pre-commit run -a` locally to surface formatting or linting issues.
 - Verify `.markdownlint.yaml` and `.yamllint` have not been modified incorrectly.
 - If problems persist, open an issue with details of the command run and any error output.
-
-### Shell commands issues
-
-- Prefix shell commands with `time` to measure execution duration for better visibility.
-- When command takes too long, use `timeout` or similar approach to limit execution time.
