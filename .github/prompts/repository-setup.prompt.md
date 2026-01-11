@@ -140,7 +140,7 @@ exist. Do not skip items just because a file already exists.
     name: Claude Code Review
     on:
       pull_request:
-        types: [opened, synchronize]
+        types: [edited, opened, ready_for_review, reopened, review_requested]
       workflow_call:
     jobs:
       claude-review:
