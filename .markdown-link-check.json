@@ -1,32 +1,5 @@
 {
   "ignorePatterns": [
-    {
-      "pattern": "^https://www\\.tldrlegal\\.com"
-    },
-    {
-      "pattern": "^https://marketplace\\.visualstudio\\.com"
-    },
-    {
-      "pattern": "^https://yaml-multiline\\.info"
-    },
-    {
-      "pattern": "^https://docs\\.ansible\\.com"
-    },
-    {
-      "pattern": "^https://code\\.visualstudio\\.com"
-    },
-    {
-      "pattern": "^https://agents\\.md"
-    },
-    {
-      "pattern": "^https://gh\\.io"
-    },
-    {
-      "pattern": "^https://img\\.shields\\.io"
-    },
-    {
-      "pattern": "^\\.\\./"
-    }
   ],
   "timeout": "20s",
   "retryOn429": true,
