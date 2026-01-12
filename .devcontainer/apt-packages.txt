@@ -2,6 +2,7 @@ coreutils
 gh
 git
 mawk
+pipx
 sed
 time
 vim
