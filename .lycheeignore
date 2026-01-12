@@ -13,3 +13,17 @@ https://github.com/org/repo
 
 # URLs that require authentication or may block automated requests
 # Add patterns here as needed based on actual link check failures
+
+# External sites that may block automated requests or have rate limiting
+https://www.tldrlegal.com
+https://marketplace.visualstudio.com
+https://yaml-multiline.info
+https://docs.ansible.com
+https://code.visualstudio.com
+https://agents.md
+
+# GitHub shortlinks that may not resolve in automated checks
+https://gh.io
+
+# Badge images (shields.io) that may have rate limiting
+https://img.shields.io
