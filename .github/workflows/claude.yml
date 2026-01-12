@@ -20,6 +20,59 @@ on:
     types:
       - submitted
   workflow_call:
+    inputs:
+      agent:
+        description: 'Agent configuration to use'
+        required: false
+        type: string
+        default: 'default'
+      issue_number:
+        description: 'Issue number to operate on (provide either issue_number or pr_number)'
+        required: false
+        type: number
+      model:
+        description: 'Claude model to use'
+        required: false
+        type: string
+        default: 'claude-opus-4-5'
+      pr_number:
+        description: 'Pull request number to operate on (provide either issue_number or pr_number)'
+        required: false
+        type: number
+      prompt:
+        description: 'Prompt for Claude to execute'
+        required: false
+        type: string
+        default: ''
+  workflow_dispatch:
+    inputs:
+      agent:
+        description: 'Agent configuration to use'
+        required: false
+        type: choice
+        options:
+          - default
+          - code-tour
+          - copilot-plus
+        default: 'default'
+      issue_number:
+        description: 'Issue number to operate on (provide either issue_number or pr_number)'
+        required: false
+        type: number
+      model:
+        description: 'Claude model to use'
+        required: false
+        type: string
+        default: 'claude-opus-4-5'
+      pr_number:
+        description: 'Pull request number to operate on (provide either issue_number or pr_number)'
+        required: false
+        type: number
+      prompt:
+        description: 'Prompt for Claude to execute'
+        required: false
+        type: string
+        default: ''
 permissions:
   actions: read
   contents: write
@@ -38,3 +91,9 @@ jobs:
       issues: write
       pull-requests: write
     secrets: inherit  # pragma: allowlist secret
+    with:
+      agent: ${{ inputs.agent || 'default' }}
+      issue_number: ${{ inputs.issue_number }}
+      model: ${{ inputs.model || 'claude-opus-4-5' }}
+      pr_number: ${{ inputs.pr_number || github.event.pull_request.number }}
+      prompt: ${{ inputs.prompt || '' }}
