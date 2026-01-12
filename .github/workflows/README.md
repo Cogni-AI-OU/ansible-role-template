@@ -70,19 +70,41 @@ jobs:
 **Purpose**: Enables interactive collaboration with Claude AI on issues and pull requests. Claude can be
 triggered by mentioning `@claude` in comments, reviews, or newly opened issues.
 
-**Reusable**: This workflow can be called from other repositories using:
+**Reusable**: This workflow can be called from other workflows using:
 
 ```yaml
-uses: Cogni-AI-OU/.github/.github/workflows/claude.yml@main
-with:
-  # Optional: Customize the Claude model (default: claude-opus-4-5)
-  model: 'claude-opus-4-5'
-secrets: inherit
+jobs:
+  claude:
+    uses: Cogni-AI-OU/ansible-role-template/.github/workflows/claude.yml@main
+    with:
+      # Optional: Select agent configuration (default, code-tour, copilot-plus)
+      agent: 'copilot-plus'
+      # Optional: Specify issue or PR number to operate on
+      issue_number: 123
+      # pr_number: 456  # Use either issue_number or pr_number
+      # Optional: Customize the Claude model (default: claude-opus-4-5)
+      model: 'claude-opus-4-5'
+      # Optional: Provide a custom prompt for Claude
+      prompt: 'Review the security of the authentication module'
+    secrets: inherit
 ```
 
 **Inputs**:
 
+- `agent` (optional): Agent configuration to use (default: `default`, options: `default`, `code-tour`, `copilot-plus`)
+- `issue_number` (optional): Issue number to operate on (provide either `issue_number` or `pr_number`)
+- `pr_number` (optional): Pull request number to operate on (provide either `issue_number` or `pr_number`)
 - `model` (optional): Claude model to use (default: `claude-opus-4-5`)
+- `prompt` (optional): Custom prompt for Claude to execute
+
+**Manual Triggers**:
+
+This workflow also supports manual dispatch through the GitHub Actions UI with the following inputs:
+
+- Agent selection via dropdown (default, code-tour, copilot-plus)
+- Issue or PR number
+- Claude model selection
+- Custom prompt text
 
 **Jobs**:
 
@@ -98,7 +120,9 @@ secrets: inherit
 
 - Uses Claude Opus 4.5 model by default (configurable via `model` input)
 - Maximum 100 turns per conversation
+- Supports custom agent configurations for specialized tasks
 - Grants broad git access for autonomous commits (requires repository branch protection)
+- Includes MCP (Model Context Protocol) configuration support
 
 **Reference**: Uses [anthropics/claude-code-action][claude-action]
 
