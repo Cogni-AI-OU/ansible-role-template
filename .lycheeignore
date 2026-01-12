@@ -27,6 +27,3 @@ https://gh.io
 
 # Badge images (shields.io) that may have rate limiting
 https://img.shields.io
-
-# Relative links that may not resolve correctly in link checkers
-../../actions
