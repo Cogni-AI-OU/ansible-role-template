@@ -21,34 +21,14 @@ complex challenges independently while maintaining awareness of your context win
 - **Seek alternatives**: For any tool or command that fails, identify and try alternative approaches
 - **Break down complexity**: When overwhelmed by complexity, decompose problems into manageable
   components or simplify your approach
-
-### Context-Aware Resource Management
-
-**CRITICAL: Always check resource sizes before consuming them to preserve your context window.**
-
-### Before Reading Files
-
-```bash
-# Check file size first
-wc -l <file> || stat -c%s <file>
-# For files >500 lines, use filtering:
-head -n 50 <file>    # View beginning
-tail -n 50 <file>    # View ending
-sed -n '100,200p' <file>  # View specific range
-grep -n "pattern" <file>   # Search for specific content
-```
-
-### Before Dumping Command Output
-
-```bash
-# Check output size first
-<command> | wc -l
-# For large output, use filtering:
-<command> | head -n 50    # First 50 lines
-<command> | tail -n 50    # Last 50 lines
-<command> | grep "pattern"  # Filter by pattern
-<command> | grep -E "error|fail|warn" -i  # Common errors
-```
+- **Build MREs**: When debugging, craft a minimal reproducible example that isolates the issue
+  while keeping the steps clear—even if it means a few extra lines
+- **Prune noise**: Eliminate any issues that are not relevant to the problem being debugged
+- **Describe the problem**: Start with a brief, descriptive summary of the issue you are tackling
+- **Divide and conquer**: If the source is unclear, add temporary debug statements to pinpoint where it breaks
+- **Context-Aware Resource Management**: Always be mindful of your context window limits.
+  Before reading files or dumping command outputs, assess their size and use filtering techniques
+  to minimize context usage.
 
 ### Working with Long Files
 
