@@ -5,39 +5,36 @@
   gather_facts: false
   vars:
     # Use controller Python (Ansible's interpreter)
-    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    ansible_python_interpreter: '{{ ansible_playbook_python }}'
     controller_pip: pip3
   pre_tasks:
     - name: Ensure requests is installed on controller
       ansible.builtin.pip:
         name: requests
         state: present
-        executable: "{{ controller_pip }}"
-
+        executable: '{{ controller_pip }}'
   tasks:
     - name: Render Dockerfiles for custom images
       ansible.builtin.template:
-        src: "{{ item.dockerfile }}"
-        dest: "{{ molecule_ephemeral_directory }}/{{ item.name }}.Dockerfile"
-        mode: "0644"
-      loop: "{{ molecule_yml.platforms }}"
+        src: '{{ item.dockerfile }}'
+        dest: '{{ molecule_ephemeral_directory }}/{{ item.name }}.Dockerfile'
+        mode: '0644'
+      loop: '{{ molecule_yml.platforms }}'
       when: item.dockerfile is defined
-
     - name: Build custom images when dockerfile is provided
       community.docker.docker_image:
-        name: "{{ item.image }}"
+        name: '{{ item.image }}'
         build:
-          path: "{{ molecule_ephemeral_directory }}"
-          dockerfile: "{{ item.name }}.Dockerfile"
+          path: '{{ molecule_ephemeral_directory }}'
+          dockerfile: '{{ item.name }}.Dockerfile'
         source: build
         force_source: true
-      loop: "{{ molecule_yml.platforms }}"
+      loop: '{{ molecule_yml.platforms }}'
       when: item.dockerfile is defined
-
     - name: Ensure test containers are running
       community.docker.docker_container:
-        name: "{{ item.name }}"
-        image: "{{ item.image }}"
+        name: '{{ item.name }}'
+        image: '{{ item.image }}'
         command: sleep infinity
         # NixOS containers require privileged mode due to non-standard filesystem layout.
         privileged: "{{ 'nixos' in item.name }}"
@@ -47,8 +44,7 @@
           if 'nixos' in item.name else omit }}
         recreate: true
         pull: "{{ false if 'nixos' in item.name else true }}"
-      loop: "{{ molecule_yml.platforms }}"
-
+      loop: '{{ molecule_yml.platforms }}'
     - name: Build instance config entries
       ansible.builtin.set_fact:
         instance_conf_dict: >-
@@ -63,17 +59,14 @@
               'ansible_ssh_common_args': "-o StrictHostKeyChecking=no"
             }
           ] }}
-      loop: "{{ molecule_yml.platforms }}"
-
+      loop: '{{ molecule_yml.platforms }}'
     - name: Convert instance config list
       ansible.builtin.set_fact:
-        instance_conf: "{{ instance_conf_dict }}"
-
+        instance_conf: '{{ instance_conf_dict }}'
     - name: Dump instance config
       ansible.builtin.copy:
         content: |
-          # Molecule managed
-
+            # Molecule managed
           {{ instance_conf | to_json | from_json | to_yaml }}
-        dest: "{{ molecule_instance_config }}"
-        mode: "0600"
+        dest: '{{ molecule_instance_config }}'
+        mode: '0600'
