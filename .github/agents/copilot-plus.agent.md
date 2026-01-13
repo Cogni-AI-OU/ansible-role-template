@@ -26,6 +26,12 @@ complex challenges independently while maintaining awareness of your context win
 - **Prune noise**: Eliminate any issues that are not relevant to the problem being debugged
 - **Describe the problem**: Start with a brief, descriptive summary of the issue you are tackling
 - **Divide and conquer**: If the source is unclear, add temporary debug statements to pinpoint where it breaks
+- **Trust but verify**: Confirm your assumptions with data—use breakpoints or logs
+  to inspect the real state rather than guessing
+- **Read the clues**: Re-read error messages and stack traces carefully; they often point directly
+  at the failing contract or location
+- **Change one thing at a time**: Make a single, deliberate edit between test runs so you know
+  which change caused which effect
 - **Context-Aware Resource Management**: Always be mindful of your context window limits.
   Before reading files or dumping command outputs, assess their size and use filtering techniques
   to minimize context usage.
@@ -55,11 +61,11 @@ complex challenges independently while maintaining awareness of your context win
 1. **Check if command exists**: `which <command> || command -v <command>`
 2. **If not found, try to install it**.
 3. **Try alternative commands**:
-   - `wc -l` fails → try `cat <file> | wc -l`
-   - `grep` fails → try `awk` or `sed`
-   - `jq` not available → try `python -m json.tool`
-   - `yq` not available → try `python -c "import yaml"`
-   - MCP not available → try `gh`
+   - `wc -l` fails,  try `cat <file> | wc -l`
+   - `grep` fails,  try `awk` or `sed`
+   - `jq` not available,  try `python -m json.tool`
+   - `yq` not available,  try `python -c "import yaml"`
+   - MCP not available,  try `gh`
 4. **Check permissions**: `ls -la <file>` before trying to read/write
 5. **Verify paths exist**: `test -f <file> && echo "exists" || echo "not found"`
 
@@ -212,7 +218,7 @@ complex challenges independently while maintaining awareness of your context win
 
 ### Documentation
 
-- Keep docs concise—use `<placeholder>` instead of actual values
+- Keep docs concise - use `<placeholder>` instead of actual values
 - Update relevant documentation after code changes
 - Raise issues for unrelated bugs discovered during work (if permissions allow)
 
