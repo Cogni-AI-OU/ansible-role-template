@@ -1,32 +1,40 @@
 # AGENTS.md
 
-Guidance for Claude automation agents working in this repository.
+Guidance for coding agents working in this repository.
 
-## Quick Start
+For general project guidance, see [README.md](README.md).
 
-- See [README.md](README.md) for setup and installation instructions
-- See [.tours/getting-started.tour](.tours/getting-started.tour) for a guided walkthrough
+## Required References
+
+- Project overview and install steps: [README.md](README.md)
+- Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
+- Language and format rules: see [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md)
+- Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
 - For enhanced agent capabilities, see [Copilot Plus](.github/agents/copilot-plus.agent.md)
 
-## Instructions
+## Agent Catalogs
 
-For detailed coding standards and formatting guidelines, refer to:
+Use these catalogs for authoritative, machine-readable lists of resources:
 
-- [Copilot Instructions](.github/copilot-instructions.md) - Main coding standards
-- [Ansible](.github/instructions/ansible.instructions.md) - Ansible conventions
-- [JSON](.github/instructions/json.instructions.md) - JSON formatting standards
-- [Markdown](.github/instructions/markdown.instructions.md) - Markdown standards
-- [YAML](.github/instructions/yaml.instructions.md) - YAML formatting standards
+- Skills: [.github/skills/AGENTS.md](.github/skills/AGENTS.md) - loadable skills and their SKILL.md entries
+- Instructions: [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md) - formatting and language rules
+- Workflows: [.github/workflows/AGENTS.md](.github/workflows/AGENTS.md) - reusable GitHub Actions with inputs/triggers
+- Prompts: [.github/prompts/AGENTS.md](.github/prompts/AGENTS.md) - available prompt files
+
+### Specialized Agents
+
+For specific tasks, use the following specialized agent instructions:
+
+- [Code Tour Agent](.github/agents/code-tour.agent.md) - For creating/updating `.tours/` files
+- [Copilot Plus Agent](.github/agents/copilot-plus.agent.md) - Enhanced Copilot capabilities
 
 ## Common Tasks
 
-### Before the changes
+### Before each commit
 
-Before committing the new changes, install pre-commit via pip and its hooks by:
-
-```bash
-pre-commit install
-```
+- Verify your expected changes with `git diff --no-color`.
+- Use the project linting/validation tools to confirm your changes meet the coding standard.
+- If the repo uses git hooks, run them to validate your changes.
 
 ### Linting and Validation
 
@@ -37,8 +45,13 @@ pre-commit run -a
 # Run specific checks
 pre-commit run markdownlint -a
 pre-commit run yamllint -a
-ansible-lint
 ```
+
+### Understanding the Task
+
+- When the task is not clear, look for additional context.
+- If triggered by a brief comment, check whether the parent comment exists and includes more detail.
+- If it's still ambiguous, communicate with the user and propose options.
 
 ### Testing
 
@@ -49,11 +62,6 @@ molecule test
 # Syntax check
 molecule syntax
 ```
-
-### Updating Templates
-
-- Edit files in `.github/ISSUE_TEMPLATE/` to modify issue templates
-- Edit `.github/pull_request_template.md` for PR template changes
 
 ### Adding or Modifying Workflows
 
@@ -79,18 +87,18 @@ on top of the updated target branch:
 5. Verify only your changes remain
 
 **For detailed step-by-step instructions with commands**, see:
-[`.github/skills/git/SKILL.md` - "Integrating Changes from Target Branch"](.github/skills/git/SKILL.md#integrating-changes-from-target-branch-avoiding-merge-commits)
+[`.github/skills/git/SKILL.md`](.github/skills/git/SKILL.md)
 
 ### Key Points
 
-- ❌ **Never** use `git merge <target-branch>` for branch integration
-- ✅ **Always** create backup tags before destructive operations
-- ✅ **Always** verify with `git diff` that only your changes remain
-- ⚠️ **Use** `GIT_EDITOR=true` for non-interactive cherry-pick operations
+- **Never** use `git merge <target-branch>` for branch integration
+- **Always** create backup tags before destructive operations
+- **Always** verify with `git diff` that only your changes remain
+- **Use** `GIT_EDITOR=true` for non-interactive cherry-pick operations
 
-### Critical: Using `report_progress` Tool
+### Using `report_progress` Tool
 
-**⚠️ CRITICAL WARNING**: The `report_progress` tool automatically rebases your branch against the remote
+**WARNING**: The `report_progress` tool automatically rebases your branch against the remote
 tracking branch. This **WILL CRASH** the session if your local history has diverged from remote.
 
 **When Crash Occurs:**
@@ -117,7 +125,6 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 ## References
 
 - Claude-specific guidance: [CLAUDE.md](CLAUDE.md)
-- Community standards: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 - Main documentation: [README.md](README.md)
 
 ## Troubleshooting
@@ -144,8 +151,3 @@ If Copilot or automated checks behave unexpectedly:
 - Re-run `pre-commit run -a` locally to surface formatting or linting issues.
 - Verify `.markdownlint.yaml` and `.yamllint` have not been modified incorrectly.
 - If problems persist, open an issue with details of the command run and any error output.
-
-### Shell commands issues
-
-- Prefix shell commands with `time` to measure execution duration for better visibility.
-- When command takes too long, use `timeout` or similar approach to limit execution time.
