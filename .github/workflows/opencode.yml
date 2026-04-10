@@ -106,7 +106,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           OPENCODE_PERMISSION: |-
-            { "bash": {  "*": "deny", "gh*": "allow", "gh pr review*": "deny", "pre-commit*": "allow" } }
+            { "bash": {
+              "*": "deny",
+              "gh api*": "allow",
+              "gh issue list*": "allow",
+              "gh issue view*": "allow",
+              "gh pr checks*": "allow",
+              "gh pr diff*": "allow",
+              "gh pr list*": "allow",
+              "gh pr view*": "allow",
+              "gh repo view*": "allow",
+              "gh run list*": "allow",
+              "gh run view*": "allow",
+              "gh search*": "allow",
+              "pre-commit*": "allow"
+            } }
         with:
           agent: ${{ inputs.agent }}
           model: >-

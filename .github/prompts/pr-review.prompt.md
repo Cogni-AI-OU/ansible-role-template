@@ -34,5 +34,5 @@ gh api \
   -f 'commit_id=<pr-sha>' \
   -f 'path=[path-to-file]' \
   -f 'side=RIGHT' \
-  -F "line=[line]"
+  -F "line=<line-number>"
 ```
