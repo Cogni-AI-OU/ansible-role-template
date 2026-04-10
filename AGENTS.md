@@ -14,9 +14,9 @@ Read these Agent files when working in corresponding dirs:
 - [`.github/workflows/AGENTS.md`](.github/workflows/AGENTS.md)
 - [`.github/prompts/AGENTS.md`](.github/prompts/AGENTS.md)
 
-Note: Keep this list up-to-date.
+Note: Keep this list up-to-date whenever a new directory-specific `AGENTS.md` file is added.
 
-### Creating new Agents file
+### Creating new Agents files
 
 Examples when you should create or update Agents files:
 
