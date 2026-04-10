@@ -7,6 +7,7 @@ agents.md
 aka.ms
 ansible.com
 api.github.com
+code.visualstudio.com
 codeload.github.com
 contributor-covenant.org
 freecodecamp.org
@@ -16,6 +17,7 @@ ghcr.io
 github.com
 guides.github.com
 hashicorp.com
+img.shields.io
 marketplace.visualstudio.com
 npm.pkg.github.com
 objects.githubusercontent.com
