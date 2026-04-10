@@ -162,7 +162,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 1
-          persist-credentials: false
+          persist-credentials: false  # Prevents git credential persistence; OpenCode uses OIDC tokens instead
       - name: Load review prompt
         id: load-prompt
         env:
@@ -181,7 +181,7 @@ jobs:
           OPENCODE_PERMISSION: |-
             { "bash": {
               "*": "deny",
-              "gh api*": "allow",
+              "gh api*pulls/*/comments*": "allow",
               "gh issue list*": "allow",
               "gh issue view*": "allow",
               "gh pr checks*": "allow",

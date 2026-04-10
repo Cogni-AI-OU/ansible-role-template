@@ -99,7 +99,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          persist-credentials: false  # Prevents duplicate Authorization header
+          persist-credentials: false  # Prevents git credential persistence; OpenCode uses OIDC tokens instead
       - name: Run opencode
         uses: anomalyco/opencode/github@latest
         env:
@@ -108,7 +108,6 @@ jobs:
           OPENCODE_PERMISSION: |-
             { "bash": {
               "*": "deny",
-              "gh api*": "allow",
               "gh issue list*": "allow",
               "gh issue view*": "allow",
               "gh pr checks*": "allow",

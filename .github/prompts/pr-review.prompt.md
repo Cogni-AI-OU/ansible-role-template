@@ -17,7 +17,7 @@ Guidelines:
 - Reference AGENTS.md if present for project conventions.
 - For simple fixes, provide committable suggestions using a fenced code block
   with the language identifier `suggestion`.
-- Use the gh cli to create comments on the files for the violations.
+- Use the gh cli to create inline comments only through the pull request review comments endpoint below.
 - Generally, write a comment instead of writing suggested change if you can help it.
 - For inline comments, start with summarizing the issue in one line, include defect classification,
   then provide details.
