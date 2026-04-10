@@ -105,6 +105,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          # Default-deny shell policy blocks git and all non-allowlisted commands.
           OPENCODE_PERMISSION: |-
             { "bash": {
               "*": "deny",
