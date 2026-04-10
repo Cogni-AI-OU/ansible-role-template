@@ -22,22 +22,22 @@ scan all Markdown files for broken links. It includes caching to avoid rate
 limits and can be configured via `.lycheeignore` at the repository root to
 exclude specific URLs or patterns.
 
-**Local Testing**: You can test links locally using `linkcheckmd` (a Python
-alternative to Lychee):
+**Local Testing**: You can test links locally with the configured
+`markdown-link-check` pre-commit hook:
 
 ```bash
 # Install from requirements.txt
 pip install -r .devcontainer/requirements.txt
 
 # Check a single file
-python -m linkcheckmd path/to/file.md
+pre-commit run markdown-link-check --files path/to/file.md
 
-# Check all markdown files in a directory
-python -m linkcheckmd .
+# Check all Markdown files
+pre-commit run markdown-link-check -a
 ```
 
-The tool checks both local file references and remote URLs, making it easy to
-catch broken links before pushing changes.
+The hook uses `.markdown-link-check.json` and checks both local file references
+and remote URLs before you push changes.
 
 ## Workflow Templates
 
@@ -82,13 +82,55 @@ before running the corresponding tools.
 
 ## Security
 
+### OpenCode Workflow Git Access
+
+The OpenCode workflow (`opencode.yml`) grants intentionally broad git access
+via `Bash(git:*)` to enable autonomous code changes. This permission is necessary
+for OpenCode to commit and push changes, but requires proper safeguards.
+
+#### OpenCode Security Controls
+
+**Access Control:**
+
+- Only trusted users can trigger OpenCode (OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR)
+- PR/issue authors can only trigger on their own content
+- External contributors (FIRST_TIME_CONTRIBUTOR, NONE) are explicitly blocked
+
+**Required Repository Protections:**
+
+To safely use OpenCode with git access, repository administrators must configure:
+
+1. **Branch Protection Rules** on main/protected branches:
+   - Require pull request reviews before merging
+   - Require status checks to pass (e.g., linting, tests)
+   - Require conversation resolution before merging
+   - Do not allow bypassing the above settings
+
+2. **GitHub Audit Logs** (organization-level):
+   - Enable and regularly review audit logs
+   - Monitor commits made by `github-actions[bot]` (OpenCode's identity)
+   - Set up alerts for suspicious patterns (rapid commits, deleted branches, etc.)
+
+3. **Protected Branch Policies**:
+   - Restrict who can push to protected branches
+   - Consider requiring deployment approvals for production branches
+   - Use CODEOWNERS to require specific reviewer approval for sensitive files
+
+#### OpenCode Best Practices
+
+- Review OpenCode's commits before merging PRs
+- Use draft PRs for OpenCode's work to require explicit promotion
+- Regularly audit OpenCode's tool usage and permissions
+- Rotate `OPENCODE_API_KEY` periodically
+- Monitor workflow run logs for unexpected behavior
+
 ### Claude Workflow Git Access
 
 The Claude Code workflow (`claude.yml`) grants intentionally broad git access
 via `Bash(git:*)` to enable autonomous code changes. This permission is necessary
 for Claude to commit and push changes, but requires proper safeguards.
 
-#### Security Controls
+#### Claude Security Controls
 
 **Access Control:**
 
@@ -116,7 +158,7 @@ To safely use Claude with git access, repository administrators must configure:
    - Consider requiring deployment approvals for production branches
    - Use CODEOWNERS to require specific reviewer approval for sensitive files
 
-#### Best Practices
+#### Claude Best Practices
 
 - Review Claude's commits before merging PRs
 - Use draft PRs for Claude's work to require explicit promotion
