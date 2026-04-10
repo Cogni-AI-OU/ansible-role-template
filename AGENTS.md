@@ -4,22 +4,42 @@ Guidance for coding agents working in this repository.
 
 For general project guidance, see [README.md](README.md).
 
+## Directory-Specific Agent files
+
+Read these Agent files when working in corresponding dirs:
+
+- [`.github/AGENTS.md`](.github/AGENTS.md)
+- [`.github/instructions/AGENTS.md`](.github/instructions/AGENTS.md)
+- [`.github/skills/AGENTS.md`](.github/skills/AGENTS.md)
+- [`.github/workflows/AGENTS.md`](.github/workflows/AGENTS.md)
+- [`.github/prompts/AGENTS.md`](.github/prompts/AGENTS.md)
+
+Note: Keep this list up-to-date.
+
+### Creating new Agents file
+
+Examples when you should create or update Agents files:
+
+- Agent-focused guidance that complements existing README and docs
+- On completion of complex tasks which are essential to include for simplified agentic flow
+- Resolution has been found during a troubleshooting session
+- User provides new rules, examples, or feedback intended to guide agent behavior
+- User requests to update, improve, or refactor existing processes
+- Existing documentation is too long and complex, and key details need extraction for agent execution
+- The agent struggles with a recurring task or discovers an effective solution/workaround not already documented
+- Work on functionality that requires special knowledge to be shared
+
+What to avoid:
+
+- Don't include one-time discoveries which won't be needed in the future
+- Don't include steps which could be a comment in the code instead
+
 ## Required References
 
 - Project overview and install steps: [README.md](README.md)
 - Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
-- Language and format rules: see [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md)
 - Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
 - For enhanced agent capabilities, see [Copilot Plus](.github/agents/copilot-plus.agent.md)
-
-## Agent Catalogs
-
-Use these catalogs for authoritative, machine-readable lists of resources:
-
-- Skills: [.github/skills/AGENTS.md](.github/skills/AGENTS.md) - loadable skills and their SKILL.md entries
-- Instructions: [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md) - formatting and language rules
-- Workflows: [.github/workflows/AGENTS.md](.github/workflows/AGENTS.md) - reusable GitHub Actions with inputs/triggers
-- Prompts: [.github/prompts/AGENTS.md](.github/prompts/AGENTS.md) - available prompt files
 
 ### Specialized Agents
 
