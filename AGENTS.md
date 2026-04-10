@@ -10,7 +10,7 @@ For general project guidance, see [README.md](README.md).
 - Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
 - Language and format rules: see [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md)
 - Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
-- For enhanced agent capabilities, see [Copilot Plus](.github/agents/copilot-plus.agent.md)
+- For enhanced agent capabilities, see [Prodigy Engineer](.github/agents/prodigy-engineer.agent.md)
 
 ## Agent Catalogs
 
@@ -26,7 +26,7 @@ Use these catalogs for authoritative, machine-readable lists of resources:
 For specific tasks, use the following specialized agent instructions:
 
 - [Code Tour Agent](.github/agents/code-tour.agent.md) - For creating/updating `.tours/` files
-- [Copilot Plus Agent](.github/agents/copilot-plus.agent.md) - Enhanced Copilot capabilities
+- [Prodigy Engineer Agent](.github/agents/prodigy-engineer.agent.md) - Enhanced engineering capabilities
 
 ## Common Tasks
 
