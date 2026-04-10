@@ -1,8 +1,8 @@
 # AGENTS.md
 
-Persistent single-source truth for autonomous agent behavior.
+Persistent single source of truth for autonomous agent behavior.
 
-For general project invariants see [README.md](README.md).
+For general project invariants, see [README.md](README.md).
 
 ## Directory-Specific Agent files
 
