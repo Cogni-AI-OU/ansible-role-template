@@ -1,25 +1,112 @@
 # AGENTS.md
 
-Guidance for coding agents working in this repository.
+Persistent single source of truth for autonomous agent behavior.
 
-For general project guidance, see [README.md](README.md).
+For general project invariants, see [README.md](README.md).
+
+## Directory-Specific Agent files
+
+Read and merge these when operating inside corresponding sub-directories (order = precedence):
+
+- [`.github/AGENTS.md`](.github/AGENTS.md)
+- Any `AGENTS.md` or `SKILL.md` in ancestor, then current directory tree
+
+**Maintenance invariant**:
+
+- After every complex task completion or troubleshooting victory,
+  immediately update the nearest relevant AGENTS.md or SKILL.md.
+- On recurring failure, immediately re-evaluate
+  and update the nearest relevant AGENTS.md or SKILL.md.
+- On discovery of superior workaround, new efficiency primitive, or explicit user directive,
+  immediately update the nearest relevant AGENTS.md or SKILL.md.
+- On detection of ambiguous steps or unclear instructions,
+  immediately update the nearest relevant AGENTS.md or SKILL.md.
+
+**Creation / Update Triggers (Hard Gate)**:
+
+- Agent-focused guidance that materially compresses cognitive load or failure surface.
+- Resolution of recurring task failures or repeated edge-case collapses.
+- Discovery of dense, reusable execution primitives during development or debugging.
+- User injects new rules, exemplars, or feedback intended for persistent agent memory.
+- Existing documentation entropy exceeds threshold, then extract & prune to peak-density form.
+- Functionality requires domain-specific knowledge that must survive context windows.
+
+**Hardened NEVER List**:
+
+- NEVER embed one-time discoveries or transient hacks.
+- NEVER duplicate code-level comments or obvious steps.
+- NEVER hardcode environment-specific values; use generic placeholders with explicit semantics.
+- NEVER include beginner exposition or obvious statements.
+- NEVER bloat with prose; enforce one-liner density + imperative syntax only.
+- If guidance is purely disciplinary, route to dedicated `SKILL.md` instead.
+
+**Writing invariants (Prodigy-Level)**:
+
+- Assume ninja-level proficiency across project spectrum.
+- Embed quantitative gates (+20% fidelity delta, <1h MTTR analog, zero ambiguity).
+- Every bullet carries measurable payload: role, then invariants, then context, then exemplars, then schema,
+  then NEVER/MUST-NOT, then verification loops.
+- Favor tables, checklists, and contract-style boundaries over linear text.
+- Zero scaffolding. Maximal information-theoretic density. Surgical imperative syntax.
+
+## Core Agent Execution Protocol (Mandatory for All Forks)
+
+**Pre-execution reverse-prompting activation**:
+
+- Declare required inputs, missing context, edge cases, and optimal strategy before any tool invocation or code delta.
+- Snapshot current problem state in one entropy-minimized sentence.
+- Enumerate risks against classic-mistakes matrix and Top-10 Risks List.
+- Apply noise-pruning filter + single-variable delta rule for all experiments.
+
+**Strategic vs tactical default**:
+
+- Always default to strategic programming (Ousterhout).
+- Invest 10-20% per cycle in design/refactoring for long-term velocity.
+- Tactical tornadoes trigger immediate rollback + root-cause ablation.
+
+**Complexity annihilation primitives** (apply at every layer):
+
+- Design-it-twice mandate on non-trivial decisions.
+- Divide-and-conquer + controlled simplification.
+- DRY + Boy Scout Rule + Rule-of-Three on every duplication smell.
+- Information hiding / deep modules over shallow pass-throughs.
+- Pull complexity downwards; define errors out of existence where possible.
+- Refactor mercilessly via Fowler catalog before feature addition.
+
+**Verification scaffold (Neurosymbolic)**:
+
+- Chain-of-Verification (CoV) + self-consistency majority vote on every output.
+- Unit, then integration, then system regression sequence before any merge.
+- Minimal reproducible example builder for every failure isolation.
+- Trust-but-verify: replace every assumption with logs/assertions/runtime inspection.
+- Post-action: blameless root-cause ablation + lesson injection into persistent memory.
+
+**Debug & Troubleshooting Engine**:
+
+- Stabilize, then reproduce, then isolate via divide-and-conquer + single-variable delta.
+- Never patch symptoms; fix root via 5-Whys until systemic.
+- Instrument targeted breakpoints; prune non-contributory variables first.
+- Maintain runbooks for recurring failure signatures.
+
+**Orchestration Models** (select via task cardinality):
+
+- **Fork**: byte-identical context clone for bounded subtasks.
+- **Teammate**: persistent peer with isolated tools/memory.
+- **Worktree**: fully parallel independent streams with fork-join synchronization.
+
+**Termination invariants**:
+
+- All TODOs empirically verified.
+- Quality, security, performance gates satisfied.
+- User objective resolved at target fidelity (+20% over prior baseline).
+- AGENTS.md/SKILL.md updated if new reusable primitive discovered.
 
 ## Required References
 
 - Project overview and install steps: [README.md](README.md)
 - Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
-- Language and format rules: see [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md)
 - Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
-- For enhanced agent capabilities, see [Copilot Plus](.github/agents/copilot-plus.agent.md)
-
-## Agent Catalogs
-
-Use these catalogs for authoritative, machine-readable lists of resources:
-
-- Skills: [.github/skills/AGENTS.md](.github/skills/AGENTS.md) - loadable skills and their SKILL.md entries
-- Instructions: [.github/instructions/AGENTS.md](.github/instructions/AGENTS.md) - formatting and language rules
-- Workflows: [.github/workflows/AGENTS.md](.github/workflows/AGENTS.md) - reusable GitHub Actions with inputs/triggers
-- Prompts: [.github/prompts/AGENTS.md](.github/prompts/AGENTS.md) - available prompt files
+- Latest org baseline: <https://github.com/Cogni-AI-OU/.github/blob/main/AGENTS.md>
 
 ### Specialized Agents
 
@@ -109,7 +196,8 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 **Prevention (Choose One):**
 
 1. **Use new branch name** after rewriting history: `git checkout -b <feature>-v2` (safest)
-2. **Complete git operations manually**, then ask user for manual push (never call `report_progress` after `git reset --hard`)
+2. **Complete git operations manually**, then ask user for manual push
+   (never call `report_progress` after `git reset --hard`)
 
 **If Already Crashed:**
 
@@ -120,11 +208,12 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 **Error Patterns:** `Rebasing (1/XXX)` with large numbers, `CONFLICT (content)`, session crash with `GitError`
 
 **For complete details**, see:
-[`.github/skills/git/SKILL.md` - "Working with Automation Tools"](.github/skills/git/SKILL.md#working-with-automation-tools)
+[`.github/skills/git/SKILL.md` - "Working with Automation Tools"](
+  .github/skills/git/SKILL.md#working-with-automation-tools
+)
 
 ## References
 
-- Claude-specific guidance: [CLAUDE.md](CLAUDE.md)
 - Main documentation: [README.md](README.md)
 
 ## Troubleshooting
@@ -141,8 +230,10 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 If you encounter firewall issues when using the GitHub Copilot Agent:
 
 - Refer to <https://gh.io/copilot/firewall-config> for configuration details.
+- Do not workaround blocked URLs by adding markdown-link-check ignore/whitelist patterns for real links.
+- Keep markdown-link-check validating real links, and request firewall allowlisting instead.
 - If you need to allowlist additional hosts, update your firewall configuration accordingly
-  and keep the list of allowed hosts in `.github/agents/FIREWALL.md` up to date.
+  by following `.github/agents/FIREWALL.md` and keep that file up to date.
 
 ### Linting issues
 
