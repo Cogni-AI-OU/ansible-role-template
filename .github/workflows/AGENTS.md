@@ -27,15 +27,16 @@ For a human-readable overview, see [README.md](README.md).
 ### opencode.yml
 
 - Purpose: invoke OpenCode agents via slash commands or manual triggers.
-- Inputs: `agent` (default `build`), `model` (default `opencode/claude-opus-4-5`), `prompt` (optional override).
+- Inputs: `agent` (default `cogni-ai`), `model` (default `opencode/gemini-3.1-pro`), `prompt` (optional override).
 - Triggers: `workflow_dispatch`, `workflow_call`, or issue comments with `/oc` or `/opencode` from trusted
   collaborators.
+- Concurrency: one run per branch/PR context via workflow-level `concurrency` group to avoid competing pushes.
 - Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/opencode.yml@main`.
 
 ### opencode-review.yml
 
 - Purpose: OpenCode-driven PR review.
-- Inputs: `agent` (default `build`), `model` (default `opencode/claude-opus-4-5`), `pr_number`,
+- Inputs: `agent` (default `cogni-ai`), `model` (default `opencode/gpt-5.3-codex`), `pr_number`,
   `prompt` (default `pr-review`), `additional_prompt`.
 - Triggers: `pull_request_target`, `/review` comments from trusted collaborators, `workflow_dispatch`,
   `workflow_call`.
@@ -72,10 +73,10 @@ For a human-readable overview, see [README.md](README.md).
 ### OpenCode workflows
 
 - `opencode/claude-haiku-4-5`: fastest, best for quick tasks.
-- `opencode/claude-opus-4-5`: default balance.
-- `opencode/claude-sonnet-4-5`: most capable.
+- `opencode/gemini-3.1-pro`: default for `opencode.yml`.
+- `opencode/gpt-5.3-codex`: default for `opencode-review.yml`.
 - Provide `model` input when calling `opencode.yml` or `opencode-review.yml`; defaults to
-  `opencode/claude-opus-4-5`.
+  workflow-level defaults when not explicitly provided.
 
 ### Claude workflows
 
