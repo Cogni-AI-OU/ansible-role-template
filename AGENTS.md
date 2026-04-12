@@ -40,7 +40,7 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - NEVER bloat with prose; enforce one-liner density + imperative syntax only.
 - If guidance is purely disciplinary, route to dedicated `SKILL.md` instead.
 
-**Writing invariants (Prodigy-Level)**:
+**Writing invariants (Cogni AI-Level)**:
 
 - Assume ninja-level proficiency across project spectrum.
 - Embed quantitative gates (+20% fidelity delta, <1h MTTR analog, zero ambiguity).
@@ -106,14 +106,13 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - Project overview and install steps: [README.md](README.md)
 - Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
 - Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
-- Latest org baseline: <https://github.com/Cogni-AI-OU/.github/blob/main/AGENTS.md>
 
 ### Specialized Agents
 
 For specific tasks, use the following specialized agent instructions:
 
 - [Code Tour Agent](.github/agents/code-tour.agent.md) - For creating/updating `.tours/` files
-- [Copilot Plus Agent](.github/agents/copilot-plus.agent.md) - Enhanced Copilot capabilities
+- [Cogni AI Agent](.github/agents/cogni-ai.agent.md) - Enhanced engineering capabilities
 
 ## Common Tasks
 

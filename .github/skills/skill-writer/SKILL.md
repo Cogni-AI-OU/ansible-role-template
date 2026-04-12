@@ -1,13 +1,14 @@
 <!-- markdownlint-disable MD003 MD022 MD026 MD041 -->
-
 ---
 name: skill-writer
 description: >-
   When the user requests to create, update, or refine a GitHub Copilot skill,
   generate or revise a complete SKILL.md file that strictly adheres to the
   official format, validation rules, and community best practices.
----
 
+  Maintained at: <https://github.com/Cogni-AI-OU/.github/blob/main/.github/skills/skill-writer/SKILL.md>
+
+---
 # Skill Writer
 
 Generate or update SKILL.md files for GitHub Copilot coding agents, ensuring
@@ -16,16 +17,16 @@ repository standards.
 
 ## When to Activate
 
-- User explicitly asks to create or update a skill for a specific issue, topic
-  or task.
-- User requests to update, improve, or refactor an existing SKILL.md.
-- User provides new rules, examples, or feedback intended to guide skill
-  authoring.
 - Capture Agent Insights: When the agent struggles with a recurring task,
   encounters repeated failures, or discovers an effective new solution/workaround
   not already documented, update the relevant existing skill (or create a new
   one) to incorporate the insight, ensuring future activations handle the case
   more efficiently.
+- User explicitly asks to create or update a skill for a specific issue, topic
+  or task.
+- User provides new rules, examples, or feedback intended to guide skill
+  authoring.
+- User requests to update, improve, or refactor an existing SKILL.md.
 
 ## Core Process
 
@@ -71,7 +72,7 @@ When creating or updating a skill file, ensure the following format:
   must pass all repository validation and linting rules.
 
 - **Start with Lint Disable**: Always open the file with
-  `<!-- markdownlint-disable MD022 MD026 MD041 -->` to suppress common
+  `<!-- markdownlint-disable MD003 MD022 MD026 MD041 -->` to suppress common
   markdownlint warnings.
 
 - **Description Precision**: Write the `description` as a single, highly
@@ -90,10 +91,16 @@ When creating or updating a skill file, ensure the following format:
   self-contained loops, built-in error recovery, verification steps, and no user
   confirmation prompts except for safety-critical actions.
 
-- **Skill Length Management**: If a skill exceeds or approaches 400 lines, or
-  if content becomes unfocused, split it into multiple specialized skills with
-  narrow, non-overlapping activation descriptions to maintain conciseness,
-  precise triggering, and efficient token usage.
+- **Skill Length Management**: Keep skills concise and focused, ideally under 100
+  lines. If a skill exceeds or approaches 400 lines, or if content becomes
+  unfocused, split it into multiple specialized skills with narrow,
+  non-overlapping activation descriptions to maintain conciseness, precise
+  triggering, and efficient token usage.
+
+- **Example Discipline**: Use fewer, shorter examples. Include only essential
+  examples that demonstrate key patterns—avoid multiple variations of the same
+  concept. Prefer single-line examples over multi-line blocks when possible.
+  Quality over quantity: each example must add distinct value.
 
 - **Avoid Hardcoding**: Never embed specific values, file paths, repository
   names, user details, or tool versions; instead, use clear placeholders (e.g.,
@@ -101,7 +108,10 @@ When creating or updating a skill file, ensure the following format:
 
 - **Command-Line Tool Examples**: When the skill involves command-line tools,
   derive them dynamically via tools/read operations to maximize skill generality
-  and cross-project reusability. Always provide useful examples of key
-  commands—especially for complex, multi-flag, piped, or non-standard
-  operations—to ensure precise reproduction, minimize agent misinterpretation,
-  and reduce execution failures.
+  and cross-project reusability. Provide concise examples of key commands—focus
+  on complex, multi-flag, piped, or non-standard operations that require precise
+  reproduction. Avoid repetitive or overly specific examples.
+
+## Maintenance
+
+Note that this file should be updated if outdated or steps/examples are not working.

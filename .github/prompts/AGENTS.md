@@ -13,6 +13,7 @@ For a human-readable overview, see [README.md](README.md).
 
 ## Notes
 
+- Apply prompt files only when a user or task explicitly requests or approves their use.
 - Use Markdown prompts for human-readable checklists and structured guidance.
 - Use YAML prompts for GitHub Models or programmatic consumption.
 - Update this catalog whenever prompts are added, removed, or renamed.

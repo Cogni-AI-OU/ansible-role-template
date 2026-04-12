@@ -5,7 +5,7 @@ These agents are tailored to specific tasks and integrate seamlessly with GitHub
 
 ## Available Agents
 
-### [Copilot Plus](copilot-plus.agent.md)
+### [Cogni AI agent](cogni-ai.agent.md)
 
 Enhanced agent with critical thinking, robust problem-solving, and context-aware resource management. Features:
 
@@ -114,7 +114,7 @@ Repository administrators must configure:
 - Review Claude's commits before merging PRs
 - Use draft PRs for Claude's work requiring explicit promotion
 - Monitor workflow logs for unexpected behavior
-- Rotate `ANTHROPIC_API_KEY` periodically
+- Rotate API keys periodically
 
 ## Troubleshooting
 
