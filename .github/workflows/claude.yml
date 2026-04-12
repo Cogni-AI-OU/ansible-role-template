@@ -22,54 +22,54 @@ on:
   workflow_call:
     inputs:
       agent:
-        description: 'Agent configuration to use'
+        description: Agent configuration to use
         required: false
         type: string
-        default: 'default'
+        default: default
       issue_number:
-        description: 'Issue number to operate on (provide either issue_number or pr_number)'
+        description: Issue number to operate on (provide either issue_number or pr_number)
         required: false
         type: number
       model:
-        description: 'Claude model to use'
+        description: Claude model to use
         required: false
         type: string
-        default: 'claude-opus-4-5'
+        default: claude-opus-4-5
       pr_number:
-        description: 'Pull request number to operate on (provide either issue_number or pr_number)'
+        description: Pull request number to operate on (provide either issue_number or pr_number)
         required: false
         type: number
       prompt:
-        description: 'Prompt for Claude to execute'
+        description: Prompt for Claude to execute
         required: false
         type: string
         default: ''
   workflow_dispatch:
     inputs:
       agent:
-        description: 'Agent configuration to use'
+        description: Agent configuration to use
         required: false
         type: choice
         options:
           - default
           - code-tour
           - cogni-ai
-        default: 'default'
+        default: default
       issue_number:
-        description: 'Issue number to operate on (provide either issue_number or pr_number)'
+        description: Issue number to operate on (provide either issue_number or pr_number)
         required: false
         type: number
       model:
-        description: 'Claude model to use'
+        description: Claude model to use
         required: false
         type: string
-        default: 'claude-opus-4-5'
+        default: claude-opus-4-5
       pr_number:
-        description: 'Pull request number to operate on (provide either issue_number or pr_number)'
+        description: Pull request number to operate on (provide either issue_number or pr_number)
         required: false
         type: number
       prompt:
-        description: 'Prompt for Claude to execute'
+        description: Prompt for Claude to execute
         required: false
         type: string
         default: ''
