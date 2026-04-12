@@ -9,13 +9,11 @@ For a human-readable overview, see [README.md](README.md).
 
 | Prompt | Format | Purpose |
 | ------ | ------ | ------- |
-| [default.prompt.yml](default.prompt.yml) | YAML | Default GitHub Models prompt for general AI agent tasks |
-| [pr-review.prompt.md](pr-review.prompt.md) | Markdown | Standard pull request review prompt for automated reviewers |
 | [repository-setup.prompt.md](repository-setup.prompt.md) | Markdown | Full repository setup checklist using org standards from Cogni-AI-OU/.github |
-| [test.prompt.yml](test.prompt.yml) | YAML | Minimal GitHub Models test prompt for validating prompt wiring |
 
 ## Notes
 
+- Apply prompt files only when a user or task explicitly requests or approves their use.
 - Use Markdown prompts for human-readable checklists and structured guidance.
 - Use YAML prompts for GitHub Models or programmatic consumption.
 - Update this catalog whenever prompts are added, removed, or renamed.

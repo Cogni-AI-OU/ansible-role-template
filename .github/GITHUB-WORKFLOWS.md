@@ -82,18 +82,19 @@ before running the corresponding tools.
 
 ## Security
 
-### OpenCode (opencode.yml) — git access
+### OpenCode Workflow Git Access
 
-The OpenCode workflow (`opencode.yml`) uses `OPENCODE_PERMISSION` with an allowlist of specific `git` commands to enable autonomous code changes. This permission is necessary
+The OpenCode workflow (`opencode.yml`) grants intentionally broad git access
+via `Bash(git:*)` to enable autonomous code changes. This permission is necessary
 for OpenCode to commit and push changes, but requires proper safeguards.
 
-#### OpenCode Security Controls
+#### Security Controls
 
 **Access Control:**
 
-- Only repository users with `OWNER`, `MEMBER`, or `COLLABORATOR` association can trigger OpenCode
-- The workflow does not currently enforce "authors can only trigger on their own content"
-- All other association types, including `CONTRIBUTOR`, `FIRST_TIME_CONTRIBUTOR`, and `NONE`, are not allowed
+- Only trusted users can trigger OpenCode (OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR)
+- PR/issue authors can only trigger on their own content
+- External contributors (FIRST_TIME_CONTRIBUTOR, NONE) are explicitly blocked
 
 **Required Repository Protections:**
 
@@ -115,58 +116,10 @@ To safely use OpenCode with git access, repository administrators must configure
    - Consider requiring deployment approvals for production branches
    - Use CODEOWNERS to require specific reviewer approval for sensitive files
 
-#### OpenCode Best Practices
+#### Best Practices
 
 - Review OpenCode's commits before merging PRs
 - Use draft PRs for OpenCode's work to require explicit promotion
 - Regularly audit OpenCode's tool usage and permissions
 - Rotate `OPENCODE_API_KEY` periodically
 - Monitor workflow run logs for unexpected behavior
-
-### OpenCode Review (opencode-review.yml) — no git access
-
-The OpenCode Review workflow (`opencode-review.yml`) does not grant git access and relies solely on `gh` API commands and pre-commit hooks to perform its duties. Because it does not write to the repository, it does not require the strict git-specific controls outlined above.
-
-### Claude Workflow Git Access
-
-The Claude Code workflow (`claude.yml`) grants intentionally broad git access
-via `Bash(git:*)` to enable autonomous code changes. This permission is necessary
-for Claude to commit and push changes, but requires proper safeguards.
-
-#### Claude Security Controls
-
-**Access Control:**
-
-- Only trusted users can trigger Claude (OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR)
-- PR/issue authors can only trigger on their own content
-- External contributors (FIRST_TIME_CONTRIBUTOR, NONE) are explicitly blocked
-
-**Required Repository Protections:**
-
-To safely use Claude with git access, repository administrators must configure:
-
-1. **Branch Protection Rules** on main/protected branches:
-   - Require pull request reviews before merging
-   - Require status checks to pass (e.g., linting, tests)
-   - Require conversation resolution before merging
-   - Do not allow bypassing the above settings
-
-2. **GitHub Audit Logs** (organization-level):
-   - Enable and regularly review audit logs
-   - Monitor commits made by `github-actions[bot]` (Claude's identity)
-   - Set up alerts for suspicious patterns (rapid commits, deleted branches, etc.)
-
-3. **Protected Branch Policies**:
-   - Restrict who can push to protected branches
-   - Consider requiring deployment approvals for production branches
-   - Use CODEOWNERS to require specific reviewer approval for sensitive files
-
-#### Claude Best Practices
-
-- Review Claude's commits before merging PRs
-- Use draft PRs for Claude's work to require explicit promotion
-- Regularly audit Claude's tool usage and permissions
-- Rotate `ANTHROPIC_API_KEY` periodically
-- Monitor workflow run logs for unexpected behavior
-
-For more details, see [CLAUDE.md](../CLAUDE.md).
