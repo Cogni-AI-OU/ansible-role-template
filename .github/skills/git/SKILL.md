@@ -1,11 +1,21 @@
 <!-- markdownlint-disable MD003 MD013 MD022 MD026 MD041 -->
 ---
 name: git
-description: Guide for using git
-license: MIT
----
+description: >-
+  Guide for using git.
 
+  Maintained at: <https://github.com/Cogni-AI-OU/.github/blob/main/.github/skills/git/SKILL.md>
+license: MIT
+
+---
 Expert in advanced git usage for repository agents. Prioritize non-interactive, safe, reproducible operations that maintain clean history and respect repository conventions.
+
+## When to Activate
+
+- A user wants to understand repository git hooks related to their commits.
+- The agent needs to perform safe, non-interactive Git lifecycle tasks.
+- User asks for help to execute Git operations natively (committing, moving files, merging).
+- User encounters issues when amending or reverting code changes in history.
 
 ## Core Principles
 
@@ -19,9 +29,10 @@ Expert in advanced git usage for repository agents. Prioritize non-interactive, 
 ## Non-Interactive Patterns
 
 - **Amending last commit** (preserve author date): `git commit --amend --no-edit --date="$(git log -1 --format=%aD)"`
+- **Renaming files** (preserve history): `git mv old_file new_file` (instead of `mv` or `rm`)
 - **Fixup previous commits** (non-interactive preparation):
   - Create fixup: `git commit --fixup <commit-sha>`
-  - Later autosquash (requires interactive rebase-propose to user or defer to PR squash if agent cannot handle `-i`): `git rebase -i --autosquash origin/main`
+  - Later autosquash (requires interactive rebase - propose to user or defer to PR squash if agent cannot handle `-i`): `git rebase -i --autosquash origin/main`
 - **Rebasing feature branches**: `git fetch origin && git rebase origin/main --no-verify` (add `--no-verify` only if hooks block)
 - **Cherry-picking without conflicts**: `git cherry-pick -x <commit-sha>` (`-x` records original SHA for traceability)
 - **Cherry-picking with editor bypass**: `GIT_EDITOR=true git cherry-pick --continue` (auto-accept commit message during conflict resolution)
@@ -162,7 +173,7 @@ that includes ALL commits from the target branch in your PR, making it impossibl
 
 - **Merge commits in PR**: Indicates wrong approach was used. Start over with reset + cherry-pick workflow.
 - **Too many changed files**: Verify you reset to correct target branch before cherry-picking.
-- **Conflict resolution mistakes**: When resolving conflicts, don't remove existing target branch content-only add your feature changes.
+- **Conflict resolution mistakes**: When resolving conflicts, don't remove existing target branch content - only add your feature changes.
 - **Wrong commit order**: When cherry-picking multiple commits, maintain original chronological order.
 
 ### Working with Automation Tools
@@ -271,13 +282,26 @@ git diff origin/dev..HEAD --stat
 
 ## Troubleshooting tips
 
-- Always use non-interactive git commands (e.g., git commit -m) to prevent editor locks in automation.
-- Never trust only success messages - verify branches exist on the remote using git ls-remote or the GitHub UI after any push.
-- For rewritten or rebased branches, use git push -f or push to a new branch; never attempt a normal push.
-- Check for merge conflicts (git status) before any push, and abort (git rebase --abort) and clean up on conflict.
-- Inspect all push/rebase failures in logs - manual intervention may be required if you see non-fast-forward or remote rejection errors.
+- Always use non-interactive git commands (e.g., git commit -m) to prevent editor locks in
+  automation.
+- Never trust only success messages - verify branches exist on the remote using git ls-remote or
+  the GitHub UI after any push.
+- For rewritten or rebased branches, use git push -f or push to a new branch; never attempt a
+  normal push.
+- Check for merge conflicts (git status) before any push, and abort (git rebase --abort) and
+  clean up on conflict.
+- **Handling rejected pushes (fetch first)**: If `git push` fails with `rejected ... (fetch first)`
+  because the remote contains new work you do not have locally, NEVER forcefully overwrite it.
+  In **non-GitHub-Actions** environments, pull the latest changes first
+  (e.g. `git pull --rebase origin <branch>`) to apply your local commits on top of the remote changes,
+  resolve conflicts if any, and then retry `git push`.
+  In **GitHub Actions runtime**, use `git pull --no-rebase origin <branch>` (merge semantics) instead,
+  as the workflow's auto-PR/push logic requires compatible remote branch history.
+- Inspect all push/rebase failures in logs - manual intervention may be required if you see
+  non-fast-forward or remote rejection errors.
 - Use unique branch names if retrying after failure or history rewrite.
-- Ensure your automation accounts have the correct GitHub permissions to create and push branches.
+- Ensure your automation accounts have the correct GitHub permissions to create and push
+  branches.
 
 ## What to Avoid
 
@@ -286,5 +310,10 @@ git diff origin/dev..HEAD --stat
 - `git pull` in scripts - prefer explicit `fetch` + `rebase` or `merge --no-edit`.
 - `--force` pushes without `--force-with-lease`.
 - Unqualified `git reset --hard` (prefer `git reset --hard origin/main` with backup tag).
+- When user asks to remove files, use `git rm` instead of `rm`.
 
 Always explain proposed git operations step-by-step, quote exact commands, and confirm irreversible actions with the user.
+
+## Maintenance
+
+Note that this file should be updated if outdated or steps/examples are not working.
