@@ -82,19 +82,18 @@ before running the corresponding tools.
 
 ## Security
 
-### OpenCode Workflow Git Access
+### OpenCode (opencode.yml) — git access
 
-The OpenCode workflow (`opencode.yml`) grants intentionally broad git access
-via `Bash(git:*)` to enable autonomous code changes. This permission is necessary
+The OpenCode workflow (`opencode.yml`) uses `OPENCODE_PERMISSION` with an allowlist of specific `git` commands to enable autonomous code changes. This permission is necessary
 for OpenCode to commit and push changes, but requires proper safeguards.
 
 #### OpenCode Security Controls
 
 **Access Control:**
 
-- Only trusted users can trigger OpenCode (OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR)
-- PR/issue authors can only trigger on their own content
-- External contributors (FIRST_TIME_CONTRIBUTOR, NONE) are explicitly blocked
+- Only repository users with `OWNER`, `MEMBER`, or `COLLABORATOR` association can trigger OpenCode
+- The workflow does not currently enforce "authors can only trigger on their own content"
+- All other association types, including `CONTRIBUTOR`, `FIRST_TIME_CONTRIBUTOR`, and `NONE`, are not allowed
 
 **Required Repository Protections:**
 
@@ -123,6 +122,10 @@ To safely use OpenCode with git access, repository administrators must configure
 - Regularly audit OpenCode's tool usage and permissions
 - Rotate `OPENCODE_API_KEY` periodically
 - Monitor workflow run logs for unexpected behavior
+
+### OpenCode Review (opencode-review.yml) — no git access
+
+The OpenCode Review workflow (`opencode-review.yml`) does not grant git access and relies solely on `gh` API commands and pre-commit hooks to perform its duties. Because it does not write to the repository, it does not require the strict git-specific controls outlined above.
 
 ### Claude Workflow Git Access
 

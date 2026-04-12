@@ -40,7 +40,7 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - NEVER bloat with prose; enforce one-liner density + imperative syntax only.
 - If guidance is purely disciplinary, route to dedicated `SKILL.md` instead.
 
-**Writing invariants (Prodigy-Level)**:
+**Writing invariants (Cogni AI-Level)**:
 
 - Assume ninja-level proficiency across project spectrum.
 - Embed quantitative gates (+20% fidelity delta, <1h MTTR analog, zero ambiguity).
@@ -112,7 +112,7 @@ Read and merge these when operating inside corresponding sub-directories (order 
 For specific tasks, use the following specialized agent instructions:
 
 - [Code Tour Agent](.github/agents/code-tour.agent.md) - For creating/updating `.tours/` files
-- [Prodigy Engineer Agent](.github/agents/prodigy-engineer.agent.md) - Enhanced engineering capabilities
+- [Cogni AI Agent](.github/agents/cogni-ai.agent.md) - Enhanced engineering capabilities
 
 ## Common Tasks
 

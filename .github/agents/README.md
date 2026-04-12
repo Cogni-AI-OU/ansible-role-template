@@ -5,7 +5,7 @@ These agents are tailored to specific tasks and integrate seamlessly with GitHub
 
 ## Available Agents
 
-### [Prodigy Engineer](prodigy-engineer.agent.md)
+### [Cogni AI](cogni-ai.agent.md)
 
 Enhanced agent with critical thinking, robust problem-solving, and context-aware resource management. Features:
 

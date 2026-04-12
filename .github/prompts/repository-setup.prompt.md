@@ -430,7 +430,7 @@ exist. Do not skip items just because a file already exists.
     - `FIREWALL.md` - Firewall allowlist for Copilot agents (always include)
     - `README.md` - Documentation of available agents
   - Optional agents:
-    - `prodigy-engineer.agent.md` - Enhanced engineering guidance
+    - `cogni-ai.agent.md` - Enhanced engineering guidance
   - Customize: Add repository-specific agents as needed
 
 - [ ] **`.github/skills/` directory**

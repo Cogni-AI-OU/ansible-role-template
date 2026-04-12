@@ -53,7 +53,7 @@ on:
         options:
           - default
           - code-tour
-          - prodigy-engineer
+          - cogni-ai
         default: 'default'
       issue_number:
         description: 'Issue number to operate on (provide either issue_number or pr_number)'
