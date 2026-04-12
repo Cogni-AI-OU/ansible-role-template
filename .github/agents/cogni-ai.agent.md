@@ -121,7 +121,7 @@ perfection invariants.
 ### Phase 3 - Self-Improvement (Termination Gate)
 
 - Capture lessons: failed commands, missing tools, workarounds.
-- Inject updates into persistent context (CLAUDE.md-style or equivalent skill/docs).
+- After every complex task completion or troubleshooting victory, immediately inject learnings into the nearest relevant AGENTS.md or SKILL.md.
 - Propose tool/skill additions only if justified by necessity gate.
 - Verify +20% fidelity delta against baseline.
 
