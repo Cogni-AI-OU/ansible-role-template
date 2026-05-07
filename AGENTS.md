@@ -40,7 +40,7 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - NEVER bloat with prose; enforce one-liner density + imperative syntax only.
 - If guidance is purely disciplinary, route to dedicated `SKILL.md` instead.
 
-**Writing invariants (Prodigy-Level)**:
+**Writing invariants (Cogni AI-Level)**:
 
 - Assume ninja-level proficiency across project spectrum.
 - Embed quantitative gates (+20% fidelity delta, <1h MTTR analog, zero ambiguity).
@@ -200,6 +200,12 @@ the agent MUST integrate remote changes with a merge commit workflow.
 - Workflow navigation: [.tours/getting-started.tour](.tours/getting-started.tour)
 - Latest org baseline: <https://github.com/Cogni-AI-OU/.github/blob/main/AGENTS.md>
 
+### Specialized Automation
+
+For hosted repository automation, use the workflows in `.github/workflows/`, especially
+`.github/workflows/cogni-ai-agent.yml` for Cogni AI-driven issue, PR, and discussion handling.
+Keep `.tours/getting-started.tour` aligned with repository structure changes.
+
 ## Common Tasks
 
 ### Before each commit
@@ -262,6 +268,7 @@ molecule syntax
 
 ### Updating Coding Standards
 
+- Keep shared formatting expectations in `.github/copilot-instructions.md`
 - Language-specific instructions are provided by the environment at runtime.
 - Update `.markdownlint.yaml`, `.yamllint`, or `.editorconfig` for linting rules
 - Run `pre-commit run -a` to verify changes pass all checks
@@ -279,6 +286,9 @@ on top of the updated target branch:
 
 **For detailed step-by-step instructions with commands**, see:
 `git/SKILL.md` (if present in the runtime skills catalog).
+
+**Preferred workflow:** fetch the target branch explicitly, create a backup tag before destructive operations,
+and verify with `git diff` that only your intended changes remain.
 
 ### Key Points
 

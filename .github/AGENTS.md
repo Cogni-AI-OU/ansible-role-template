@@ -29,7 +29,13 @@ Read these Agent files when working in corresponding dirs:
 
 ## Troubleshooting
 
-TBA
+### GitHub Actions
+
+If a workflow fails, check the logs for:
+
+- Syntax errors (actionlint)
+- Permission issues (GITHUB_TOKEN)
+- Missing secrets
 
 ## Additional notes
 

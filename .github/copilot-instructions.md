@@ -43,20 +43,22 @@ Key contents:
 
 ### JSON
 
-Follow the JSON rules in the runtime instructions catalog (dynamically populated at runtime,
-e.g., in `~/.instructions/`) or refer to the repository `.editorconfig` configuration.
-
-To test locally, use `jq` for validation or use the VS Code JSON formatter.
+- Follow `.editorconfig` spacing and trailing-newline conventions.
+- Validate JSON with `jq` or the VS Code JSON formatter.
 
 ### Markdown
 
-Follow the Markdown rules in the runtime instructions catalog, which mirror the repository markdownlint configuration.
-
-To test locally, run via `pre-commit run markdownlint -a` or use the VS Code Markdownlint extension.
+- Keep headings and lists surrounded by blank lines.
+- Use fenced code blocks with a language identifier.
+- Keep lines at or below 120 characters.
+- Validate with `pre-commit run markdownlint -a`.
 
 ### YAML
 
-Follow the YAML rules in the runtime instructions catalog, which mirror the repository `.yamllint` configuration.
+- Use 2-space indentation and keep lines at or below 120 characters.
+- Use explicit `true` and `false` values.
+- Keep workflow keys and environment variables in lexicographical order when practical.
+- Validate with `pre-commit run yamllint -a`; use `actionlint` for workflow-specific checks.
 
 Notes:
 

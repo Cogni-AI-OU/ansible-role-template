@@ -124,6 +124,7 @@ This repository provides AI agent configurations for automated development.
 | [.github/FIREWALL.md](.github/FIREWALL.md) | Maintainers | Firewall allowlist guidance for hosted agents |
 | [.github/prompts/](.github/prompts/) | All | Prompt templates (`.md` for VS Code, `.yaml` for GitHub Models) |
 | [.github/workflows/](.github/workflows/) | Automation | CI, review, and agent workflows including Cogni AI |
+| [.github/workflows/cogni-ai-agent.yml](.github/workflows/cogni-ai-agent.yml) | Cogni AI | Event-driven agent workflow for issues, PRs, and discussions |
 
 See also:
 
