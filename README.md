@@ -2,6 +2,7 @@
 
 [![PR Reviews][pr-reviews-image]][pr-reviews-link]
 [![License][license-image]][license-link]
+[![Check][check-image]][check-link]
 
 This is a template role.
 Use it as starting point to create your own role.
@@ -123,7 +124,6 @@ This repository provides AI agent configurations for automated development.
 | [.github/FIREWALL.md](.github/FIREWALL.md) | Maintainers | Firewall allowlist guidance for hosted agents |
 | [.github/prompts/](.github/prompts/) | All | Prompt templates (`.md` for VS Code, `.yaml` for GitHub Models) |
 | [.github/workflows/](.github/workflows/) | Automation | CI, review, and agent workflows including Cogni AI |
-| [.github/workflows/cogni-ai-agent.yml](.github/workflows/cogni-ai-agent.yml) | Cogni AI | Event-driven agent workflow for issues, PRs, and discussions |
 
 See also:
 
@@ -133,7 +133,15 @@ See also:
 ## GitHub Actions
 
 For documentation on GitHub Actions workflows, problem matchers, and CI/CD
-configuration, see [.github/GITHUB-WORKFLOWS.md](.github/GITHUB-WORKFLOWS.md).
+configuration, see [.github/workflows/README.md](.github/workflows/README.md).
+
+## Contributing
+
+For contribution guidelines, see [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <!-- Named links -->
 
@@ -141,3 +149,5 @@ configuration, see [.github/GITHUB-WORKFLOWS.md](.github/GITHUB-WORKFLOWS.md).
 [pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-link]: LICENSE
+[check-image]: https://github.com/Cogni-AI-OU/ansible-role-template/actions/workflows/check.yml/badge.svg
+[check-link]: https://github.com/Cogni-AI-OU/ansible-role-template/actions/workflows/check.yml

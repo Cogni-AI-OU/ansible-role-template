@@ -1,8 +1,8 @@
 # AGENTS.md
 
-Persistent single source of truth for autonomous agent behavior.
+Persistent single-source truth for autonomous agent behavior.
 
-For general project invariants, see [README.md](README.md).
+For general project invariants see [README.md](README.md).
 
 ## Directory-Specific Agent files
 
@@ -40,12 +40,12 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - NEVER bloat with prose; enforce one-liner density + imperative syntax only.
 - If guidance is purely disciplinary, route to dedicated `SKILL.md` instead.
 
-**Writing invariants (Cogni AI-Level)**:
+**Writing invariants (Prodigy-Level)**:
 
 - Assume ninja-level proficiency across project spectrum.
 - Embed quantitative gates (+20% fidelity delta, <1h MTTR analog, zero ambiguity).
-- Every bullet carries measurable payload: role, then invariants, then context, then exemplars, then schema,
-  then NEVER/MUST-NOT, then verification loops.
+- Every bullet carries measurable payload: role, then invariants, then context, then exemplars, then schema, then NEVER/MUST-NOT,
+  then verification loops.
 - Favor tables, checklists, and contract-style boundaries over linear text.
 - Zero scaffolding. Maximal information-theoretic density. Surgical imperative syntax.
 
@@ -53,10 +53,21 @@ Read and merge these when operating inside corresponding sub-directories (order 
 
 **Pre-execution reverse-prompting activation**:
 
+- **CI/CD Failure Escalation**: When CI/CD pipelines or automated checks fail, do NOT immediately
+  patch local configuration files or create suppressions to hide errors. Investigate the execution
+  environment and upstream dependencies. If the root cause originates outside the repository scope,
+  state the required upstream fix clearly and halt rather than introducing local entropy.
+- Read, assimilate, and strictly enforce the invariants defined in the main `AGENTS.md`,
+  along with any directory-specific `AGENTS.md` and related files, `.github/copilot-instructions.md`,
+  and autonomously load any relevant `.instructions.md` rules or `SKILL.md` workflows before formulating a strategy.
+  *(Note: In GitHub Action runtimes, these catalogs are dynamically populated in the environment,
+  e.g., in `~/.instructions/` and `~/.skills/` or as specified by the runtime.)*
 - Declare required inputs, missing context, edge cases, and optimal strategy before any tool invocation or code delta.
 - Snapshot current problem state in one entropy-minimized sentence.
 - Enumerate risks against classic-mistakes matrix and Top-10 Risks List.
 - Apply noise-pruning filter + single-variable delta rule for all experiments.
+- Autonomously load any relevant `.instructions.md` rules or `SKILL.md` workflows before formulating a strategy.
+  *(Note: Catalogs are environment-provided at runtime and no longer stored in the `.github/` directory.)*
 
 **Strategic vs tactical default**:
 
@@ -101,23 +112,102 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - User objective resolved at target fidelity (+20% over prior baseline).
 - AGENTS.md/SKILL.md updated if new reusable primitive discovered.
 
+## GitHub Actions Runtime
+
+When executing autonomously within a GitHub Actions environment, adhere strictly to these
+interaction constraints:
+
+### OpenCode PR Context & Response Routing
+
+**Context & Targeting Invariants**:
+
+- **Extract Context**: Parse the `## Pull Request Context` block containing `**Base Branch:**` dynamically.
+- **Dynamic PR Targeting**: ALWAYS target this explicitly provided **Base Branch** when creating/updating PRs.
+
+**Response Detection & Routing**:
+Check `github.event_name` and payload to identify trigger source:
+
+- **General PR comment** (`issue_comment`):
+  - Condition: `if: ${{ github.event.issue.pull_request }}`
+  - Reply Method: `gh pr comment`
+- **Issue comment** (`issue_comment`):
+  - Condition: `if: ${{ !github.event.issue.pull_request }}`
+  - Reply Method: `gh issue comment`
+- **Inline code review** (`pull_request_review_comment`):
+  - Reply Method: `gh api repos/{owner}/{repo}/pulls/{pr}/comments/{comment_id}/replies -f body="..."`
+
+**Routing Invariants**:
+
+- **Symmetric Routing**: ALWAYS reply via the exact originating channel. NEVER cross threads.
+- Parse `github.event.comment.id` and `in_reply_to_id` to maintain thread continuity.
+
+### Branch Sync Policy (No Rebase During Runtime)
+
+When the prompt asks to "pull" or "sync with base" in GitHub Actions runtime,
+the agent MUST integrate remote changes with a merge commit workflow.
+
+- **MUST NOT** run any rebase-based update command during runtime.
+- **FORBIDDEN**: `gh pr update-branch --rebase`, `git pull --rebase`,
+  `git rebase`, or any history rewrite that changes commit SHAs.
+- **MUST** use pull-with-merge semantics: `git pull --no-rebase`.
+- **MUST** preserve remote branch compatibility for post-run auto PR/push logic.
+
+**Execution Steps (strict order)**:
+
+1. Determine PR base/head from context (`## Pull Request Context`, `gh pr view`).
+2. Ensure work is on the PR head branch (not detached HEAD).
+3. Sync head branch from remote with merge semantics:
+   `git pull --no-rebase origin <head-branch>`.
+4. If base changes must be integrated into head, merge base explicitly:
+   `git fetch origin <base-branch> && git merge --no-ff origin/<base-branch>`.
+5. Resolve conflicts, commit merge if required, then push normally (no force).
+
+**Verification Gate (required before push)**:
+
+- Confirm no rebase command was executed in this run.
+- Confirm `git log --oneline --graph -n 10` shows merge topology
+  (no rewritten linearized history from rebase).
+- Proceed with normal `git push` only after these checks pass.
+
+### General Constraints
+
+- **Contextual Continuity**: Maintain conversation context within the originating thread.
+- If replying to an inline comment, your response MUST appear as a reply in that same thread.
+
+### Workspace & Syncing Invariants
+
+- **Strict File Syncing**: When syncing configuration files from an external repository or
+  template, only modify or copy the specific files requested.
+- **No Untracked Additions**: NEVER automatically commit untracked files or workspace
+  artifacts (like temporary API payloads, script outputs, `.github/ISSUE_TEMPLATE/*`, or
+  `CODE_OF_CONDUCT.md`) unless explicitly specified in the synchronization checklist or
+  explicitly asked by the user. Always clean up temporary files created
+  during execution.
+- **Selective Sync**: Do not blindly copy entire directories from remote templates. Cherry-pick
+  only the files that are meant to be updated or created.
+
+### GitHub Runtime Decision Policy
+
+- **Default to Best Practice:** Implement the most recommended path autonomously when multiple options exist.
+- **Document Trade-offs:** Capture unresolved decisions, explicit options, and impacts in the PR description.
+- **Never Stall:** Proceed immediately with safe defaults. Request preference feedback in the PR instead of waiting.
+- **Report Defensively:** Present recommended option first; list alternatives only if they alter scope or risk.
+
 ## Required References
 
-- Project overview and install steps: [README.md](README.md)
-- Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
-- Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
-
-### Specialized Automation
-
-For hosted repository automation, use the workflows in `.github/workflows/`, especially
-`.github/workflows/cogni-ai-agent.yml` for Cogni AI-driven issue, PR, and discussion handling.
-Keep `.tours/getting-started.tour` aligned with repository structure changes.
+- Project overview & install: [README.md](README.md)
+- Agent configuration & conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
+- Workflow navigation: [.tours/getting-started.tour](.tours/getting-started.tour)
+- Latest org baseline: <https://github.com/Cogni-AI-OU/.github/blob/main/AGENTS.md>
 
 ## Common Tasks
 
 ### Before each commit
 
 - Verify your expected changes with `git diff --no-color`.
+- Ensure no temporary, dummy, or unrelated test files (such as API payloads, bash script outputs, or generated
+  markdown comments) are included in the commit. NEVER use blanket `git add .` without verifying the exact
+  list of staged files.
 - Use the project linting/validation tools to confirm your changes meet the coding standard.
 - If the repo uses git hooks, run them to validate your changes.
 
@@ -131,6 +221,22 @@ pre-commit run -a
 pre-commit run markdownlint -a
 pre-commit run yamllint -a
 ```
+
+### File operations
+
+### Editing files
+
+- When modifying or creating documentation and plain text files, always enforce line-wrapping and length
+  limits in accordance with project-defined standards (such as `.markdownlint.yaml` or `.editorconfig`).
+
+### Renaming/removing files
+
+- Use `git mv`, `git rm`, or equivalent Git-aware tooling (instead of `mv` or `rm`) to preserve history
+  when working with files under source control.
+
+## Tooling
+
+- Use `pre-commit` for linting and validation if installed.
 
 ### Understanding the Task
 
@@ -156,7 +262,7 @@ molecule syntax
 
 ### Updating Coding Standards
 
-- Keep shared formatting expectations in `.github/copilot-instructions.md`
+- Language-specific instructions are provided by the environment at runtime.
 - Update `.markdownlint.yaml`, `.yamllint`, or `.editorconfig` for linting rules
 - Run `pre-commit run -a` to verify changes pass all checks
 
@@ -171,8 +277,8 @@ on top of the updated target branch:
 4. Cherry-pick your feature commits
 5. Verify only your changes remain
 
-**Preferred workflow:** fetch the target branch explicitly, create a backup tag before destructive operations,
-and verify with `git diff` that only your intended changes remain.
+**For detailed step-by-step instructions with commands**, see:
+`git/SKILL.md` (if present in the runtime skills catalog).
 
 ### Key Points
 
@@ -194,8 +300,7 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 **Prevention (Choose One):**
 
 1. **Use new branch name** after rewriting history: `git checkout -b <feature>-v2` (safest)
-2. **Complete git operations manually**, then ask user for manual push
-   (never call `report_progress` after `git reset --hard`)
+2. **Complete git operations manually**, then ask user for manual push (never call `report_progress` after `git reset --hard`)
 
 **If Already Crashed:**
 
@@ -205,7 +310,8 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 
 **Error Patterns:** `Rebasing (1/XXX)` with large numbers, `CONFLICT (content)`, session crash with `GitError`
 
-**Rule:** if you rewrite local history, create a fresh branch before using automation that rebases or pushes on your behalf.
+**For complete details**, see:
+`git/SKILL.md` - "Working with Automation Tools" (if present in the runtime skills catalog).
 
 ## References
 

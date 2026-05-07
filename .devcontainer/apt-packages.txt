@@ -1,8 +1,11 @@
 coreutils
+direnv
+figlet
+findutils
 gh
 git
+links
 mawk
-pipx
 sed
 time
 vim

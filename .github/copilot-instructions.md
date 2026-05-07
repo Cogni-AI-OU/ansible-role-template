@@ -43,27 +43,26 @@ Key contents:
 
 ### JSON
 
-- Follow `.editorconfig` spacing and trailing-newline conventions.
-- Validate JSON with `jq` or the VS Code JSON formatter.
+Follow the JSON rules in the runtime instructions catalog (dynamically populated at runtime,
+e.g., in `~/.instructions/`) or refer to the repository `.editorconfig` configuration.
+
+To test locally, use `jq` for validation or use the VS Code JSON formatter.
 
 ### Markdown
 
-- Keep headings and lists surrounded by blank lines.
-- Use fenced code blocks with a language identifier.
-- Keep lines at or below 120 characters.
-- Validate with `pre-commit run markdownlint -a`.
+Follow the Markdown rules in the runtime instructions catalog, which mirror the repository markdownlint configuration.
+
+To test locally, run via `pre-commit run markdownlint -a` or use the VS Code Markdownlint extension.
 
 ### YAML
 
-- Use 2-space indentation and keep lines at or below 120 characters.
-- Use explicit `true` and `false` values.
-- Keep workflow keys and environment variables in lexicographical order when practical.
-- Validate with `pre-commit run yamllint -a`; use `actionlint` for workflow-specific checks.
+Follow the YAML rules in the runtime instructions catalog, which mirror the repository `.yamllint` configuration.
 
 Notes:
 
+- Project utilizes Codespaces with config at `.devcontainer/devcontainer.json` and requirements at `.devcontainer/requirements.txt`.
 - GitHub Actions run pre-commit checks (`.pre-commit-config.yaml`).
-- To verify locally, run `pre-commit run -a` from the repo root.
+- To verify locally, run `pre-commit run yamllint -a` from the repo root.
 
 ### Devcontainer Guidance
 
@@ -124,6 +123,15 @@ runtime and as the source of required controller-side dependencies.
   Update existing tours or create new ones to reflect changes in project structure,
   workflows, or key files.
 
+## Git Operations
+
+When working with the user interactively (e.g., in an IDE like VS Code):
+
+- **Never create commits or push changes to branches** without explicit user feedback or requests.
+- Present the proposed changes, successfully save the edited files, and allow the user to review the diffs locally.
+- Let the user drive the Git staging, committing, and pushing processes,
+  or wait for them to explicitly instruct you to perform these operations.
+
 ## Troubleshooting
 
 ### Finding Build Errors
@@ -136,10 +144,12 @@ To identify and diagnose the latest build errors:
    - For actionlint errors: Install actionlint and run it on workflow files
 
 2. **Common error patterns:**
-   - **Ansible missing Python modules:** If a module such as `requests` or `docker` is installed for the
-     main container Python but Ansible still cannot import it, check `ansible --version` to identify the
-     interpreter in use. In Codespaces/devcontainers, Ansible may run from a pipx-managed environment, so
-     install controller-side libraries there as well, for example with `pipx inject ansible -r .devcontainer/requirements-ansible.txt`.
+   - **Ansible missing Python modules:** If a module such as `requests` or
+     `docker` is installed for the main container Python but Ansible still
+     cannot import it, check `ansible --version` to identify the interpreter in
+     use. In Codespaces/devcontainers, Ansible may run from a pipx-managed
+     environment, so install controller-side libraries there as well, for
+     example with `pipx inject ansible -r .devcontainer/requirements-ansible.txt`.
    - **Markdown linting errors:** Check `.markdownlint.yaml` for rules; errors show line numbers
    - **YAML linting errors:** Check `.yamllint` for rules; verify indentation and structure
    - **JSON formatting errors:** Use `jq . <file>` to validate JSON syntax
