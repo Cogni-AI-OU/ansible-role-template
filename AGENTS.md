@@ -107,12 +107,11 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - Agent configuration and conventions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
 - Workflow and navigation help: [.tours/getting-started.tour](.tours/getting-started.tour)
 
-### Specialized Agents
+### Specialized Automation
 
-For specific tasks, use the following specialized agent instructions:
-
-- [Code Tour Agent](.github/agents/code-tour.agent.md) - For creating/updating `.tours/` files
-- [Cogni AI Agent](.github/agents/cogni-ai.agent.md) - Enhanced engineering capabilities
+For hosted repository automation, use the workflows in `.github/workflows/`, especially
+`.github/workflows/cogni-ai-agent.yml` for Cogni AI-driven issue, PR, and discussion handling.
+Keep `.tours/getting-started.tour` aligned with repository structure changes.
 
 ## Common Tasks
 
@@ -157,7 +156,7 @@ molecule syntax
 
 ### Updating Coding Standards
 
-- Language-specific instructions are in `.github/instructions/`
+- Keep shared formatting expectations in `.github/copilot-instructions.md`
 - Update `.markdownlint.yaml`, `.yamllint`, or `.editorconfig` for linting rules
 - Run `pre-commit run -a` to verify changes pass all checks
 
@@ -172,8 +171,8 @@ on top of the updated target branch:
 4. Cherry-pick your feature commits
 5. Verify only your changes remain
 
-**For detailed step-by-step instructions with commands**, see:
-[`.github/skills/git/SKILL.md`](.github/skills/git/SKILL.md)
+**Preferred workflow:** fetch the target branch explicitly, create a backup tag before destructive operations,
+and verify with `git diff` that only your intended changes remain.
 
 ### Key Points
 
@@ -206,10 +205,7 @@ tries to auto-rebase (e.g., 113 commits), it encounters conflicts it cannot reso
 
 **Error Patterns:** `Rebasing (1/XXX)` with large numbers, `CONFLICT (content)`, session crash with `GitError`
 
-**For complete details**, see:
-[`.github/skills/git/SKILL.md` - "Working with Automation Tools"](
-  .github/skills/git/SKILL.md#working-with-automation-tools
-)
+**Rule:** if you rewrite local history, create a fresh branch before using automation that rebases or pushes on your behalf.
 
 ## References
 
@@ -232,7 +228,7 @@ If you encounter firewall issues when using the GitHub Copilot Agent:
 - Do not workaround blocked URLs by adding markdown-link-check ignore/whitelist patterns for real links.
 - Keep markdown-link-check validating real links, and request firewall allowlisting instead.
 - If you need to allowlist additional hosts, update your firewall configuration accordingly
-  by following `.github/agents/FIREWALL.md` and keep that file up to date.
+  by following `.github/FIREWALL.md` and keep that file up to date.
 
 ### Linting issues
 

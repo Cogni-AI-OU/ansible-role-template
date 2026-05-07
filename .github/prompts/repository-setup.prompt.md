@@ -327,16 +327,12 @@ exist. Do not skip items just because a file already exists.
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.tours/getting-started.tour`
   - Purpose: VS Code guided tour for new contributors
   - Action: Create if missing; this should be customized for the specific repository
-  - Content: Overview of repository structure, key files, development workflows
+  - Content: Overview of repository structure, key files, and development workflows
   - Format: JSON file following CodeTour schema
-  - Note: Use the code-tour agent to create repository-specific tours
-  - Agent instructions: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/agents/code-tour.agent.md`
-  - The agent should be copied to `.github/agents/code-tour.agent.md` in the repository
-  - Reference the agent when creating tours: "Use the Code Tour Expert agent to create a getting-started tour"
+  - Note: Keep it aligned with repository structure and workflow changes
 
 - [ ] **Create or update repository README.md**
   - Check if `README.md` exists
-  - Reference instructions: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/instructions/readme.instructions.md`
   - Purpose: Main documentation for repository
   - Action: Ensure it follows organization standards
   - Required sections: Project overview, getting started, development, structure, contributing, license
@@ -407,57 +403,18 @@ exist. Do not skip items just because a file already exists.
   - Content: Project overview, coding standards, formatting guidelines, troubleshooting
   - Customize: Add repository-specific standards, dependencies, build/test commands
 
-- [ ] **`.github/instructions/` directory**
-  - Check if directory exists with language-specific instruction files
-  - Reference: `https://github.com/Cogni-AI-OU/.github/tree/main/.github/instructions`
-  - Purpose: Detailed formatting and content rules for different file types
-  - Action: Copy relevant instruction files based on languages used in repository
-  - Available files:
-    - `README.md` - Overview of instructions
-    - `ansible.instructions.md` - Ansible conventions
-    - `blog.instructions.md` - Blog post standards (if applicable)
-    - `json.instructions.md` - JSON formatting
-    - `markdown.instructions.md` - Markdown standards
-    - `readme.instructions.md` - README guidelines
-    - `yaml.instructions.md` - YAML formatting
-  - Customize: Only include files relevant to languages/formats used in repository
-
-- [ ] **`.github/instructions/AGENTS.md`**
+- [ ] **`.github/FIREWALL.md`**
   - Check if file exists
-  - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/instructions/AGENTS.md`
-  - Purpose: Catalog of instruction files with scopes for agents
-  - Action: Create if missing and keep in sync when instruction files change
+  - Purpose: Firewall allowlist guidance for hosted agents and link-check troubleshooting
+  - Action: Create or update with the required host allowlist and maintenance notes
+  - Validation: Keep links and hostnames current when workflows or tooling change
 
-- [ ] **`.github/agents/` directory**
-  - Check if directory exists with custom agent files
-  - Reference: `https://github.com/Cogni-AI-OU/.github/tree/main/.github/agents`
-  - Purpose: Custom agent definitions for specialized tasks
-  - Action: Copy relevant agent files based on repository needs
-  - Required agents:
-    - `code-tour.agent.md` - For creating/updating `.tours/` files (always include)
-    - `cogni-ai.agent.md` - Enhanced Agent with critical thinking
-  - Other files:
-    - `AGENTS.md` - Instruction file with scopes for agents (always include)
-    - `FIREWALL.md` - Firewall allowlist for Copilot agents (always include)
-    - `README.md` - Documentation of available agents
-  - Customize: Add repository-specific agents as needed
-
-- [ ] **`.github/skills/` directory**
-  - Check if directory exists with skill files
-  - Reference: `https://github.com/Cogni-AI-OU/.github/tree/main/.github/skills`
-  - Purpose: Agent Skills for GitHub Copilot coding agent
-  - Action: Create directory with README.md; optionally copy skill subdirectories
-  - Required files:
-    - `README.md` - Overview of agent skills and how to use them
-    - `context-aware-ops/` - Intelligent resource management
-    - `git/` - Guide for safe git operations
-    - `github-actions/` - Debugging failing workflows
-    - `pre-commit/` - Using pre-commit hooks effectively
-    - `robust-commands/` - Resilient command execution
-    - `skill-writer/` - Generate/update SKILL.md files
-  - Optional skills (copy as needed):
-    - Check remote
-  - Customize: Add repository-specific skills as needed
+- [ ] **`.github/workflows/cogni-ai-agent.yml`**
+  - Check if file exists
+  - Reference: `https://github.com/Cogni-AI-OU/example-ops-template/blob/main/.github/workflows/cogni-ai-agent.yml`
+  - Purpose: Event-driven Cogni AI automation for issues, PRs, discussions, and manual dispatches
+  - Action: Copy the workflow and adapt agent/model options only when the repository needs overrides
+  - Validation: Run `pre-commit run -a` so `yamllint`, `yamlfix`, and `actionlint` validate the workflow
 
 ### Phase 8: Additional Organization Files
 

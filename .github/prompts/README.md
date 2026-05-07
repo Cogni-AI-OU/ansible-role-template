@@ -176,4 +176,4 @@ See: [Storing prompts in GitHub repositories](https://docs.github.com/en/github-
 - [AGENTS.md](../../AGENTS.md) - General agent guidance
 - [Copilot Instructions](../copilot-instructions.md) - Coding standards
 - [GitHub Actions Workflows](../workflows/) - Reusable workflows
-- [Instructions](../instructions/) - Language-specific guidelines
+- [FIREWALL.md](../FIREWALL.md) - Firewall allowlist guidance for hosted agents
