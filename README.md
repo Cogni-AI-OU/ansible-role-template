@@ -121,10 +121,10 @@ This repository provides AI agent configurations for automated development.
 | [AGENTS.md](AGENTS.md) | All agents | Repository-specific guidance and workflows |
 | [CLAUDE.md](CLAUDE.md) | Claude | Claude-specific configuration |
 | [.github/copilot-instructions.md](.github/copilot-instructions.md) | Copilot | Coding standards and project context |
-| [.github/agents/](.github/agents/) | Orchestrators | Specialized agent configs for specific tasks |
-| [.github/skills/](.github/skills/) | All agents | Reusable capabilities (git, GitHub Actions, etc.) |
-| [.github/prompts/](.github/prompts/) | All | Prompt templates (`.md` for VSCode, `.yaml` for GitHub Models) |
-| [.github/instructions/](.github/instructions/) | Linters & agents | Language-specific code standards |
+| [.github/FIREWALL.md](.github/FIREWALL.md) | Maintainers | Firewall allowlist guidance for hosted agents |
+| [.github/prompts/](.github/prompts/) | All | Prompt templates (`.md` for VS Code, `.yaml` for GitHub Models) |
+| [.github/workflows/](.github/workflows/) | Automation | CI, review, and agent workflows including Cogni AI |
+| [.github/workflows/cogni-ai-agent.yml](.github/workflows/cogni-ai-agent.yml) | Cogni AI | Event-driven agent workflow for issues, PRs, and discussions |
 
 See also:
 

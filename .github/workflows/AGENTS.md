@@ -10,11 +10,12 @@ For a human-readable overview, see [README.md](README.md).
 | Workflow | Purpose | Key triggers / notes |
 | -------- | ------- | -------------------- |
 | [check.yml](check.yml) | Linting and quality gates via actionlint and pre-commit | push, pull_request, schedule; reusable via `workflow_call` |
-| [opencode.yml](opencode.yml) | OpenCode agent invocation via comments or manual triggers | issue_comment, pull_request_review_comment with `/oc` or `/opencode`, workflow_dispatch, `workflow_call` |
-| [opencode-review.yml](opencode-review.yml) | OpenCode PR review | pull_request_target (trusted authors), `/review` comment by OWNER/MEMBER/COLLABORATOR, workflow_dispatch, `workflow_call` |
 | [claude-review.yml](claude-review.yml) | Automated PR review with Claude | pull_request (non-bot), `workflow_call` with `pr_number` |
 | [claude.yml](claude.yml) | Interactive Claude mentions on issues/PRs | issue_comment, pull_request_review_comment, workflow_dispatch, `workflow_call` |
+| [cogni-ai-agent.yml](cogni-ai-agent.yml) | Cogni AI agent automation | discussions, issues, PRs, comments, workflow_dispatch |
 | [devcontainer-ci.yml](devcontainer-ci.yml) | Build/test devcontainer and required tools/packages | push/pull_request touching .devcontainer or workflow; schedule; `workflow_call` |
+| [opencode-review.yml](opencode-review.yml) | OpenCode PR review | pull_request_target (trusted authors), `/review` comment by OWNER/MEMBER/COLLABORATOR, workflow_dispatch, `workflow_call` |
+| [opencode.yml](opencode.yml) | OpenCode agent invocation via comments or manual triggers | issue_comment, pull_request_review_comment with `/oc` or `/opencode`, workflow_dispatch, `workflow_call` |
 
 ## Details
 
@@ -58,6 +59,15 @@ For a human-readable overview, see [README.md](README.md).
 - Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/claude.yml@main`.
 - Access: restricted to OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR associations.
 
+### cogni-ai-agent.yml
+
+- Purpose: run the Cogni AI hosted agent on issues, pull requests, discussions, and manual dispatches.
+- Inputs: `agent` (default `cogni-ai-architect`), `model` (default `opencode/gemini-3-flash`),
+  `prompt` (optional override for workflow dispatch).
+- Triggers: discussion, discussion_comment, issue_comment, issues, pull_request,
+  pull_request_review_comment, workflow_dispatch.
+- Jobs: `cogni-ai-agent`, `summary`.
+
 ### devcontainer-ci.yml
 
 - Purpose: build and validate the dev container; ensure required tools and Python packages exist.
@@ -85,8 +95,13 @@ For a human-readable overview, see [README.md](README.md).
 - `claude-sonnet-4-5`: most capable.
 - Provide `model` input when calling `claude.yml` or `claude-review.yml`; defaults to `claude-opus-4-5`.
 
+### Cogni AI workflow
+
+- `opencode/gemini-3-flash`: default for `cogni-ai-agent.yml`.
+- The workflow also exposes higher-capability OpenCode and xAI model choices for manual dispatches.
+
 ## Notes
 
-- Follow [.github/instructions/github-workflows.instruction.md](../instructions/github-workflows.instruction.md)
-  when editing workflow files (ordering, formatting, validation).
+- Keep workflow keys and environment variables alphabetized when practical.
+- Validate workflow changes with `pre-commit run -a` so `yamllint`, `yamlfix`, and `actionlint` run together.
 - Keep this catalog updated when workflows are added, removed, or renamed.

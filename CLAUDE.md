@@ -84,8 +84,8 @@ When MCP is enabled via `--mcp-config-file`, you gain access to:
 MCP configuration is maintained in a separate config file (`.github/mcp-config.json`)
 and referenced in workflow files using the `--mcp-config-file` flag.
 
-For information on configuring custom MCP servers, see the
-[Custom Agents documentation](.github/agents/README.md).
+For repository automation entry points and firewall guidance, see
+[.github/workflows/](.github/workflows/) and [.github/FIREWALL.md](.github/FIREWALL.md).
 
 ## Prompting Best Practices
 

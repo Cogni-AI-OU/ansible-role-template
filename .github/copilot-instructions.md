@@ -43,24 +43,27 @@ Key contents:
 
 ### JSON
 
-Follow the JSON rules in `.github/instructions/json.instructions.md`, which mirror the repository `.editorconfig` configuration.
-
-To test locally, use `jq` for validation or use the VS Code JSON formatter.
+- Follow `.editorconfig` spacing and trailing-newline conventions.
+- Validate JSON with `jq` or the VS Code JSON formatter.
 
 ### Markdown
 
-Follow the Markdown rules in `.github/instructions/markdown.instructions.md`, which mirror the repository markdownlint configuration.
-
-To test locally, run via `pre-commit run markdownlint -a` or use the VS Code Markdownlint extension.
+- Keep headings and lists surrounded by blank lines.
+- Use fenced code blocks with a language identifier.
+- Keep lines at or below 120 characters.
+- Validate with `pre-commit run markdownlint -a`.
 
 ### YAML
 
-Follow the YAML rules in `./.github/instructions/yaml.instructions.md`, which mirror the repository `.yamllint` configuration.
+- Use 2-space indentation and keep lines at or below 120 characters.
+- Use explicit `true` and `false` values.
+- Keep workflow keys and environment variables in lexicographical order when practical.
+- Validate with `pre-commit run yamllint -a`; use `actionlint` for workflow-specific checks.
 
 Notes:
 
 - GitHub Actions run pre-commit checks (`.pre-commit-config.yaml`).
-- To verify locally, run `pre-commit run yamllint -a` from the repo root.
+- To verify locally, run `pre-commit run -a` from the repo root.
 
 ### Devcontainer Guidance
 
@@ -97,9 +100,8 @@ runtime and as the source of required controller-side dependencies.
 .
 ├── .github/
 │   ├── ISSUE_TEMPLATE/      # Issue templates (bug reports, feature requests)
-│   ├── agents/              # AI agent configurations
-│   ├── instructions/        # Language-specific coding standards
-│   ├── skills/              # Agent skills definitions
+│   ├── FIREWALL.md          # Firewall allowlist guidance for hosted agents
+│   ├── prompts/             # Prompt templates for editors and models
 │   ├── workflows/           # GitHub Actions workflows
 │   ├── copilot-instructions.md
 │   └── pull_request_template.md
