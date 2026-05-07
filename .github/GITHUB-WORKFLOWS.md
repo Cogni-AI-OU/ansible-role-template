@@ -15,6 +15,35 @@ Jobs:
 - **link-checker**: Checks for broken links in Markdown files using Lychee
 - **pre-commit**: Runs pre-commit hooks for code formatting and linting
 
+### Test Workflow
+
+The `test.yml` workflow runs tests on pull requests and pushes to ensure code
+correctness.
+
+### Molecule Workflow
+
+The `molecule.yml` workflow runs Molecule tests for Ansible roles to verify
+cross-platform compatibility.
+
+### DevContainer CI Workflow
+
+The `devcontainer-ci.yml` workflow builds and validates the dev container
+environment and ensures all required tools and Python packages are present.
+
+### Cogni AI Agent Workflow
+
+The `cogni-ai-agent.yml` workflow provides event-driven automation for issues,
+pull requests, discussions, and manual dispatches.
+
+### OpenCode Workflow
+
+The `opencode.yml` workflow allows for manual and event-driven invocation of
+OpenCode agents via slash commands or manual triggers.
+
+### OpenCode Review Workflow
+
+The `opencode-review.yml` workflow provides automated PR reviews using OpenCode.
+
 #### Link Checker
 
 The link checker job uses [Lychee](https://github.com/lycheeverse/lychee) to
@@ -123,3 +152,21 @@ To safely use OpenCode with git access, repository administrators must configure
 - Regularly audit OpenCode's tool usage and permissions
 - Rotate `OPENCODE_API_KEY` periodically
 - Monitor workflow run logs for unexpected behavior
+
+### OpenCode Review (opencode-review.yml) — no git access
+
+The OpenCode Review workflow (`opencode-review.yml`) does not grant git access
+and relies solely on `gh` API commands and pre-commit hooks to perform its
+duties. Because it does not write to the repository, it does not require the
+strict git-specific controls outlined above.
+
+### Cogni AI Agent (cogni-ai-agent.yml) — git access
+
+The Cogni AI Agent workflow (`cogni-ai-agent.yml`) grants broad git access via
+allowlisted `git` commands to enable autonomous operations. Like OpenCode, it
+requires strict access controls and repository protections to ensure security.
+
+#### Security Controls
+
+The security controls for Cogni AI Agent are identical to those of OpenCode (see
+above).
