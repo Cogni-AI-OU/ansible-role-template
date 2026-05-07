@@ -3,7 +3,8 @@
 Reusable and repository workflows that automate checks, reviews, and AI-powered tasks.
 
 - For the agent-facing workflow catalog, see [AGENTS.md](AGENTS.md).
-- For editing guidelines, keep keys and environment variables alphabetized when practical and validate with `pre-commit run -a`.
+- For editing guidelines, keep keys and environment variables alphabetized when practical.
+- Validate workflow changes with `pre-commit run -a`.
 
 ## Using these workflows
 
