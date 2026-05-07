@@ -10,8 +10,6 @@ For a human-readable overview, see [README.md](README.md).
 | Workflow | Purpose | Key triggers / notes |
 | -------- | ------- | -------------------- |
 | [check.yml](check.yml) | Linting and quality gates via actionlint and pre-commit | push, pull_request, schedule; reusable via `workflow_call` |
-| [claude-review.yml](claude-review.yml) | Automated PR review with Claude | pull_request (non-bot), `workflow_call` with `pr_number` |
-| [claude.yml](claude.yml) | Interactive Claude mentions on issues/PRs | issue_comment, pull_request_review_comment, workflow_dispatch, `workflow_call` |
 | [cogni-ai-agent.yml](cogni-ai-agent.yml) | Cogni AI agent automation | discussions, issues, PRs, comments, workflow_dispatch |
 | [devcontainer-ci.yml](devcontainer-ci.yml) | Build/test devcontainer and required tools/packages | push/pull_request touching .devcontainer or workflow; schedule; `workflow_call` |
 | [opencode-review.yml](opencode-review.yml) | OpenCode PR review | pull_request_target (trusted authors), `/review` comment by OWNER/MEMBER/COLLABORATOR, workflow_dispatch, `workflow_call` |
@@ -43,22 +41,6 @@ For a human-readable overview, see [README.md](README.md).
   `workflow_call`.
 - Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/opencode-review.yml@main`.
 
-### claude-review.yml
-
-- Purpose: AI code review that comments on PRs.
-- Inputs: `pr_number` (required for `workflow_call`), `model` (default `claude-opus-4-5`),
-  `additional_prompt` (optional extra review instructions).
-- Trigger: pull_request (skips bot authors) and `workflow_call`.
-- Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/claude-review.yml@main`.
-
-### claude.yml
-
-- Purpose: respond to `@claude` mentions for interactive assistance.
-- Input: `model` (default `claude-opus-4-5`).
-- Triggers: issue_comment, pull_request_review_comment, workflow_dispatch, `workflow_call`.
-- Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/claude.yml@main`.
-- Access: restricted to OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR associations.
-
 ### cogni-ai-agent.yml
 
 - Purpose: run the Cogni AI hosted agent on issues, pull requests, discussions, and manual dispatches.
@@ -87,13 +69,6 @@ For a human-readable overview, see [README.md](README.md).
 - `opencode/gpt-5.3-codex`: default for `opencode-review.yml`.
 - Provide `model` input when calling `opencode.yml` or `opencode-review.yml`; defaults to
   workflow-level defaults when not explicitly provided.
-
-### Claude workflows
-
-- `claude-haiku-4-5`: fastest, best for quick tasks.
-- `claude-opus-4-5`: default balance.
-- `claude-sonnet-4-5`: most capable.
-- Provide `model` input when calling `claude.yml` or `claude-review.yml`; defaults to `claude-opus-4-5`.
 
 ### Cogni AI workflow
 

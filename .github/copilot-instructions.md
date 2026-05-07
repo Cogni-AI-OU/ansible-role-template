@@ -10,7 +10,7 @@ Key contents:
 
 - **Ansible role structure**: Standard role directories (tasks, handlers, templates, defaults, vars, meta)
 - **CI/CD workflows**: Pre-commit checks, linting, Molecule testing
-- **Agent configurations**: `AGENTS.md`, `CLAUDE.md` for AI coding assistants
+- **Agent configurations**: `AGENTS.md` and workflow metadata for AI coding assistants
 
 ### Getting started
 
@@ -114,7 +114,6 @@ runtime and as the source of required controller-side dependencies.
 ├── templates/               # Jinja2 templates
 ├── vars/                    # Role variables
 ├── AGENTS.md                # AI agent guidance
-├── CLAUDE.md                # Claude-specific configuration
 └── README.md                # Repository documentation
 ```
 
