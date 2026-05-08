@@ -100,12 +100,10 @@ runtime and as the source of required controller-side dependencies.
 ```text
 .
 ├── .github/
-│   ├── ISSUE_TEMPLATE/      # Issue templates (bug reports, feature requests)
 │   ├── FIREWALL.md          # Firewall allowlist guidance for hosted agents
 │   ├── prompts/             # Prompt templates for editors and models
 │   ├── workflows/           # GitHub Actions workflows
-│   ├── copilot-instructions.md
-│   └── pull_request_template.md
+│   └── copilot-instructions.md
 ├── .tours/                  # VS Code guided tours
 ├── defaults/                # Default role variables
 ├── handlers/                # Handler tasks

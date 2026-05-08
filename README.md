@@ -138,7 +138,7 @@ configuration, see [.github/workflows/README.md](.github/workflows/README.md).
 
 ## Contributing
 
-For contribution guidelines, see [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md).
+For contribution guidelines, see [CONTRIBUTING.md](https://github.com/Cogni-AI-OU/.github/blob/main/.github/CONTRIBUTING.md).
 
 ## License
 

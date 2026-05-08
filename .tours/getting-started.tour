@@ -88,8 +88,8 @@
     {
       "title": "Contributing Guidelines",
       "description": "## How to Contribute\n\nThe `CONTRIBUTING.md` file outlines the process for contributing to this role.\n\n### Key Points:\n\n#### Bug Reports:\n- Use GitHub Issues to report bugs\n- Provide clear reproduction steps\n- Include relevant system information\n\n#### Code Contributions:\n- Follow coding conventions (2-space indentation)\n- Write readable, maintainable code\n- Submit changes via Pull Requests\n\n#### Testing Requirements:\n- All code must pass CI tests\n- GitHub Actions automatically run pre-commit hooks\n- Test locally before submitting:\n  ```bash\n  pre-commit run --all-files\n  molecule test\n  ```\n\n#### Code Review:\n- Maintainers will review your PR\n- Address feedback promptly\n- Keep changes focused and atomic\n\n### Contribution Workflow:\n\n1. Fork the repository\n2. Create a feature branch\n3. Make your changes\n4. Run tests locally\n5. Commit with clear messages\n6. Push to your fork\n7. Open a Pull Request\n8. Respond to review feedback",
-      "file": ".github/CONTRIBUTING.md",
-      "line": 1
+      "file": "README.md",
+      "line": 139
     },
     {
       "title": "Next Steps",

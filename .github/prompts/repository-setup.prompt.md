@@ -277,7 +277,7 @@ exist. Do not skip items just because a file already exists.
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.devcontainer/devcontainer.json`
   - Purpose: Defines containerized development environment
   - Action: If file exists, review and update to match organization standards; create if missing
-  - Key features: Python, Docker-in-Docker, actionlint, node, make, ripgrep
+  - Key features: Python, Docker-in-Docker, node, make, ripgrep
   - Customize: Add language-specific features and VS Code extensions as needed
 
 - [ ] **`.devcontainer/requirements.txt`**
