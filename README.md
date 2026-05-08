@@ -2,6 +2,7 @@
 
 [![PR Reviews][pr-reviews-image]][pr-reviews-link]
 [![License][license-image]][license-link]
+[![Check][check-image]][check-link]
 
 This is a template role.
 Use it as starting point to create your own role.
@@ -133,7 +134,15 @@ See also:
 ## GitHub Actions
 
 For documentation on GitHub Actions workflows, problem matchers, and CI/CD
-configuration, see [.github/GITHUB-WORKFLOWS.md](.github/GITHUB-WORKFLOWS.md).
+configuration, see [.github/workflows/README.md](.github/workflows/README.md).
+
+## Contributing
+
+For contribution guidelines, see [CONTRIBUTING.md](https://github.com/Cogni-AI-OU/.github/blob/main/.github/CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <!-- Named links -->
 
@@ -141,3 +150,5 @@ configuration, see [.github/GITHUB-WORKFLOWS.md](.github/GITHUB-WORKFLOWS.md).
 [pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-link]: LICENSE
+[check-image]: https://github.com/Cogni-AI-OU/ansible-role-template/actions/workflows/check.yml/badge.svg
+[check-link]: https://github.com/Cogni-AI-OU/ansible-role-template/actions/workflows/check.yml

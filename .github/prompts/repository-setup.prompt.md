@@ -21,6 +21,18 @@ create or update it as needed with repository-specific customizations.
 attention to items marked "**REQUIRED**" or "Action: review and update" - these must be updated even if they
 exist. Do not skip items just because a file already exists.
 
+### Content Preservation Principle
+
+**CRITICAL**: Your goal is to standardize and enhance, NOT to destructively replace.
+
+- **NEVER** delete existing files or sections that provide valuable context, project-specific documentation,
+  or specialized configuration unless they are explicitly superseded by organization standards or are
+  demonstrably incorrect/redundant.
+- **PRESERVE** existing repository-specific customizations that do not conflict with organization standards.
+- **MERGE** organization standards into existing files rather than replacing them entirely, especially for
+  files like `.gitignore`, `.pre-commit-config.yaml`, and documentation.
+- When in doubt, prefer keeping existing content and appending or integrating new standards.
+
 ## Checklist
 
 ### Phase 1: Essential Configuration Files
@@ -110,13 +122,17 @@ exist. Do not skip items just because a file already exists.
 
     ```yaml
     ---
+    # Note: Keep keys and envs in alphabetical order.
     name: Check
+    # yamllint disable-line rule:truthy
     on:
       pull_request:
       push:
       schedule:
         - cron: 0 0 * * 1  # Run every Monday at 00:00 UTC
       workflow_dispatch:
+    permissions:
+      contents: read
     jobs:
       check:
         uses: Cogni-AI-OU/.github/.github/workflows/check.yml@main
@@ -124,84 +140,15 @@ exist. Do not skip items just because a file already exists.
           submodules: 'false'  # Set to 'true' or 'recursive' if repository uses submodules
     ```
 
+  - Note: Uses the organization's reusable `check.yml` workflow to run actionlint and pre-commit checks.
+
   - Customize: Add additional jobs if needed for project-specific checks
 
-- [ ] **`.github/workflows/opencode.yml`**
+- [ ] **`.github/workflows/cogni-ai-agent.yml`**
   - Check if file exists
-  - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/workflows/opencode.yml`
-  - Purpose: OpenCode automation for AI-assisted development
-  - Action: Create using `workflow_call` to reference the remote workflow
-  - Implementation:
-
-    ```yaml
-    ---
-    name: OpenCode
-    on:
-      issue_comment:
-        types: [created, edited]
-      pull_request_review_comment:
-        types: [created, edited]
-      issues:
-        types: [opened, edited]
-      workflow_call:
-        inputs:
-          agent:
-            description: Agent to use.
-            required: false
-            type: string
-          model:
-            description: Model to use
-            required: false
-            type: string
-          issue_number:
-            description: Issue or PR number for workflow_call triggers
-            required: false
-            type: number
-          prompt:
-            description: Custom prompt to override the default prompt
-            required: false
-            type: string
-      workflow_dispatch:
-        inputs:
-          agent:
-            description: Agent to use.
-            required: false
-            type: string
-          model:
-            description: Model to use for OpenCode
-            required: false
-            type: string
-          issue_number:
-            description: Issue or PR number for manual workflow execution
-            required: false
-            type: number
-          prompt:
-            description: Custom prompt to override the default prompt
-            required: false
-            type: string
-    jobs:
-      opencode:
-        uses: Cogni-AI-OU/.github/.github/workflows/opencode.yml@main
-        with:
-          agent: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.agent }}
-          model: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.model }}
-          prompt: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.prompt }}
-          issue_number: >-
-            ${{ github.event.issue.number || github.event.pull_request.number || inputs.issue_number }}
-        permissions:
-          actions: read
-          contents: write
-          id-token: write
-          issues: write
-          pull-requests: write
-        secrets: inherit
-    ```
+  - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/workflows/cogni-ai-agent.yml`
+  - Purpose: Logic for the Cogni AI Agent
+  - Action: Create as a standalone workflow
 
   - Note: Requires `OPENCODE_API_KEY` secret to be set in repository settings.
     You must also install the [GitHub OpenCode app](https://github.com/apps/opencode-agent)
@@ -211,49 +158,11 @@ exist. Do not skip items just because a file already exists.
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/workflows/cogni-ai-agent.yml`
   - Purpose: Logic for the Cogni AI Agent
-  - Action: Create using `workflow_call` to reference the remote workflow
-  - Implementation:
+  - Action: Create as a standalone workflow
 
-    ```yaml
-    ---
-    name: Cogni AI Agent
-    on:
-      issue_comment:
-        types: [created]
-      pull_request_review_comment:
-        types: [created]
-      workflow_call:
-        inputs:
-          model:
-            description: Model to use for OpenCode
-            required: false
-            type: string
-          prompt:
-            description: Prompt for the agent
-            required: false
-            type: string
-      workflow_dispatch:
-        inputs:
-          model:
-            description: Model to use for OpenCode
-            required: false
-            type: string
-          prompt:
-            description: Prompt for the agent
-            required: false
-            type: string
-    jobs:
-      cogni-ai-agent:
-        uses: Cogni-AI-OU/.github/.github/workflows/cogni-ai-agent.yml@main
-        with:
-          model: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.model }}
-          prompt: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.prompt }}
-        secrets: inherit
-    ```
+  - Note: Requires `OPENCODE_API_KEY` secret to be set in repository settings.
+    You must also install the [GitHub OpenCode app](https://github.com/apps/opencode-agent)
+    or follow the [manual setup guide](https://opencode.ai/docs/github/#manual-setup).
 
 - [ ] **`.github/workflows/devcontainer-ci.yml`**
   - Check if file exists (only if `.devcontainer/` directory exists)
@@ -265,6 +174,7 @@ exist. Do not skip items just because a file already exists.
     ```yaml
     ---
     name: Development Containers (CI)
+    # yamllint disable-line rule:truthy
     on:
       pull_request:
         paths:
@@ -275,6 +185,14 @@ exist. Do not skip items just because a file already exists.
           - main
         paths:
           - .devcontainer/**
+      schedule:
+        - cron: 0 0 * * 1  # Run every Monday at 00:00 UTC
+      workflow_dispatch:
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     jobs:
       devcontainer-build:
         uses: Cogni-AI-OU/.github/.github/workflows/devcontainer-ci.yml@main
@@ -310,11 +228,21 @@ exist. Do not skip items just because a file already exists.
   - Purpose: GitHub Actions problem matcher for pre-commit output
   - Action: Copy from reference if missing
 
+- [ ] **`.github/GITHUB-WORKFLOWS.md`**
+  - Check if file exists
+  - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/GITHUB-WORKFLOWS.md`
+  - Purpose: Documentation for GitHub workflows, agents, and problem matchers
+  - Action: Create if missing; if exists, **PRESERVE** existing repository-specific documentation
+    and **MERGE** missing organization-standard sections
+  - Content: Workflow templates overview, agent prompts usage, problem matchers configuration, security notes
+  - Customize: Update workflow references and add repository-specific workflow documentation
+
 - [ ] **`.github/workflows/README.md`**
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/workflows/README.md`
   - Purpose: Documentation for GitHub Actions workflows in the repository
-  - Action: Copy from reference if missing; customize for repository-specific workflows
+  - Action: Create if missing; if exists, **MERGE** organization standards while **PRESERVING**
+    existing documentation for repository-specific workflows
   - Content: Workflow descriptions, usage examples, inputs/outputs, security considerations
   - Customize: Add documentation for any custom workflows specific to the repository
 
@@ -327,7 +255,7 @@ exist. Do not skip items just because a file already exists.
 - [ ] **`.github/prompts/` directory**
   - Check if directory exists with prompt files
   - Reference: `https://github.com/Cogni-AI-OU/.github/tree/main/.github/prompts`
-  - Purpose: Prompt templates for GitHub Models, OpenCode, and Copilot
+  - Purpose: Prompt templates for GitHub Models, Cogni AI Agent, and Copilot
   - Action: Include relevant prompt files; keep formats (Markdown/YAML) as upstream
   - Available prompts:
     - `default.prompt.yml` - Default prompt for cogni-ai-agent workflow
@@ -349,7 +277,7 @@ exist. Do not skip items just because a file already exists.
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.devcontainer/devcontainer.json`
   - Purpose: Defines containerized development environment
   - Action: If file exists, review and update to match organization standards; create if missing
-  - Key features: Python, Docker-in-Docker, actionlint, node, make, ripgrep
+  - Key features: Python, Docker-in-Docker, node, make, ripgrep
   - Customize: Add language-specific features and VS Code extensions as needed
 
 - [ ] **`.devcontainer/requirements.txt`**
@@ -401,7 +329,8 @@ exist. Do not skip items just because a file already exists.
   - Check if `README.md` exists
   - Reference: The README instructions are available in the runtime instructions catalog.
   - Purpose: Main documentation for repository
-  - Action: Ensure it follows organization standards
+  - Action: Ensure it follows organization standards while **PRESERVING** and **INTEGRATING**
+    with existing project-specific documentation (DO NOT delete project descriptions or usage guides)
   - Required sections: Project overview, getting started, development, structure, contributing, license
   - Badges: Add PR reviews, license (TLDRLegal link), tags, build status
   - Validation: Run `pre-commit run markdownlint -a` after updates
@@ -420,15 +349,17 @@ exist. Do not skip items just because a file already exists.
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/CONTRIBUTING.md`
   - Purpose: Contribution guidelines (auto-applies from org .github if missing)
-  - Action: Only create if repository needs specific contribution guidelines
-  - Note: Organization default is used if this file doesn't exist
+  - Action: **DO NOT** create this file in individual repositories
+  - Note: This file is automatically loaded from the organization's `.github` repository. Only create
+    it if repository-specific contribution guidelines are strictly required.
 
 - [ ] **`.github/pull_request_template.md`**
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/pull_request_template.md`
   - Purpose: PR template (auto-applies from org .github if missing)
-  - Action: Only create if repository needs a specific PR template
-  - Note: Organization default is used if this file doesn't exist
+  - Action: **DO NOT** create this file in individual repositories
+  - Note: This file is automatically loaded from the organization's `.github` repository. Only create
+    it if a repository-specific override is strictly required.
 
 - [ ] **`.github/ISSUE_TEMPLATE/bug_report.yml`**
   - Check if `.github/ISSUE_TEMPLATE/` directory exists
@@ -449,7 +380,8 @@ exist. Do not skip items just because a file already exists.
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/AGENTS.md`
   - Purpose: Quick reference for AI agents working in the repository
-  - Action: Create if missing, customized for repository-specific tasks
+  - Action: Create if missing; if exists, **MERGE** organization standards while **PRESERVING**
+    existing repository-specific tasks, build/test commands, and context
   - Content: Quick start, links to instructions, common tasks (linting, building, testing)
   - Customize: Include repository-specific commands, test runners, build processes
 
@@ -466,7 +398,8 @@ exist. Do not skip items just because a file already exists.
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/copilot-instructions.md`
   - Purpose: Comprehensive coding standards for GitHub Copilot
-  - Action: Create if missing, adapted for repository language/framework
+  - Action: Create if missing; if exists, **CAREFULLY MERGE** organization standards while
+    **PRESERVING** valuable repository-specific guidelines or examples
   - Content: Project overview, coding standards, formatting guidelines, troubleshooting
   - Customize: Add repository-specific standards, dependencies, build/test commands
 
@@ -584,7 +517,7 @@ When customizing:
 
 Some workflows require secrets to be configured in repository settings:
 
-- `OPENCODE_API_KEY` - Required for OpenCode workflows
+- `OPENCODE_API_KEY` - Required for Cogni AI Agent workflows
 - Add others as needed for specific integrations
 
 Document required secrets in README.md or a SECRETS.md file.

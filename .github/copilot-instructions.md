@@ -62,8 +62,9 @@ Key contents:
 
 Notes:
 
+- Project utilizes Codespaces with config at `.devcontainer/devcontainer.json` and requirements at `.devcontainer/requirements.txt`.
 - GitHub Actions run pre-commit checks (`.pre-commit-config.yaml`).
-- To verify locally, run `pre-commit run -a` from the repo root.
+- To verify locally, run `pre-commit run yamllint -a` from the repo root.
 
 ### Devcontainer Guidance
 
@@ -99,12 +100,10 @@ runtime and as the source of required controller-side dependencies.
 ```text
 .
 ├── .github/
-│   ├── ISSUE_TEMPLATE/      # Issue templates (bug reports, feature requests)
 │   ├── FIREWALL.md          # Firewall allowlist guidance for hosted agents
 │   ├── prompts/             # Prompt templates for editors and models
 │   ├── workflows/           # GitHub Actions workflows
-│   ├── copilot-instructions.md
-│   └── pull_request_template.md
+│   └── copilot-instructions.md
 ├── .tours/                  # VS Code guided tours
 ├── defaults/                # Default role variables
 ├── handlers/                # Handler tasks
@@ -124,6 +123,15 @@ runtime and as the source of required controller-side dependencies.
   Update existing tours or create new ones to reflect changes in project structure,
   workflows, or key files.
 
+## Git Operations
+
+When working with the user interactively (e.g., in an IDE like VS Code):
+
+- **Never create commits or push changes to branches** without explicit user feedback or requests.
+- Present the proposed changes, successfully save the edited files, and allow the user to review the diffs locally.
+- Let the user drive the Git staging, committing, and pushing processes,
+  or wait for them to explicitly instruct you to perform these operations.
+
 ## Troubleshooting
 
 ### Finding Build Errors
@@ -136,10 +144,12 @@ To identify and diagnose the latest build errors:
    - For actionlint errors: Install actionlint and run it on workflow files
 
 2. **Common error patterns:**
-   - **Ansible missing Python modules:** If a module such as `requests` or `docker` is installed for the
-     main container Python but Ansible still cannot import it, check `ansible --version` to identify the
-     interpreter in use. In Codespaces/devcontainers, Ansible may run from a pipx-managed environment, so
-     install controller-side libraries there as well, for example with `pipx inject ansible -r .devcontainer/requirements-ansible.txt`.
+   - **Ansible missing Python modules:** If a module such as `requests` or
+     `docker` is installed for the main container Python but Ansible still
+     cannot import it, check `ansible --version` to identify the interpreter in
+     use. In Codespaces/devcontainers, Ansible may run from a pipx-managed
+     environment, so install controller-side libraries there as well, for
+     example with `pipx inject ansible -r .devcontainer/requirements-ansible.txt`.
    - **Markdown linting errors:** Check `.markdownlint.yaml` for rules; errors show line numbers
    - **YAML linting errors:** Check `.yamllint` for rules; verify indentation and structure
    - **JSON formatting errors:** Use `jq . <file>` to validate JSON syntax
