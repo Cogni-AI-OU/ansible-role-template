@@ -11,44 +11,6 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - [`.github/AGENTS.md`](.github/AGENTS.md)
 - Any `AGENTS.md` or `SKILL.md` in ancestor, then current directory tree
 
-**Maintenance invariant**:
-
-- After every complex task completion or troubleshooting victory,
-  immediately update the nearest relevant AGENTS.md or SKILL.md.
-- On recurring failure, immediately re-evaluate
-  and update the nearest relevant AGENTS.md or SKILL.md.
-- On discovery of superior workaround, new efficiency primitive, or explicit user directive,
-  immediately update the nearest relevant AGENTS.md or SKILL.md.
-- On detection of ambiguous steps or unclear instructions,
-  immediately update the nearest relevant AGENTS.md or SKILL.md.
-
-**Creation / Update Triggers (Hard Gate)**:
-
-- Agent-focused guidance that materially compresses cognitive load or failure surface.
-- Resolution of recurring task failures or repeated edge-case collapses.
-- Discovery of dense, reusable execution primitives during development or debugging.
-- User injects new rules, exemplars, or feedback intended for persistent agent memory.
-- Existing documentation entropy exceeds threshold, then extract & prune to peak-density form.
-- Functionality requires domain-specific knowledge that must survive context windows.
-
-**Hardened NEVER List**:
-
-- NEVER embed one-time discoveries or transient hacks.
-- NEVER duplicate code-level comments or obvious steps.
-- NEVER hardcode environment-specific values; use generic placeholders with explicit semantics.
-- NEVER include beginner exposition or obvious statements.
-- NEVER bloat with prose; enforce one-liner density + imperative syntax only.
-- If guidance is purely disciplinary, route to dedicated `SKILL.md` instead.
-
-**Writing invariants (Cogni AI-Level)**:
-
-- Assume ninja-level proficiency across project spectrum.
-- Embed quantitative gates (+20% fidelity delta, <1h MTTR analog, zero ambiguity).
-- Every bullet carries measurable payload: role, then invariants, then context, then exemplars, then schema, then NEVER/MUST-NOT,
-  then verification loops.
-- Favor tables, checklists, and contract-style boundaries over linear text.
-- Zero scaffolding. Maximal information-theoretic density. Surgical imperative syntax.
-
 ## Core Agent Execution Protocol (Mandatory for All Forks)
 
 **Pre-execution reverse-prompting activation**:
@@ -104,13 +66,6 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - **Fork**: byte-identical context clone for bounded subtasks.
 - **Teammate**: persistent peer with isolated tools/memory.
 - **Worktree**: fully parallel independent streams with fork-join synchronization.
-
-**Termination invariants**:
-
-- All TODOs empirically verified.
-- Quality, security, performance gates satisfied.
-- User objective resolved at target fidelity (+20% over prior baseline).
-- AGENTS.md/SKILL.md updated if new reusable primitive discovered.
 
 ## GitHub Actions Runtime
 
