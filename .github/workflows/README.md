@@ -92,86 +92,6 @@ jobs:
       packages: write  # Required for pushing to GitHub Container Registry
 ```
 
-### OpenCode Workflow (`opencode.yml`)
-
-The `opencode.yml` workflow provides OpenCode automation for AI-assisted development.
-
-#### Using OpenCode as a Reusable Workflow
-
-You can use the OpenCode workflow in your repository by referencing it via `workflow_call`:
-
-```yaml
----
-name: OpenCode
-on:
-  issue_comment:
-    types: [created, edited]
-  pull_request_review_comment:
-    types: [created, edited]
-  issues:
-    types: [opened]
-  pull_request_review:
-    types: [submitted]
-  workflow_call:
-    inputs:
-      agent:
-        description: Agent to use.
-        required: false
-        type: string
-      model:
-        description: Model to use for OpenCode
-        required: false
-        type: string
-      issue_number:
-        description: Issue or PR number for workflow_call triggers
-        required: false
-        type: number
-      prompt:
-        description: Custom prompt to override the default prompt
-        required: false
-        type: string
-  workflow_dispatch:
-    inputs:
-      agent:
-        description: Agent to use.
-        required: false
-        type: string
-      model:
-        description: Model to use for OpenCode
-        required: false
-        type: string
-      issue_number:
-        description: Issue or PR number for manual workflow execution
-        required: false
-        type: number
-      prompt:
-        description: Custom prompt to override the default prompt
-        required: false
-        type: string
-jobs:
-  opencode:
-    uses: Cogni-AI-OU/.github/.github/workflows/opencode.yml@main
-    with:
-      agent: >-
-        ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-        && inputs.agent }}
-      model: >-
-        ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-        && inputs.model }}
-      prompt: >-
-        ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-        && inputs.prompt }}
-      issue_number: >-
-        ${{ github.event.issue.number || github.event.pull_request.number || inputs.issue_number }}
-    permissions:
-      actions: read
-      contents: write
-      id-token: write
-      issues: write
-      pull-requests: write
-    secrets: inherit
-```
-
 *Note: Requires `OPENCODE_API_KEY` secret to be set in repository settings.
 You must also install the [GitHub OpenCode app](https://github.com/apps/opencode-agent)
 or follow the [manual setup guide](https://opencode.ai/docs/github/#manual-setup).*
@@ -245,55 +165,11 @@ jobs:
 If these inputs are not provided, the workflow will automatically use the default
 matcher files from this repository.
 
-## Security
+## Agent Tools
 
-### OpenCode Workflow Git Access
+### Cogni AI Agent (MCP) Tools
 
-The OpenCode workflow (`opencode.yml`) grants intentionally broad git access
-via `Bash(git:*)` to enable autonomous code changes. This permission is necessary
-for OpenCode to commit and push changes, but requires proper safeguards.
-
-#### Security Controls
-
-**Access Control:**
-
-- Only trusted users can trigger OpenCode (OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR)
-- PR/issue authors can only trigger on their own content
-- External contributors (FIRST_TIME_CONTRIBUTOR, NONE) are explicitly blocked
-
-**Required Repository Protections:**
-
-To safely use OpenCode with git access, repository administrators must configure:
-
-1. **Branch Protection Rules** on main/protected branches:
-   - Require pull request reviews before merging
-   - Require status checks to pass (e.g., linting, tests)
-   - Require conversation resolution before merging
-   - Do not allow bypassing the above settings
-
-2. **GitHub Audit Logs** (organization-level):
-   - Enable and regularly review audit logs
-   - Monitor commits made by `github-actions[bot]` (OpenCode's identity)
-   - Set up alerts for suspicious patterns (rapid commits, deleted branches, etc.)
-
-3. **Protected Branch Policies**:
-   - Restrict who can push to protected branches
-   - Consider requiring deployment approvals for production branches
-   - Use CODEOWNERS to require specific reviewer approval for sensitive files
-
-#### Best Practices
-
-- Review OpenCode's commits before merging PRs
-- Use draft PRs for OpenCode's work to require explicit promotion
-- Regularly audit OpenCode's tool usage and permissions
-- Rotate `OPENCODE_API_KEY` periodically
-- Monitor workflow run logs for unexpected behavior
-
-## OpenCode Tools
-
-### OpenCode (MCP) Tools
-
-When operating via OpenCode in the GitHub Actions runtime, the following MCP tools are available and
+When operating via the Cogni AI Agent in the GitHub Actions runtime, the following MCP tools are available and
 should be utilized to perform tasks effectively:
 
 - **vscode**: `getProjectSetupInfo`, `installExtension`, `memory`, `newWorkspace`, `resolveMemoryFileUri`, `runCommand`,
@@ -309,11 +185,11 @@ should be utilized to perform tasks effectively:
 - **misc**: `vscode.mermaid-chat-features/renderMermaidDiagram`, `ms-python.python/getPythonEnvironmentInfo`,
   `ms-python.python/getPythonExecutableCommand`, `ms-python.python/installPythonPackage`, `todo`
 
-### OpenCode Core Native Agent Tools
+### Cogni AI Agent Core Native Agent Tools
 
 In addition to the MCP integrations, the agent runtime provides a set of core built-in capabilities
 (often logged during builds as `Glob`, `Todo` or `TodoWrite`, `Edit`, etc.). These are executed directly by
-the agent's core engine, rather than through the OpenCode MCP protocol.
+the agent's core engine, rather than through the MCP protocol.
 
 Available native tools include:
 

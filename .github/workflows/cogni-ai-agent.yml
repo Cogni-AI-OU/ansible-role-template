@@ -39,7 +39,7 @@ on:
     inputs:
       model:
         default: opencode/gemini-3-flash
-        description: Model to use for OpenCode
+        description: Model to use
         options:
           - opencode/big-pickle
           - opencode/claude-3-5-haiku

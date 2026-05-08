@@ -55,7 +55,7 @@
     },
     {
       "title": "AI Automation Workflows",
-      "description": "## GitHub-Hosted Agent Workflows\n\nThe `.github/workflows/` directory contains the repository's automation entry points.\n\n### Key Workflows:\n\n#### 1. **cogni-ai-agent.yml**\n   - Event-driven Cogni AI automation for issues, pull requests, and discussions\n   - Supports manual dispatch with selectable agent and model inputs\n   - Posts a summary after each non-skipped run\n\n#### 2. **opencode.yml / opencode-review.yml**\n   - OpenCode-driven task execution and PR review\n\n#### 3. **check.yml / devcontainer-ci.yml**\n   - Repository validation, workflow linting, and devcontainer checks\n\n### Validation:\n\nRun `pre-commit run -a` after workflow changes so `yamllint`, `yamlfix`, and `actionlint` all run.",
+      "description": "## GitHub-Hosted Agent Workflows\n\nThe `.github/workflows/` directory contains the repository's automation entry points.\n\n### Key Workflows:\n\n#### 1. **cogni-ai-agent.yml**\n   - Event-driven Cogni AI automation for issues, pull requests, and discussions\n   - Supports manual dispatch with selectable agent and model inputs\n   - Posts a summary after each non-skipped run\n\n#### 2. **check.yml / devcontainer-ci.yml**\n   - Repository validation, workflow linting, and devcontainer checks\n\n### Validation:\n\nRun `pre-commit run -a` after workflow changes so `yamllint`, `yamlfix`, and `actionlint` all run.",
       "file": ".github/workflows/cogni-ai-agent.yml"
     },
     {
