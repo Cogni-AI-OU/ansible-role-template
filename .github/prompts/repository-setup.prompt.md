@@ -195,6 +195,7 @@ exist. Do not skip items just because a file already exists.
               - plan
               - summary
               - title
+              - update
             required: false
             type: choice
           issue_number:
@@ -206,7 +207,6 @@ exist. Do not skip items just because a file already exists.
             description: Model to use for OpenCode
             options:
               - opencode/big-pickle
-
               - opencode/claude-3-5-haiku
               - opencode/claude-haiku-4-5
               - opencode/claude-opus-4-1
@@ -542,7 +542,7 @@ exist. Do not skip items just because a file already exists.
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.devcontainer/apt-packages.txt`
   - Purpose: System packages to install in devcontainer
   - Action: Create with base packages; merge if exists
-  - Base packages: coreutils, gh, git, mawk, sed, time, vim
+  - Base packages: coreutils, gh, git, mawk, xai, time, vim
   - This file must be created because devcontainer.json references it in `onCreateCommand`
   - Customize: Add project-specific system dependencies
 
