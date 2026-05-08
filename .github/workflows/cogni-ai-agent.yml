@@ -3,9 +3,25 @@
 name: Cogni AI Agent
 # yamllint disable-line rule:truthy
 on:
+  discussion:
+    types:
+      - created
+      - edited
+      - answered
+  discussion_comment:
+    types:
+      - created
   issue_comment:
     types:
       - created
+  issues:
+    types:
+      - opened
+      - edited
+  pull_request:
+    types:
+      - opened
+      - edited
   pull_request_review_comment:
     types:
       - created
@@ -96,6 +112,7 @@ jobs:
         run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       # See: <https://github.com/Cogni-AI-OU/cogni-ai-agent-action>
       - name: Run Cogni AI Agent
+        id: agent
         uses: Cogni-AI-OU/cogni-ai-agent-action@main
         with:
           model: ${{ inputs.model }}
@@ -130,6 +147,22 @@ jobs:
               true*: allow
               vim*: allow
           prompt: ${{ github.event.comment.body || inputs.prompt }}
+      - name: Annotate Cogni AI Agent prompt and output
+        if: always()
+        env:
+          AGENT_OUTPUT: ${{ steps.agent.outputs.response }}
+          AGENT_PROMPT: ${{ github.event.comment.body || inputs.prompt }}
+        run: |
+          set -euo pipefail
+          escape() {
+            local value="$1"
+            value=${value//'%'/'%25'}
+            value=${value//$'\r'/'%0D'}
+            value=${value//$'\n'/'%0A'}
+            printf '%s' "$value"
+          }
+          echo "::notice title=Cogni AI Agent prompt::$(escape "$AGENT_PROMPT")"
+          echo "::notice title=Cogni AI Agent output::$(escape "${AGENT_OUTPUT:-}")"
   summary:
     name: Generate Summary (post-run)
     needs: cogni-ai-agent
@@ -139,6 +172,8 @@ jobs:
       actions: read
       contents: read
       id-token: write
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:

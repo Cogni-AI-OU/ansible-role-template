@@ -14,12 +14,6 @@ Read and merge these when operating inside corresponding sub-directories (order 
 - [`.github/AGENTS.md`](.github/AGENTS.md)
 - Any `AGENTS.md` or `SKILL.md` in ancestor, then current directory tree
 
-## Agent Directives (Contract Style)
-
-- **CI/CD Failure Escalation**: When CI/CD pipelines or automated checks fail, do NOT immediately patch local configuration files. Investigate environment/upstream first.
-- **Specialized Automation**: Use `.github/workflows/cogni-ai-agent.yml` for issue/PR/discussion handling.
-- **Syncing**: Follow the cherry-pick workflow for branch integration.
-
 ## Common Tasks
 
 ### Testing

@@ -302,105 +302,7 @@ exist. Do not skip items just because a file already exists.
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/workflows/cogni-ai-agent.yml`
   - Purpose: Logic for the Cogni AI Agent
-  - Action: Create using `workflow_call` to reference the remote workflow
-  - Implementation:
-
-    ```yaml
-    ---
-    # @docs: <https://opencode.ai/docs>
-    name: Cogni AI Agent
-    concurrency:
-      cancel-in-progress: true
-      group: cogni-ai-agent-${{ github.event.issue.number || github.event.pull_request.number || github.ref }}
-    # yamllint disable-line rule:truthy
-    on:
-      discussion:
-        types:
-          - created
-          - edited
-          - answered
-      discussion_comment:
-        types:
-          - created
-      issue_comment:
-        types:
-          - created
-      issues:
-        types:
-          - opened
-          - edited
-      pull_request:
-        types:
-          - opened
-          - edited
-      pull_request_review_comment:
-        types:
-          - created
-      workflow_call:
-        inputs:
-          model:  # @docs: <https://opencode.ai/zen/v1/models>
-            description: Model to use for OpenCode
-            required: true
-            type: string
-          prompt:
-            description: Prompt for the agent
-            required: true
-            type: string
-      workflow_dispatch:
-        inputs:
-          model:  # @docs: <https://opencode.ai/zen/v1/models>
-            default: opencode/gemini-3-flash
-            description: Model to use for OpenCode
-            options:
-              - opencode/big-pickle
-              - opencode/claude-3-5-haiku
-              - opencode/claude-haiku-4-5
-              - opencode/claude-opus-4-5
-              - opencode/claude-opus-4-6
-              - opencode/claude-sonnet-4
-              - opencode/claude-sonnet-4-5
-              - opencode/claude-sonnet-4-6
-              - opencode/gemini-3.1-pro
-              - opencode/gemini-3-flash
-              - opencode/glm-5
-              - opencode/glm-5.1
-              - opencode/gpt-5
-              - opencode/gpt-5-codex
-              - opencode/gpt-5-nano
-              - opencode/gpt-5.3-codex
-              - opencode/gpt-5.3-codex-spark
-              - opencode/gpt-5.4
-              - opencode/gpt-5.4-mini
-              - opencode/gpt-5.4-nano
-              - opencode/minimax-m2.5
-              - opencode/minimax-m2.5-free
-              - opencode/nemotron-3-super-free
-              - opencode/qwen3-coder
-              - opencode/qwen3.6-plus-free
-            required: true
-            type: choice
-          prompt:
-            description: Prompt for the agent
-            required: true
-            type: string
-
-    jobs:
-      cogni-ai-agent:
-        uses: Cogni-AI-OU/.github/.github/workflows/cogni-ai-agent.yml@main
-        with:
-          model: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.model }}
-          prompt: >-
-            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call')
-            && inputs.prompt }}
-        permissions:
-          contents: write
-          id-token: write
-          issues: write
-          pull-requests: write
-        secrets: inherit
-    ```
+  - Action: Create as a standalone workflow
 
   - Note: Requires `OPENCODE_API_KEY` secret to be set in repository settings.
     You must also install the [GitHub OpenCode app](https://github.com/apps/opencode-agent)
@@ -542,7 +444,7 @@ exist. Do not skip items just because a file already exists.
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.devcontainer/apt-packages.txt`
   - Purpose: System packages to install in devcontainer
   - Action: Create with base packages; merge if exists
-  - Base packages: coreutils, gh, git, mawk, xai, time, vim
+  - Base packages: coreutils, gh, git, mawk, sed, time, vim
   - This file must be created because devcontainer.json references it in `onCreateCommand`
   - Customize: Add project-specific system dependencies
 
@@ -591,15 +493,17 @@ exist. Do not skip items just because a file already exists.
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/CONTRIBUTING.md`
   - Purpose: Contribution guidelines (auto-applies from org .github if missing)
-  - Action: Only create if repository needs specific contribution guidelines
-  - Note: Organization default is used if this file doesn't exist
+  - Action: **DO NOT** create this file in individual repositories
+  - Note: This file is automatically loaded from the organization's `.github` repository. Only create
+    it if repository-specific contribution guidelines are strictly required.
 
 - [ ] **`.github/pull_request_template.md`**
   - Check if file exists
   - Reference: `https://github.com/Cogni-AI-OU/.github/blob/main/.github/pull_request_template.md`
   - Purpose: PR template (auto-applies from org .github if missing)
-  - Action: Only create if repository needs a specific PR template
-  - Note: Organization default is used if this file doesn't exist
+  - Action: **DO NOT** create this file in individual repositories
+  - Note: This file is automatically loaded from the organization's `.github` repository. Only create
+    it if a repository-specific override is strictly required.
 
 - [ ] **`.github/ISSUE_TEMPLATE/bug_report.yml`**
   - Check if `.github/ISSUE_TEMPLATE/` directory exists
