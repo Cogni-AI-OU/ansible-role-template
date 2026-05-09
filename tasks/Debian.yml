@@ -6,11 +6,11 @@
       ansible.builtin.apt:
         autoremove: true
         purge: true
-        dpkg_options: 'force-confdef,force-confold,Use-Pty=0'
+        dpkg_options: 'force-confdef,force-confold'
       no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Cleans Apt cache
       ansible.builtin.apt:
         autoclean: true
         clean: true
-        dpkg_options: 'force-confdef,force-confold,Use-Pty=0'
+        dpkg_options: 'force-confdef,force-confold'
       no_log: "{{ ansible_verbosity | default(0) < 1 }}"

@@ -21,6 +21,7 @@
           exit 1
         fi
       changed_when: false
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
@@ -38,3 +39,4 @@
           -iA nixpkgs.python3Packages.pip \
           -iA nixpkgs.python3Packages.packaging > /dev/null
       changed_when: false
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
