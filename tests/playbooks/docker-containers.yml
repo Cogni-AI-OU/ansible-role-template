@@ -19,6 +19,7 @@
       delegate_to: localhost
       run_once: true  # noqa: run-once[task]
       when: "'template-on-nixos-latest' in groups['docker_containers']"
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       vars:
         item:
           name: template-on-nixos-latest
@@ -70,6 +71,7 @@
       delay: 2
       delegate_to: localhost
       retries: 10
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       vars:
         # Use system Python with requests installed for controller-side Docker modules.
         ansible_python_interpreter: '{{ controller_python }}'

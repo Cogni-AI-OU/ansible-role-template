@@ -17,6 +17,7 @@
           image: nixos/nix:latest
         ansible_python_interpreter: '{{ controller_python }}'
       when: "'template-on-nixos-latest' in groups['docker_containers']"
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Build NixOS image with Python preinstalled
       community.docker.docker_image:
         name: '{{ nixos_built_image }}'
@@ -71,6 +72,7 @@
         - (container_info.container is defined and container_info.container.State.Running | default(false) | bool)
       delegate_to: localhost
       changed_when: false
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       vars:
         # Use system Python with requests installed for controller-side Docker modules.
         ansible_python_interpreter: '{{ controller_python }}'
