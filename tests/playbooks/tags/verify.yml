@@ -26,6 +26,7 @@
         source: build
         force_source: true
       when: "'template-on-nixos-latest' in groups['docker_containers']"
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       vars:
         ansible_python_interpreter: '{{ controller_python }}'
 - name: Ensure Docker containers are up-and-running
@@ -37,6 +38,8 @@
         name: requests
         state: present
         executable: '{{ controller_pip }}'
+        extra_args: -q
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       delegate_to: localhost
       run_once: true  # noqa: run-once[task]
     - name: Ensure container is started
@@ -55,6 +58,7 @@
           if container_image is search('nixos') else omit }}
         state: started
       delegate_to: localhost
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       vars:
         # Use system Python with requests installed for controller-side Docker modules.
         ansible_python_interpreter: '{{ controller_python }}'
@@ -77,7 +81,7 @@
       changed_when: false
       when: container_image is search('alpine')
     - name: Install Python 3 on Alpine
-      ansible.builtin.raw: apk update && apk add --no-cache python3 py3-pip
+      ansible.builtin.raw: apk update -q && apk add -q --no-cache python3 py3-pip
       changed_when: true
       when:
         - container_image is search('alpine')
@@ -89,7 +93,7 @@
       changed_when: false
       when: container_image is search('ubuntu') or container_image is search('debian')
     - name: Install Python 3 on Ubuntu/Debian
-      ansible.builtin.raw: apt-get update && apt-get install -y python3 python3-pip
+      ansible.builtin.raw: apt-get update -y -qq && apt-get install -y -qq python3 python3-pip
       changed_when: true
       when:
         - container_image is search('ubuntu') or container_image is search('debian')
@@ -120,4 +124,5 @@
         name: '{{ inventory_hostname }}'
         state: stopped
       delegate_to: localhost
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
       failed_when: false
