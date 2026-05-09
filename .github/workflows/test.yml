@@ -57,8 +57,6 @@ jobs:
         env:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
-          ANSIBLE_DISPLAY_OK_HOSTS: 'false'
-          ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook with verify tag
         run: |
@@ -66,8 +64,6 @@ jobs:
         env:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
-          ANSIBLE_DISPLAY_OK_HOSTS: 'false'
-          ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
         working-directory: ${{ github.repository }}
 
       # Debug with tmate on failure when debug logging is enabled.

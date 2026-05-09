@@ -35,8 +35,6 @@ platforms:
 provisioner:
   config_options:
     defaults:
-      display_ok_hosts: false
-      display_skipped_hosts: false
       host_key_checking: false
       # Use the condensed unixy callback.
       remote_tmp: /tmp/.ansible-tmp-$${USER}
