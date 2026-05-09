@@ -16,6 +16,7 @@
       loop_control:
         label: '{{ item.name }}'
       when: item.dockerfile is defined
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Build custom images when dockerfile is provided
       community.docker.docker_image:
         name: '{{ item.image }}'
