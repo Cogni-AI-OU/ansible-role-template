@@ -29,15 +29,13 @@ jobs:
           - default
     steps:
       - uses: actions/checkout@v6
-        with:
-          path: ${{ github.repository }}
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           cache: pip
           cache-dependency-path: |
-            ${{ github.repository }}/.devcontainer/requirements.txt
-            ${{ github.repository }}/Pipfile*
+            .devcontainer/requirements.txt
+            Pipfile*
           python-version: '3.12'
       - uses: gofrolist/molecule-action@v2
         env:
@@ -50,16 +48,15 @@ jobs:
             --scenario-name ${{ matrix.scenario }}
           molecule_command: test
           molecule_options: ${{ runner.debug == '1' && '--verbose' || '' }}
-          molecule_working_dir: ${{ github.repository }}
+          molecule_working_dir: .
       - if: always()
         name: Ensure report file permissions are correct
         run: sudo chmod 644 molecule-${{ matrix.scenario }}-report.html
-        working-directory: ${{ github.repository }}
       - if: always()
         name: Converts test report
         uses: patrick-werner/fhir-html-validation-to-markdown@1.0.0
         with:
-          input_file: ${{ github.repository }}/molecule-${{ matrix.scenario }}-report.html
+          input_file: molecule-${{ matrix.scenario }}-report.html
       # Debug with tmate on failure when debug logging is enabled.
       - if: ${{ failure() && runner.debug == '1' }}
         uses: mxschmitt/action-tmate@v3
