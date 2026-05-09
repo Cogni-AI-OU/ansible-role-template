@@ -43,6 +43,7 @@ provisioner:
   env:
     ANSIBLE_FORCE_COLOR: '1'
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+    DEBIAN_FRONTEND: noninteractive
   inventory:
     group_vars:
       all:
