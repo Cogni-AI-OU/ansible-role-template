@@ -78,6 +78,8 @@
         ansible_python_interpreter: '{{ controller_python }}'
     - name: Install Python 3 for Ansible
       ansible.builtin.include_tasks: ../tasks/install-python.yml
+      vars:
+        install_python_changed: true
   tags: always
   vars:
     container_image_map:
