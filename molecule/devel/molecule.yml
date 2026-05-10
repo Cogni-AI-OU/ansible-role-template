@@ -19,6 +19,7 @@ platforms:
 provisioner:
   config_options:
     defaults:
+      callbacks_enabled: ansible.posix.profile_tasks
       # Use the built-in default callback with result_format instead of community.general.yaml
       stdout_callback: ansible.builtin.default
       result_format: yaml

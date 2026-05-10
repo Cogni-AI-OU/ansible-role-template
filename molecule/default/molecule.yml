@@ -35,6 +35,7 @@ platforms:
 provisioner:
   config_options:
     defaults:
+      callbacks_enabled: ansible.posix.profile_tasks
       host_key_checking: false
       # Use the condensed unixy callback.
       remote_tmp: /tmp/.ansible-tmp-$${USER}
