@@ -11,6 +11,8 @@ For a human-readable overview, see [README.md](README.md).
 - **[cogni-ai-agent.yml](cogni-ai-agent.yml)**: Logic for the Cogni AI Agent.
 - **[copilot-setup-steps.yml](copilot-setup-steps.yml)**: Environment setup utility.
 - **[devcontainer-ci.yml](devcontainer-ci.yml)**: Build/test devcontainer and required tools/packages.
+- **[molecule.yml](molecule.yml)**: Molecule test matrix for the default scenario.
+- **[test.yml](test.yml)**: Ansible syntax/lint checks and Docker container playbook tests.
 
 ## Details
 
@@ -50,6 +52,22 @@ For a human-readable overview, see [README.md](README.md).
   `workflow_call`.
 - Permissions: callers must grant `packages: write` when pushing images to GHCR.
 - Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/devcontainer-ci.yml@main`.
+
+### molecule.yml
+
+- Purpose: run Molecule tests for the default scenario.
+- Triggers: `pull_request`, `push`, `workflow_dispatch`.
+- Details: Sets up Python 3.12, runs `molecule test` via `gofrolist/molecule-action@v2`,
+  and converts the HTML report to Markdown.
+- Permissions: `contents: read`.
+
+### test.yml
+
+- Purpose: validate Ansible syntax/lint and run the Docker container test playbook.
+- Triggers: `pull_request`, `push`, `workflow_dispatch`.
+- Details: Installs Python and Galaxy requirements, runs `ansible-playbook --syntax-check`,
+  `ansible-lint`, and the `tests/playbooks/docker-containers.yml` playbook (plus its verify tag).
+- Permissions: `contents: read`.
 
 ## Notes
 
