@@ -29,6 +29,13 @@ pipenv run molecule test
 pipenv run molecule syntax
 ```
 
+#### Molecule Platforms
+
+Molecule platform names are prefixed with the role name (`template-`), e.g.
+`template-debian-latest`. Molecule's Docker driver names each container exactly
+after its platform, so generic names such as `debian-latest` would collide with
+concurrent Molecule runs of other roles.
+
 ### Sandboxed / firewalled environments
 
 Molecule defaults work on GitHub Actions runners with direct internet access. In sandboxed or

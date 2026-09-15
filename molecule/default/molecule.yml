@@ -16,21 +16,25 @@ lint: |
   yamllint .
   molecule syntax
   ansible-lint
+# Platform names are prefixed with the role name so the Docker containers
+# (named after the platform) stay unique across roles. Molecule's Docker driver
+# names each container exactly after its platform, so generic names such as
+# `debian-latest` collide with concurrent Molecule runs of other roles.
 platforms:
-  - name: alpine-latest
+  - name: template-alpine-latest
     image: i386/alpine:latest
-  - name: debian-latest
+  - name: template-debian-latest
     image: debian:latest
-  - name: nixos-latest
+  - name: template-nixos-latest
     dockerfile: ../resources/playbooks/Dockerfile.j2
     image: cogni-ai-template-nixos:latest
     base_image: nixos/nix:latest
     pre_build_image: false
-  - name: ubuntu-jammy
+  - name: template-ubuntu-jammy
     image: ubuntu:jammy
-  - name: ubuntu-noble
+  - name: template-ubuntu-noble
     image: ubuntu:noble
-  - name: ubuntu-latest
+  - name: template-ubuntu-latest
     image: ubuntu:latest
 provisioner:
   config_options:
@@ -50,7 +54,7 @@ provisioner:
       all:
         ansible_python_interpreter: auto_silent
     host_vars:
-      nixos-latest:
+      template-nixos-latest:
         ansible_python_interpreter: /root/.nix-profile/bin/python3
   ssh_connection:
     pipelining: true
