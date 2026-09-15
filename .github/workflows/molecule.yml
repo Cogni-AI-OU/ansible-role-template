@@ -60,7 +60,7 @@ jobs:
         working-directory: ${{ github.repository }}
       - if: always()
         name: Converts test report
-        uses: patrick-werner/fhir-html-validation-to-markdown@1.0.0
+        uses: patrick-werner/fhir-html-validation-to-markdown@1
         with:
           input_file: ${{ github.repository }}/molecule-${{ matrix.scenario }}-report.html
       # Debug with tmate on failure when debug logging is enabled.
