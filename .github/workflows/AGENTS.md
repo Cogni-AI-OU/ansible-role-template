@@ -73,4 +73,6 @@ For a human-readable overview, see [README.md](README.md).
 
 - Follow the GitHub workflows instructions (available in the runtime instructions catalog)
   when editing workflow files (ordering, formatting, validation).
+- Reference actions by simple major version tags (e.g. `actions/checkout@v6`), not pinned
+  patch versions (e.g. `@v6.1.0`), so minor/patch updates apply automatically.
 - Keep this catalog updated when workflows are added, removed, or renamed.
