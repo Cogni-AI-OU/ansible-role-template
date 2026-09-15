@@ -16,43 +16,6 @@ Read and merge these when operating inside corresponding sub-directories (order 
 
 ## Common Tasks
 
-### Testing
-
-Molecule and Ansible are installed via the project `Pipfile`, so run every command through `pipenv`
-(they are not on `PATH`).
-
-```bash
-# Run Molecule tests
-pipenv run molecule test
-
-# Syntax check
-pipenv run molecule syntax
-```
-
-#### Molecule Platforms
-
-Molecule platform names are prefixed with the role name (`template-`), e.g.
-`template-debian-latest`. Molecule's Docker driver names each container exactly
-after its platform, so generic names such as `debian-latest` would collide with
-concurrent Molecule runs of other roles.
-
-### Sandboxed / firewalled environments
-
-Molecule defaults work on GitHub Actions runners with direct internet access. In sandboxed or
-firewalled environments (no outbound NAT on the default Docker bridge, or a resolver that returns
-non-routable IPv6 addresses), opt in with these environment variables:
-
-- `MOLECULE_DOCKER_NETWORK=host` - Docker network used for both containers and image builds.
-  Required where the default bridge has no outbound NAT.
-- `MOLECULE_DOCKER_FORCE_IPV4=true` - prefer IPv4 for DNS resolution inside containers. Required
-  where the resolver returns IPv6 addresses that are not routable.
-- `MOLECULE_XVFB_DISPLAY_BASE` - only applies to repos that run the xvfb role; ignored elsewhere.
-
-```bash
-# Sandboxed run with host networking and IPv4 DNS preference
-MOLECULE_DOCKER_NETWORK=host MOLECULE_DOCKER_FORCE_IPV4=true pipenv run molecule test
-```
-
 ### Updating Pre-commit Hooks
 
 Run `pre-commit autoupdate`, then `pre-commit run -a`. Revert any hook that breaks and file an issue for it.
@@ -74,6 +37,11 @@ Known blockers (as of the 2026-09 update):
 
 `pre-commit run -a` can also surface pre-existing failures (e.g. `yamlfix`/`black` reformatting,
 `flake8` violations) unrelated to the ref bump; CI lints only changed files, so file these separately.
+
+## Molecule Testing
+
+Molecule scenarios, the platform matrix, how to run the tests, and Molecule-specific
+troubleshooting live in [molecule/AGENTS.md](molecule/AGENTS.md).
 
 ## Conventions
 
