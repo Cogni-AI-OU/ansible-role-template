@@ -5,20 +5,21 @@ lint: |
   set -e
   yamllint .
   ansible-lint
-# Platform names are prefixed with the role name so the Docker containers
-# (named after the platform) stay unique across roles. Molecule's Docker driver
-# names each container exactly after its platform, so generic names such as
-# `debian-latest` collide with concurrent Molecule runs of other roles.
+# Platform names follow the `<role>-<scenario>-<platform>` convention so the
+# Docker containers (named after the platform) stay unique across roles and
+# scenarios. Molecule's Docker driver names each container exactly after its
+# platform, so generic names such as `debian-latest` collide with concurrent
+# Molecule runs of other roles or scenarios.
 platforms:
-  - name: template-alpine-latest
+  - name: template-devel-alpine-latest
     image: i386/alpine:latest
-  - name: template-debian-latest
+  - name: template-devel-debian-latest
     image: debian:latest
-  - name: template-ubuntu-jammy
+  - name: template-devel-ubuntu-jammy
     image: ubuntu:jammy
-  - name: template-ubuntu-noble
+  - name: template-devel-ubuntu-noble
     image: ubuntu:noble
-  - name: template-ubuntu-latest
+  - name: template-devel-ubuntu-latest
     image: ubuntu:latest
 provisioner:
   config_options:
