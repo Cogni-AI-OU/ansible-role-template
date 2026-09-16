@@ -38,6 +38,11 @@ Known blockers (as of the 2026-09 update):
 `pre-commit run -a` can also surface pre-existing failures (e.g. `yamlfix`/`black` reformatting,
 `flake8` violations) unrelated to the ref bump; CI lints only changed files, so file these separately.
 
+## Docker Tests
+
+The standalone Docker test playbooks in `tests/`, how to run them via `pipenv`, and
+their troubleshooting matrix live in [tests/AGENTS.md](tests/AGENTS.md).
+
 ## Molecule Testing
 
 Molecule scenarios, the platform matrix, how to run the tests, and Molecule-specific
