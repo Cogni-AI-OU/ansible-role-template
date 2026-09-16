@@ -115,7 +115,7 @@ jobs:
         id: agent
         uses: Cogni-AI-OU/cogni-ai-agent-action@main
         with:
-          model: ${{ inputs.model }}
+          model: ${{ inputs.model || 'opencode/gemini-3-flash' }}
           opencode-api-key: ${{ secrets.OPENCODE_API_KEY }}  # <https://opencode.ai/auth>
           permissions: |-
             bash:
