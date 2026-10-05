@@ -7,6 +7,7 @@ For a human-readable overview, see [README.md](README.md).
 
 ## Workflow catalog
 
+- **[check-pr-comment.yml](check-pr-comment.yml)**: PR feedback/labels for `Check` and devcontainer results.
 - **[check.yml](check.yml)**: Linting and quality gates via actionlint and pre-commit.
 - **[cogni-ai-agent.yml](cogni-ai-agent.yml)**: Logic for the Cogni AI Agent.
 - **[copilot-setup-steps.yml](copilot-setup-steps.yml)**: Environment setup utility.
@@ -25,6 +26,14 @@ For a human-readable overview, see [README.md](README.md).
   since normal `pull_request` events don't trigger for bot actors.
 - Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/check.yml@main`.
 - Jobs: `actionlint`, `link-checker`, `pre-commit`.
+
+### check-pr-comment.yml
+
+- Purpose: extract annotations from failed `Check` and `Development Containers (CI)` runs and post
+  them as a PR comment.
+- Triggers: `workflow_run` (after `Check` or `Development Containers (CI)` completions).
+- Details: Manages the `check-error` label; updates an existing comment via marker detection.
+- Reusable: `uses: Cogni-AI-OU/.github/.github/workflows/check-pr-comment.yml@main`.
 
 ### cogni-ai-agent.yml
 
