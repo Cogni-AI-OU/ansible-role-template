@@ -66,8 +66,7 @@ For a human-readable overview, see [README.md](README.md).
 
 - Purpose: run Molecule tests for the default scenario.
 - Triggers: `pull_request`, `push`, `workflow_dispatch`.
-- Details: Sets up Python 3.12, runs `molecule test` via `gofrolist/molecule-action@v2`,
-  and converts the HTML report to Markdown.
+- Details: Sets up Python 3.12 and runs `molecule test` via `gofrolist/molecule-action@v2`.
 - Permissions: `contents: read`.
 
 ### test.yml
