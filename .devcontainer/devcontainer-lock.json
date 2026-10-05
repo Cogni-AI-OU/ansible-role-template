@@ -5,6 +5,11 @@
       "resolved": "ghcr.io/devcontainers-extra/features/actionlint@sha256:6a3dde90cb31e366892f8f2ebb766d73d7293d6e79ed9ac4041014d31599fdda",
       "integrity": "sha256:6a3dde90cb31e366892f8f2ebb766d73d7293d6e79ed9ac4041014d31599fdda"
     },
+    "ghcr.io/devcontainers-extra/features/eget:1": {
+      "version": "1.0.15",
+      "resolved": "ghcr.io/devcontainers-extra/features/eget@sha256:810340d246445b67c39dd9db49e291e0f6e1a4dce083cf7930f76f81d2212a3c",
+      "integrity": "sha256:810340d246445b67c39dd9db49e291e0f6e1a4dce083cf7930f76f81d2212a3c"
+    },
     "ghcr.io/devcontainers-extra/features/node-asdf:0": {
       "version": "0.0.2",
       "resolved": "ghcr.io/devcontainers-extra/features/node-asdf@sha256:413daa93c0bb7ae76a924f51283a65eca3af3a141984f42fe798b3fe445ece71",
