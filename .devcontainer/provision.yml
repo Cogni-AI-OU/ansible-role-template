@@ -7,9 +7,6 @@
   connection: local
   become: true
   vars:
-    ansible_python_requirements:
-      - docker>=7.1
-      - requests==2.33.1
     apt_packages:
       - coreutils
       - curl
@@ -35,32 +32,31 @@
       ansible.builtin.pip:
         requirements: '{{ playbook_dir }}/requirements.txt'
         state: present
-    - name: Check if ansible is installed via pipx
-      ansible.builtin.command: pipx list
-      register: pipx_list
-      become: false
-      changed_when: false
-      failed_when: false
     - name: Install ansible via pipx
-      ansible.builtin.command: pipx install --include-deps ansible
+      ansible.builtin.command:
+        argv:
+          - pipx
+          - install
+          - --include-deps
+          - ansible
+      args:
+        creates: '{{ ansible_env.HOME }}/.local/bin/ansible'
       become: false
-      when: "'package ansible ' not in pipx_list.stdout"
-      changed_when: true
-    - name: Check ansible python requirements already injected
-      ansible.builtin.command: pipx runpip ansible show {{ item | regex_replace('[<>=!].*', '') }}
-      loop: '{{ ansible_python_requirements }}'
-      register: pipx_injected
-      become: false
-      failed_when: false
-      changed_when: false
     - name: Inject ansible python requirements
-      ansible.builtin.command: pipx inject ansible {{ item }}
-      loop: '{{ ansible_python_requirements }}'
-      loop_control:
-        index_var: req_index
-      when: pipx_injected.results[req_index].rc != 0
+      ansible.builtin.command:
+        argv:
+          - pipx
+          - inject
+          - ansible
+          - -r
+          - '{{ playbook_dir }}/requirements-ansible.txt'
       become: false
-      changed_when: true
+      register: pipx_inject
+      changed_when: >-
+        'already' not in ((pipx_inject.stdout + pipx_inject.stderr) | lower)
+      failed_when: >-
+        pipx_inject.rc != 0
+        and 'already' not in ((pipx_inject.stdout + pipx_inject.stderr) | lower)
     - name: Install ansible collections
       ansible.builtin.command: ansible-galaxy collection install -r requirements.yml
       args:
@@ -68,6 +64,16 @@
       become: false
       register: galaxy_result
       changed_when: "'Nothing to do' not in galaxy_result.stdout"
+    - name: Ensure ~/.local/bin is in PATH for user-installed CLIs (pre-commit, uv, etc.)
+      ansible.builtin.lineinfile:
+        path: '{{ ansible_env.HOME }}/.bashrc'
+        line: export PATH="$HOME/.local/bin:$PATH"
+        state: present
+        insertafter: EOF
+        create: true
+        mode: '0644'
+      become: false
+      when: ansible_env.HOME is defined
     - name: Install pre-commit hooks
       ansible.builtin.command: pre-commit install
       args:

@@ -102,9 +102,8 @@ repos:
     hooks:
       - id: mermaid-validation
         name: Mermaid Validation
-        entry: maid
-        language: node
+        entry: >-
+          sh -c 'npx -y @mermaid-js/mermaid-cli -i "$1" -o- -q >/dev/null 2>&1 || (echo "Merr:$1" >&2 && exit 1)' _
+        language: system
         pass_filenames: true
-        additional_dependencies:
-          - '@probelabs/maid@0.0.29'
-        files: \.(md|mmd)$
+        files: \.mmd$
