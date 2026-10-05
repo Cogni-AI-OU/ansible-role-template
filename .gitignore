@@ -155,7 +155,7 @@ celerybeat.pid
 /.github/agents/
 /.github/instructions/
 /.github/skills/
-.venv
+.venv/
 env/
 venv/
 ENV/

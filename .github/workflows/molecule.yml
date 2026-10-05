@@ -47,22 +47,12 @@ jobs:
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
           DEBIAN_FRONTEND: noninteractive
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MOLECULE_REPORT: molecule-${{ matrix.scenario }}-report.html
         with:
           molecule_args: >-
             --scenario-name ${{ matrix.scenario }}
           molecule_command: test
           molecule_options: ${{ runner.debug == '1' && '--verbose' || '' }}
           molecule_working_dir: ${{ github.repository }}
-      - if: always()
-        name: Ensure report file permissions are correct
-        run: sudo chmod 644 molecule-${{ matrix.scenario }}-report.html
-        working-directory: ${{ github.repository }}
-      - if: always()
-        name: Converts test report
-        uses: patrick-werner/fhir-html-validation-to-markdown@1.0.0
-        with:
-          input_file: ${{ github.repository }}/molecule-${{ matrix.scenario }}-report.html
       # Debug with tmate on failure when debug logging is enabled.
       - if: ${{ failure() && runner.debug == '1' }}
         uses: mxschmitt/action-tmate@v3
